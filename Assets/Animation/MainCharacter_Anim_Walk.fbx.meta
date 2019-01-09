@@ -1,0 +1,327 @@
+fileFormatVersion: 2
+guid: e9919cc6e56b6174590d03c020def1b1
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: apron_Jnt
+    100002: hair_Jnt
+    100004: head_Jnt
+    100006: L_ellbow_Jnt
+    100008: L_foot_Jnt
+    100010: L_hip_Jnt
+    100012: L_knee_Jnt
+    100014: L_servingdome_Jnt
+    100016: L_shoulder_Jnt
+    100018: L_thumb1_Jnt
+    100020: L_thumb2_Jnt
+    100022: L_wrist_Jnt
+    100024: //RootNode
+    100026: neck_Jnt
+    100028: pelv_Jnt
+    100030: R_ellbow_Jnt
+    100032: R_foot_Jnt
+    100034: R_hip_Jnt
+    100036: R_knee_Jnt
+    100038: R_servingdome_Jnt
+    100040: R_shoulder_Jnt
+    100042: R_thumb1_Jnt
+    100044: R_thumb2_Jnt
+    100046: R_wrist_Jnt
+    100048: root_Jnt
+    100050: spine1_Jnt
+    100052: spine2_Jnt
+    100054: ANIM_SKELETON
+    100056: apron_CTRL
+    100058: apron_Jnt 1
+    100060: apron_NULL
+    100062: EXPORT_SKELETON
+    100064: hair_CTRL
+    100066: hair_Jnt 1
+    100068: hair_NULL
+    100070: head_CTRL
+    100072: head_Jnt 1
+    100074: head_NULL
+    100076: L_dish_CTRL
+    100078: L_dish_Jnt
+    100080: L_dish_Jnt 1
+    100082: L_dish_NULL
+    100084: L_ellbow_CTRL
+    100086: L_ellbow_Jnt 1
+    100088: L_ellbow_NULL
+    100090: L_foot_CTRL
+    100092: L_foot_Jnt 1
+    100094: L_foot_NULL
+    100096: L_hip_Jnt 1
+    100098: L_knee_Jnt 1
+    100100: L_servingdome_CTRL
+    100102: L_servingdome_Jnt 1
+    100104: L_servingdome_NULL
+    100106: L_shoulder_CTRL
+    100108: L_shoulder_Jnt 1
+    100110: L_shoulder_NULL
+    100112: L_thumb1_Jnt 1
+    100114: L_thumb2_Jnt 1
+    100116: L_thumb_CTRL
+    100118: L_thumb_NULL
+    100120: L_wrist_CTRL
+    100122: L_wrist_Jnt 1
+    100124: L_wrist_NULL
+    100126: neck_CTRL
+    100128: neck_Jnt 1
+    100130: neck_NULL
+    100132: pelv_CTRL
+    100134: pelv_Jnt 1
+    100136: pelv_NULL
+    100138: R_dish_CTRL
+    100140: R_dish_Jnt
+    100142: R_dish_Jnt 1
+    100144: R_dish_NULL
+    100146: R_ellbow_CTRL
+    100148: R_ellbow_Jnt 1
+    100150: R_ellbow_NULL
+    100152: R_foot_CTRL
+    100154: R_foot_Jnt 1
+    100156: R_foot_NULL
+    100158: R_hip_Jnt 1
+    100160: R_knee_Jnt 1
+    100162: R_servingdome_CTRL
+    100164: R_servingdome_Jnt 1
+    100166: R_servingdome_NULL
+    100168: R_shoulder_CTRL
+    100170: R_shoulder_Jnt 1
+    100172: R_shoulder_NULL
+    100174: R_thumb1_Jnt 1
+    100176: R_thumb2_Jnt 1
+    100178: R_thumb_CTRL
+    100180: R_thumb_NULL
+    100182: R_wrist_CTRL
+    100184: R_wrist_Jnt 1
+    100186: R_wrist_NULL
+    100188: root_CTRL
+    100190: root_Jnt 1
+    100192: root_NULL
+    100194: spine1_CTRL
+    100196: spine1_Jnt 1
+    100198: spine1_NULL
+    100200: spine2_CTRL
+    100202: spine2_Jnt 1
+    100204: spine2_NULL
+    400000: apron_Jnt
+    400002: hair_Jnt
+    400004: head_Jnt
+    400006: L_ellbow_Jnt
+    400008: L_foot_Jnt
+    400010: L_hip_Jnt
+    400012: L_knee_Jnt
+    400014: L_servingdome_Jnt
+    400016: L_shoulder_Jnt
+    400018: L_thumb1_Jnt
+    400020: L_thumb2_Jnt
+    400022: L_wrist_Jnt
+    400024: //RootNode
+    400026: neck_Jnt
+    400028: pelv_Jnt
+    400030: R_ellbow_Jnt
+    400032: R_foot_Jnt
+    400034: R_hip_Jnt
+    400036: R_knee_Jnt
+    400038: R_servingdome_Jnt
+    400040: R_shoulder_Jnt
+    400042: R_thumb1_Jnt
+    400044: R_thumb2_Jnt
+    400046: R_wrist_Jnt
+    400048: root_Jnt
+    400050: spine1_Jnt
+    400052: spine2_Jnt
+    400054: ANIM_SKELETON
+    400056: apron_CTRL
+    400058: apron_Jnt 1
+    400060: apron_NULL
+    400062: EXPORT_SKELETON
+    400064: hair_CTRL
+    400066: hair_Jnt 1
+    400068: hair_NULL
+    400070: head_CTRL
+    400072: head_Jnt 1
+    400074: head_NULL
+    400076: L_dish_CTRL
+    400078: L_dish_Jnt
+    400080: L_dish_Jnt 1
+    400082: L_dish_NULL
+    400084: L_ellbow_CTRL
+    400086: L_ellbow_Jnt 1
+    400088: L_ellbow_NULL
+    400090: L_foot_CTRL
+    400092: L_foot_Jnt 1
+    400094: L_foot_NULL
+    400096: L_hip_Jnt 1
+    400098: L_knee_Jnt 1
+    400100: L_servingdome_CTRL
+    400102: L_servingdome_Jnt 1
+    400104: L_servingdome_NULL
+    400106: L_shoulder_CTRL
+    400108: L_shoulder_Jnt 1
+    400110: L_shoulder_NULL
+    400112: L_thumb1_Jnt 1
+    400114: L_thumb2_Jnt 1
+    400116: L_thumb_CTRL
+    400118: L_thumb_NULL
+    400120: L_wrist_CTRL
+    400122: L_wrist_Jnt 1
+    400124: L_wrist_NULL
+    400126: neck_CTRL
+    400128: neck_Jnt 1
+    400130: neck_NULL
+    400132: pelv_CTRL
+    400134: pelv_Jnt 1
+    400136: pelv_NULL
+    400138: R_dish_CTRL
+    400140: R_dish_Jnt
+    400142: R_dish_Jnt 1
+    400144: R_dish_NULL
+    400146: R_ellbow_CTRL
+    400148: R_ellbow_Jnt 1
+    400150: R_ellbow_NULL
+    400152: R_foot_CTRL
+    400154: R_foot_Jnt 1
+    400156: R_foot_NULL
+    400158: R_hip_Jnt 1
+    400160: R_knee_Jnt 1
+    400162: R_servingdome_CTRL
+    400164: R_servingdome_Jnt 1
+    400166: R_servingdome_NULL
+    400168: R_shoulder_CTRL
+    400170: R_shoulder_Jnt 1
+    400172: R_shoulder_NULL
+    400174: R_thumb1_Jnt 1
+    400176: R_thumb2_Jnt 1
+    400178: R_thumb_CTRL
+    400180: R_thumb_NULL
+    400182: R_wrist_CTRL
+    400184: R_wrist_Jnt 1
+    400186: R_wrist_NULL
+    400188: root_CTRL
+    400190: root_Jnt 1
+    400192: root_NULL
+    400194: spine1_CTRL
+    400196: spine1_Jnt 1
+    400198: spine1_NULL
+    400200: spine2_CTRL
+    400202: spine2_Jnt 1
+    400204: spine2_NULL
+    7400000: Walk
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
