@@ -14,9 +14,9 @@ public class Food : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            mPlayer.PushStack(transform);
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    mPlayer.PushStack(transform);
+        //}
     }
 }

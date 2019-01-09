@@ -10,11 +10,11 @@ public enum eDishes
 
 public enum eTableState
 {
-    Idle,
+    Free,
+    ReadingMenu,
     WaitingForOrder,
-    Orders,
     WaitingForFood,
-    Eats,
+    Eating,
     WaitingForClean
 }
 
