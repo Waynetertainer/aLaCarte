@@ -1,4 +1,7 @@
-﻿public enum eDishes
+﻿
+public enum NetworkStatus { Disconnected, Client, Server, ListeningUDP };
+public enum Level { Level_Venedig, Level_Rom}
+public enum eDishes
 {
     None,
     Pizza,

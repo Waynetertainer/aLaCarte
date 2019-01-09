@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e4e0da35ed81afe418bc8288e8a9b8a4
+=======
+guid: 0108c3c1f3794ef4881090a6006e6a08
+>>>>>>> Joshua
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
