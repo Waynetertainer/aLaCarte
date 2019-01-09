@@ -127,8 +127,11 @@ public class GameManager : MonoBehaviour
                         (float)eventCall.GetParam("PositionY"),
                         (float)eventCall.GetParam("PositionZ")
                         );
-                    Debug.Log("Updated anchor position for player " + ((int)eventCall.GetParam("PlayerID") - 1) + " to " + pLevelManager.pNavMeshTargets[(int)eventCall.GetParam("PlayerID") - 1].transform.position);
-
+                    pLevelManager.pCharacters[(int)eventCall.GetParam("PlayerID") - 1].Move(true);
+                    pLevelManager.pCharacters[(int)eventCall.GetParam("PlayerID") - 1].SetTargetPosition(pLevelManager.pNavMeshTargets[(int)eventCall.GetParam("PlayerID") - 1].transform.position);
+                    break;
+                case ("StopMoving"):
+                    pLevelManager.pCharacters[(int)eventCall.GetParam("PlayerID") - 1].Move(false);
                     break;
                 default:
                     Debug.Log("Cant handle packets");
