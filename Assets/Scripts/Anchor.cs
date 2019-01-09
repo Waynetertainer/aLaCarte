@@ -60,10 +60,10 @@ public class Anchor : MonoBehaviour
         eventCall.SetParam("PositionY", transform.position.y);
         eventCall.SetParam("PositionZ", transform.position.z);
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-        Debug.Log("sending " + transform.position + " for player " + (playerID-1));
-        mLevelManager.pNavMeshTargets[playerID-1].transform.position = transform.position;
-        mLevelManager.pCharacters[playerID-1].SetTargetPosition(transform.position);
-        mLevelManager.pCharacters[(int)eventCall.GetParam("PlayerID") - 1].Move(true);
+        Debug.Log("sending " + transform.position + " for player " + (playerID - 1));
+        mLevelManager.pNavMeshTargets[playerID - 1].transform.position = transform.position;
+        mLevelManager.pCharacters[playerID - 1].SetTargetPosition(transform.position);
+        mLevelManager.pCharacters[playerID - 1].Move(true);
     }
 
     private void SendStop()
