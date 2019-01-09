@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1102342612802724}
+  m_IsPrefabAsset: 1
+--- !u!1 &1102342612802724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4166842695720366}
+  m_Layer: 0
+  m_Name: "Zettelspie\xDF"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1539505380813006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4885320745764054}
+  - component: {fileID: 33032772554429464}
+  - component: {fileID: 23606326868198910}
+  m_Layer: 0
+  m_Name: "Zettelspie\xDF_Player02"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1544135723933788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4858404612891174}
+  - component: {fileID: 33660172351277178}
+  - component: {fileID: 23030909702874466}
+  m_Layer: 0
+  m_Name: "Zettelspie\xDF_Player01"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4166842695720366
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1102342612802724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_Children:
+  - {fileID: 4858404612891174}
+  - {fileID: 4885320745764054}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4858404612891174
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544135723933788}
+  m_LocalRotation: {x: 2.3980814e-14, y: -0.6546777, z: 0.000000028616832, w: 0.75590813}
+  m_LocalPosition: {x: 0.259, y: 0.005, z: 0.122}
+  m_LocalScale: {x: 1.1524, y: 1.1524, z: 1.1524}
+  m_Children: []
+  m_Father: {fileID: 4166842695720366}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -81.79, z: 0}
+--- !u!4 &4885320745764054
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539505380813006}
+  m_LocalRotation: {x: -0.0018682133, y: -0.82853204, z: 0.000170186, w: 0.55993855}
+  m_LocalPosition: {x: -0.201, y: 0.008, z: 0.588}
+  m_LocalScale: {x: 1.1524, y: 1.1524, z: 1.1524}
+  m_Children: []
+  m_Father: {fileID: 4166842695720366}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -0.104, y: -111.897, z: 0.18800001}
+--- !u!23 &23030909702874466
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544135723933788}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: abe91465bff6acb47b28a64bce2525bd, type: 2}
+  - {fileID: 2100002, guid: 8383a1565a1ba1e43936e68c52c1210c, type: 3}
+  - {fileID: 2100000, guid: c6615ba9785231e43b5bf8b9a9acaf48, type: 2}
+  - {fileID: 2100000, guid: 24abfd15bf679be46865df85b2112783, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!23 &23606326868198910
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539505380813006}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 1ba6b3f3c624268488433dc9049348b2, type: 2}
+  - {fileID: 2100002, guid: 8383a1565a1ba1e43936e68c52c1210c, type: 3}
+  - {fileID: 2100000, guid: c6615ba9785231e43b5bf8b9a9acaf48, type: 2}
+  - {fileID: 2100000, guid: 24abfd15bf679be46865df85b2112783, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33032772554429464
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539505380813006}
+  m_Mesh: {fileID: 4300000, guid: 8383a1565a1ba1e43936e68c52c1210c, type: 3}
+--- !u!33 &33660172351277178
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544135723933788}
+  m_Mesh: {fileID: 4300000, guid: 8383a1565a1ba1e43936e68c52c1210c, type: 3}
