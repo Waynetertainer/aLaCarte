@@ -5,17 +5,22 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    interface Carryable
-    {
-        eCarryableType pType { get; set; }
-    }
+    //interface Carryable
+    //{
+    //    eCarryableType pType { get; set; }
 
-    class CarryableCustomer : Carryable
-    {
+    //}
 
-    }
+    //class CarryableCustomer : Carryable
+    //{
+    //    public eCarryableType pType { get; set; }
+    //}
 
-
+    //struct Carryable
+    //{
+    //    public eCarryableType pType;
+    //    public 
+    //}
 }
 
 
