@@ -11,6 +11,7 @@ public class InventoryDrag : MonoBehaviour
     private LevelManager mLevelManager;
     private GameObject mDragging;
     private Vector3 mDraggedStartPosition;
+    private eCarryableType mCarryableType;
 
     private void Start()
     {
@@ -33,7 +34,7 @@ public class InventoryDrag : MonoBehaviour
         mLevelManager.pDragging = false;
         Ray ray = Camera.main.ScreenPointToRay(mDragging.transform.position);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
+        if ((mCarryableType==eCarryableType.Pasta|| mCarryableType == eCarryableType.Pasta )&& Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
         {
             Debug.Log("Dropped dish");
         }
