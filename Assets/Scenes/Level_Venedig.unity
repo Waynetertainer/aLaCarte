@@ -92884,6 +92884,36 @@ PrefabInstance:
       propertyPath: pCustomerWaitingOrMoving
       value: 0
       objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 679267f2bb108da45a2e284499ea4871, type: 3}
+--- !u!1001 &5357246456795088993
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5357246456952870637, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: m_Name
+      value: LevelManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pCharacters.Array.data[0]
+      value: 
+      objectReference: {fileID: 23705851}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pCharacters.Array.data[1]
+      value: 
+      objectReference: {fileID: 595192216}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pCustomerPrefab
+      value: 
+      objectReference: {fileID: 4189134847467171124, guid: 679267f2bb108da45a2e284499ea4871,
+        type: 3}
     - target: {fileID: 5357246456952870639, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: m_LocalPosition.x
