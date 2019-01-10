@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: 18dac8470ba1f6b41b5fb5027aa544f5
+guid: 1aaba850cbb1a4240aca7dac654c40af
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: UI_reservedSign_0
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -93,11 +94,31 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: UI_reservedSign_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9b142da61a711b46b701dbb34af9bac
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3c0fa43f95f01e24b9919c2b42a5da40
     vertices: []
     indices: 
     edges: []

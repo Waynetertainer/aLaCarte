@@ -134,10 +134,10 @@ TextureImporter:
       name: UI_rightHand
       rect:
         serializedVersion: 2
-        x: 735
-        y: 318
-        width: 202
-        height: 237
+        x: 729
+        y: 306
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,10 +154,10 @@ TextureImporter:
       name: UI_leftHand
       rect:
         serializedVersion: 2
-        x: 989
-        y: 312
-        width: 210
-        height: 248
+        x: 952
+        y: 311
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,10 +174,10 @@ TextureImporter:
       name: UI_plates
       rect:
         serializedVersion: 2
-        x: 1688
-        y: 336
-        width: 232
-        height: 189
+        x: 1664
+        y: 299
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,33 +191,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_pasta
-      rect:
-        serializedVersion: 2
-        x: 729
-        y: 542
-        width: 239
-        height: 239
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 72da4470c6ec3da4bb8431c3136f2f69
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: UI_speechBubbleGreen
       rect:
         serializedVersion: 2
-        x: 11
-        y: 817
-        width: 234
-        height: 181
+        x: 7
+        y: 806
+        width: 240
+        height: 240
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,10 +214,10 @@ TextureImporter:
       name: UI_speechBubbleYellow
       rect:
         serializedVersion: 2
-        x: 246
-        y: 816
+        x: 247
+        y: 806
         width: 240
-        height: 182
+        height: 240
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -254,10 +234,10 @@ TextureImporter:
       name: UI_speechBubbleRed
       rect:
         serializedVersion: 2
-        x: 488
-        y: 818
-        width: 243
-        height: 187
+        x: 487
+        y: 806
+        width: 240
+        height: 240
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -274,10 +254,10 @@ TextureImporter:
       name: UI_euro
       rect:
         serializedVersion: 2
-        x: 816
-        y: 872
-        width: 80
-        height: 96
+        x: 795
+        y: 858
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,10 +274,10 @@ TextureImporter:
       name: UI_exclamationMark
       rect:
         serializedVersion: 2
-        x: 1056
-        y: 871
-        width: 64
-        height: 96
+        x: 1023
+        y: 856
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -314,10 +294,10 @@ TextureImporter:
       name: UI_dots
       rect:
         serializedVersion: 2
-        x: 1247
-        y: 871
-        width: 147
-        height: 47
+        x: 1258
+        y: 828
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +314,10 @@ TextureImporter:
       name: UI_questionMark
       rect:
         serializedVersion: 2
-        x: 1538
-        y: 867
-        width: 68
-        height: 101
+        x: 1509
+        y: 859
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -374,10 +354,10 @@ TextureImporter:
       name: UI_settings
       rect:
         serializedVersion: 2
-        x: 27
-        y: 312
-        width: 220
-        height: 220
+        x: 1
+        y: 295
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -394,10 +374,10 @@ TextureImporter:
       name: UI_eggTimer
       rect:
         serializedVersion: 2
-        x: 264
-        y: 316
-        width: 226
-        height: 225
+        x: 252
+        y: 296
+        width: 240
+        height: 240
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -414,10 +394,10 @@ TextureImporter:
       name: UI_eggTimerBack
       rect:
         serializedVersion: 2
-        x: 507
-        y: 317
-        width: 218
-        height: 221
+        x: 492
+        y: 295
+        width: 240
+        height: 240
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
