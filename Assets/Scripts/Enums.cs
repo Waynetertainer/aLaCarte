@@ -25,3 +25,10 @@ public enum eStatisfaction
     Displeased,
     Angry
 }
+
+public enum eCarryableType
+{
+    Food,
+    Customer,
+    Dishes
+}

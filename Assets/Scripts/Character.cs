@@ -9,10 +9,11 @@ namespace Assets.Scripts
 {
     public class Character : MonoBehaviour
     {
-        private NavMeshAgent mAgent;
 
         public Transform pTarget;
 
+        private NavMeshAgent mAgent;
+        
         private void Start()
         {
             mAgent = GetComponent<NavMeshAgent>();
@@ -28,6 +29,5 @@ namespace Assets.Scripts
         {
             mAgent.destination = position;
         }
-
     }
 }
