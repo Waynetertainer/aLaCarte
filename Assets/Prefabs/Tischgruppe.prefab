@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4128427428431374}
   - component: {fileID: 33269866925019344}
   - component: {fileID: 23406935255577434}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Stuhl (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4486173345180508}
   - component: {fileID: 33996042896083260}
   - component: {fileID: 23446233987244432}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tisch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 4456002729856404}
   - component: {fileID: 33671870205293426}
   - component: {fileID: 23615953982036566}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Stuhl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4298261390001008}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tischgruppe
   m_TagString: Untagged
   m_Icon: {fileID: 0}

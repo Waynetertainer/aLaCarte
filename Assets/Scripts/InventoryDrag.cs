@@ -8,49 +8,48 @@ using UnityEngine.EventSystems;
 public class InventoryDrag : MonoBehaviour
 {
     private Character mCharacter;
-    public GameObject pPizzaRight;
-    public GameObject pPastaRight;
-    public GameObject pCutomer;
-    public GameObject pDishesRight;
-    public GameObject pPizzaLeft;
-    public GameObject pPastaLeft;
-    public GameObject pDishesLeft;
+    private LevelManager mLevelManager;
+    private GameObject mDragging;
+    private Vector3 mDraggedStartPosition;
 
     private void Start()
     {
-        EventTrigger trigger = pPizzaRight.GetComponent<EventTrigger>();
-        EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.BeginDrag;
-        entry.callback.AddListener((data) => { BeginDrag(pPizzaRight);Debug.Log("begin drag"); });
-        trigger.triggers.Add(entry);
-
-        entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.EndDrag;
-        entry.callback.AddListener((data) => { EndDrag(pPizzaRight); });
-        trigger.triggers.Add(entry);
-
-        entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.Drag;
-        entry.callback.AddListener((data) => { Drag(pPizzaRight); });
-        trigger.triggers.Add(entry);
-
-        mCharacter = GameManager.pInstance.pLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
+        mLevelManager = GameManager.pInstance.pLevelManager;
+        mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
     }
 
     public void BeginDrag(GameObject obj)
     {
-        Debug.Log("BeginDrag");
+        if (!mLevelManager.pDragging)
+        {
+            mLevelManager.pDragging = true;
+            mDragging = obj;
+            mDraggedStartPosition = mDragging.transform.position;
+        }
     }
 
     public void EndDrag(GameObject obj)
     {
-        Debug.Log("EndDrag");
+        mLevelManager.pDragging = false;
+        Ray ray = Camera.main.ScreenPointToRay(mDragging.transform.position);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
+        {
+            Debug.Log("Dropped dish");
+        }
+        else
+        {
+            mDragging.transform.position = mDraggedStartPosition;
+        }
+        mDragging = null;
 
     }
 
-    public void Drag(GameObject obj)
+    private void Update()
     {
-        Debug.Log("Drag");
-
+        if (mLevelManager.pDragging && mDragging != null)
+        {
+            mDragging.transform.position = Input.mousePosition;//TODO touch input
+        }
     }
 }

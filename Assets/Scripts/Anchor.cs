@@ -37,12 +37,7 @@ public class Anchor : MonoBehaviour
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 10))
-                {
-                    Debug.Log(hit.transform.gameObject.name);
-                    return;
-                }
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9)&&!Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 10))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9))
                 {
                     transform.position = hit.point + new Vector3(0, 1, 0);
                     SendPosition();
