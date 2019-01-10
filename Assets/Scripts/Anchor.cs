@@ -33,13 +33,21 @@ public class Anchor : MonoBehaviour
 #else
         if (Input.GetMouseButton(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9))
+            if (!mLevelManager.pDragging)
             {
-                transform.position = hit.point + new Vector3(0, 1, 0);
-                SendPosition();
-                mSendedStop = false;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 10))
+                {
+                    Debug.Log(hit.transform.gameObject.name);
+                    return;
+                }
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9)&&!Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 10))
+                {
+                    transform.position = hit.point + new Vector3(0, 1, 0);
+                    SendPosition();
+                    mSendedStop = false;
+                }
             }
         }
         else

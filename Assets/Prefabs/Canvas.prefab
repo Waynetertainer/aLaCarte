@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4957446008816293520}
   - component: {fileID: 4957446008816293523}
   - component: {fileID: 4957446008816293522}
+  - component: {fileID: 4859656229823392705}
   m_Layer: 5
   m_Name: Button_platesRight
   m_TagString: Untagged
@@ -117,6 +118,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &4859656229823392705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446008816293532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446008833779948
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +143,7 @@ GameObject:
   - component: {fileID: 4957446008833779949}
   - component: {fileID: 4957446008833779939}
   - component: {fileID: 4957446008833779938}
+  - component: {fileID: 5101418165549766231}
   m_Layer: 5
   m_Name: Image_pizza
   m_TagString: Untagged
@@ -191,6 +207,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &5101418165549766231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446008833779948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446008842292399
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +351,7 @@ GameObject:
   - component: {fileID: 4957446008907000300}
   - component: {fileID: 4957446008907000290}
   - component: {fileID: 4957446008907000301}
+  - component: {fileID: 1589324468340638335}
   m_Layer: 5
   m_Name: Image_pizza
   m_TagString: Untagged
@@ -384,6 +415,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &1589324468340638335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446008907000303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446008924809533
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,6 +679,7 @@ GameObject:
   - component: {fileID: 4957446009166126704}
   - component: {fileID: 4957446009166126707}
   - component: {fileID: 4957446009166126706}
+  - component: {fileID: 1518707605970822999}
   m_Layer: 5
   m_Name: Button_guestsLeft
   m_TagString: Untagged
@@ -739,6 +785,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1518707605970822999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446009166126716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446009278475418
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +810,7 @@ GameObject:
   - component: {fileID: 4957446009278475419}
   - component: {fileID: 4957446009278475417}
   - component: {fileID: 4957446009278475416}
+  - component: {fileID: 1132807316516745601}
   m_Layer: 5
   m_Name: Image_pasta
   m_TagString: Untagged
@@ -813,6 +874,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &1132807316516745601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446009278475418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446009301711699
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +976,7 @@ GameObject:
   - component: {fileID: 4957446009302995306}
   - component: {fileID: 4957446009302995304}
   - component: {fileID: 4957446009302995307}
+  - component: {fileID: 3789811226747426122}
   m_Layer: 5
   m_Name: Image_pizza
   m_TagString: Untagged
@@ -964,6 +1040,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &3789811226747426122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446009302995285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446009345170025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,6 +1183,7 @@ GameObject:
   - component: {fileID: 4957446009571932117}
   - component: {fileID: 4957446009571932116}
   - component: {fileID: 4957446009571932119}
+  - component: {fileID: 5481540123526507260}
   m_Layer: 5
   m_Name: Button_platesLeft
   m_TagString: Untagged
@@ -1198,6 +1289,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &5481540123526507260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446009571932113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446009613025639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1314,7 @@ GameObject:
   - component: {fileID: 4957446009613025636}
   - component: {fileID: 4957446009613025658}
   - component: {fileID: 4957446009613025637}
+  - component: {fileID: 1069293433034066723}
   m_Layer: 5
   m_Name: Image_pizza
   m_TagString: Untagged
@@ -1272,6 +1378,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &1069293433034066723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446009613025639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446009795824419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,6 +1522,7 @@ GameObject:
   - component: {fileID: 4957446009975299833}
   - component: {fileID: 4957446009975299839}
   - component: {fileID: 4957446009975299838}
+  - component: {fileID: 1058558865413721874}
   m_Layer: 5
   m_Name: Image_pasta
   m_TagString: Untagged
@@ -1465,6 +1586,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &1058558865413721874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446009975299832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446009983110032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,6 +1839,7 @@ GameObject:
   - component: {fileID: 4957446010079179298}
   - component: {fileID: 4957446010079179296}
   - component: {fileID: 4957446010079179299}
+  - component: {fileID: 8392250196424163553}
   m_Layer: 5
   m_Name: Image_pasta
   m_TagString: Untagged
@@ -1767,6 +1903,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &8392250196424163553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446010079179309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446010107965032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,6 +1928,7 @@ GameObject:
   - component: {fileID: 4957446010107965033}
   - component: {fileID: 4957446010107965039}
   - component: {fileID: 4957446010107965038}
+  - component: {fileID: 7346319189895452649}
   m_Layer: 5
   m_Name: Image_pasta
   m_TagString: Untagged
@@ -1841,6 +1992,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &7346319189895452649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446010107965032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &4957446010264801505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,6 +2015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4957446010264801509}
+  - component: {fileID: 5697074198404164}
   - component: {fileID: 4957446010264801508}
   - component: {fileID: 4957446010264801511}
   - component: {fileID: 4957446010264801510}
@@ -1880,6 +2046,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &5697074198404164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957446010264801505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c5937dfa75ba6438d1529bc0278f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pPizzaRight: {fileID: 0}
+  pPastaRight: {fileID: 0}
+  pCutomer: {fileID: 0}
+  pDishesRight: {fileID: 0}
+  pPizzaLeft: {fileID: 0}
+  pPastaLeft: {fileID: 0}
+  pDishesLeft: {fileID: 0}
 --- !u!223 &4957446010264801508
 Canvas:
   m_ObjectHideFlags: 0
