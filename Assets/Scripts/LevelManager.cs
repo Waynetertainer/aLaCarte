@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
     public GameObject pWaitingCustomer;
 
     public bool pCustomerWaitingOrMoving;
+    public bool pDragging;
 
     public Table[] pTables;
 
