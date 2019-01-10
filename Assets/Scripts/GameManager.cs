@@ -133,6 +133,12 @@ public class GameManager : MonoBehaviour
                 case ("StopMoving"):
                     pLevelManager.pCharacters[(int)eventCall.GetParam("PlayerID") - 1].Move(false);
                     break;
+                case ("NewCustomer"):
+                    pLevelManager.SpawnCustomers((int)eventCall.GetParam("Amount"));
+                    break;
+                case ("CustomerTaken"):
+                    pLevelManager.pWaitingCustomer.GetComponent<Customer>().TakeCustomer((int)eventCall.GetParam("PlayerID")-1);
+                    break;
                 default:
                     Debug.Log("Cant handle packets");
                     break;

@@ -9,8 +9,10 @@ namespace Assets.Scripts
 {
     public class Character : MonoBehaviour
     {
+        public eCarryableType[] pCarrying = new eCarryableType[2];
 
         public Transform pTarget;
+        public int pID;
 
         private NavMeshAgent mAgent;
         
@@ -28,6 +30,18 @@ namespace Assets.Scripts
         public void SetTargetPosition(Vector3 position)
         {
             mAgent.destination = position;
+        }
+
+        public void ChangeCarry(eCarryableType type)
+        {
+            if (pCarrying[0] == eCarryableType.Empty)
+            {
+                pCarrying[0] = type;
+            }
+            else
+            {
+                pCarrying[1] = type;
+            }
         }
     }
 }

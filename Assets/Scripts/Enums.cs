@@ -28,6 +28,7 @@ public enum eStatisfaction
 
 public enum eCarryableType
 {
+    Empty,
     Food,
     Customer,
     Dishes
