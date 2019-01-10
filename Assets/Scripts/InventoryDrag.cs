@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
+using NET_System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,6 +27,7 @@ public class InventoryDrag : MonoBehaviour
             mLevelManager.pDragging = true;
             mDragging = obj;
             mDraggedStartPosition = mDragging.transform.position;
+            mCarryableType = mDragging.GetComponent<Carryable>().pType;
         }
     }
 
@@ -34,14 +36,18 @@ public class InventoryDrag : MonoBehaviour
         mLevelManager.pDragging = false;
         Ray ray = Camera.main.ScreenPointToRay(mDragging.transform.position);
         RaycastHit hit;
-        if ((mCarryableType==eCarryableType.Pasta|| mCarryableType == eCarryableType.Pasta )&& Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
+        if ((mCarryableType == eCarryableType.Pizza || mCarryableType == eCarryableType.Pasta) && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
         {
-            Debug.Log("Dropped dish");
+            Table table = hit.transform.GetComponentInChildren<Table>();
+            Debug.Log(table.transform.position);
+            if (table.pPlayerID==mCharacter.pID&&table.pState==eTableState.WaitingForFood&&Vector3.Distance(mCharacter.transform.position,table.transform.position)<=2)
+            {
+                table.SetDishActive(mCarryableType);
+                mDragging.gameObject.SetActive(false);
+            }
         }
-        else
-        {
-            mDragging.transform.position = mDraggedStartPosition;
-        }
+        mDragging.transform.position = mDraggedStartPosition;
+        
         mDragging = null;
 
     }

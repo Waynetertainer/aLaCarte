@@ -11,8 +11,12 @@ public class LevelManager : MonoBehaviour
 {
     public GameObject[] pNavMeshTargets = new GameObject[2];
     public Character[] pCharacters = new Character[2];
-    //public GameObject pCustomerPrefab;
-    //public GameObject pCustomerSpawnPoint;
+    //public eCarryableType[] pCarrying = new eCarryableType[4];
+    public GameObject[][] pCarryableObjects = new GameObject[3][];
+
+    public GameObject[] pFood = new GameObject[4];
+    public GameObject[] pPlates = new GameObject[2];
+    public GameObject[] pCustomer = new GameObject[1];
     public GameObject pWaitingCustomer;
 
     public bool pCustomerWaitingOrMoving;
@@ -30,7 +34,12 @@ public class LevelManager : MonoBehaviour
         pCharacters[1].pTarget = pNavMeshTargets[1].transform;
         pCharacters[0].pID = 1;
         pCharacters[1].pID = 2;
-        pTables = FindObjectsOfType<Table>();
+        Table[] tempTables = FindObjectsOfType<Table>();
+        pTables=new Table[tempTables.Length];
+        for (int i = 0; i < tempTables.Length; i++)
+        {
+            pTables[i] = tempTables.First(p => p.pID == i);
+        }
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
         {
@@ -71,6 +80,69 @@ public class LevelManager : MonoBehaviour
                 break;
             default:
                 throw new ArgumentOutOfRangeException("amount");
+        }
+    }
+
+    public bool CanCarry(eCarryableType type)
+    {
+        switch (type)
+        {
+            case eCarryableType.Empty:
+                return true;
+            case eCarryableType.Pizza:
+                if (!(pCustomer[0].activeSelf || pPlates.Any(p=>p.activeSelf)) && pFood.Any(p => p.activeSelf == false))
+                {
+                    return true;
+                }
+                return false;
+            case eCarryableType.Pasta:
+                if (!(pCustomer[0].activeSelf || pPlates.Any(p => p.activeSelf)) && pFood.Any(p => p.activeSelf == false))
+                {
+                    return true;
+                }
+                return false;
+            case eCarryableType.Customer:
+                if (!(pCustomer[0].activeSelf|| pPlates.Any(p => p.activeSelf)|| pFood.Any(p => p.activeSelf)))
+                {
+                    return true;
+                }
+                return false;
+            case eCarryableType.Dishes:
+                if (!(pCustomer[0].activeSelf || pFood.Any(p => p.activeSelf))&&pPlates.Any(p=>p.activeSelf==false))
+                {
+                    return true;
+                }
+                return false;
+            default:
+                throw new ArgumentOutOfRangeException("type", type, null);
+        }
+    }
+
+    public void ChangeCarry(eCarryableType type)
+    {
+        foreach (GameObject[] carryableObjectArray in pCarryableObjects)
+        {
+            foreach (GameObject carryableObject in carryableObjectArray)
+            {
+                carryableObject.SetActive(false);
+            }
+        }
+        switch (type)
+        {
+            case eCarryableType.Empty:
+                break;
+            case eCarryableType.Pizza:
+
+                break;
+            case eCarryableType.Pasta:
+                break;
+            case eCarryableType.Customer:
+
+                break;
+            case eCarryableType.Dishes:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("type", type, null);
         }
     }
 }

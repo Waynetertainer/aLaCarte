@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using NET_System;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 using Image = UnityEngine.UI.Image;
@@ -8,12 +9,64 @@ using Image = UnityEngine.UI.Image;
 public class Table : MonoBehaviour
 {
     [HideInInspector] public eTableState pState;
-    [HideInInspector] public GameObject pPanel;
+
+    public int pID;
+    public int? pPlayerID;
+
+    private GameObject mPasta;
+    private GameObject mPizza;
 
     public int pSize;
 
-    private Image mSprite;
-    private Player mPlayer;
+    public void SetDishActive(eCarryableType type)
+    {
+        switch (type)
+        {
+            case eCarryableType.Empty:
+                break;
+            case eCarryableType.Pizza:
+                transform.GetChild(0).gameObject.SetActive(true);
+                pState = eTableState.Eating;
+                SendTableState(eCarryableType.Pizza);
+                break;
+            case eCarryableType.Pasta:
+                transform.GetChild(1).gameObject.SetActive(true);
+                pState = eTableState.Eating;
+                SendTableState(eCarryableType.Pasta);
+                break;
+            case eCarryableType.Customer:
+                break;
+            case eCarryableType.Dishes:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("type", type, null);
+        }
+    }
+
+    private void SendTableState(eCarryableType? carryableType = null)
+    {
+        NET_EventCall eventCall = new NET_EventCall("SetTableState");
+        eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());
+        eventCall.SetParam("TableID", pID);
+        eventCall.SetParam("State", pState);
+        if (pState == eTableState.Eating)
+        {
+            eventCall.SetParam("Carryable", carryableType);
+        }
+        GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+    }
+
+    public void DeactivateDishes()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
+    }
+
+
+
+    //[HideInInspector] public GameObject pPanel;
+    //private Image mSprite;
+    //private Player mPlayer;
 
     //private void Start()
     //{
