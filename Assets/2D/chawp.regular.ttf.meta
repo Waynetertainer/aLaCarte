@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b9598fc14ca58f04a9ba149dcbde0077
+guid: 4a2f0ef19c161ef469cf826171306447
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Testarossa NF
+  fontName: CHAWP
   fontNames:
-  - Testarossa NF
+  - CHAWP
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
