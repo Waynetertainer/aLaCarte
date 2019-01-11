@@ -137,23 +137,27 @@ public class GameManager : MonoBehaviour
                     pLevelManager.SpawnCustomers((int)eventCall.GetParam("Amount"));
                     break;
                 case ("CustomerTaken"):
-                    pLevelManager.pWaitingCustomer.GetComponent<Customer>().TakeCustomer((int)eventCall.GetParam("PlayerID")-1);
+                    pLevelManager.pWaitingCustomer.gameObject.SetActive(false);
                     break;
                 case ("SetTableState"):
+                    int tableID;
                         switch ((eTableState)eventCall.GetParam("State"))
                         {
                             case eTableState.Free:
                                 break;
                             case eTableState.ReadingMenu:
-                                break;
+                                tableID = (int)eventCall.GetParam("TableID");
+                                pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
+                                pLevelManager.pTables[tableID].SetTableState(eTableState.WaitingForOrder);
+                            break;
                             case eTableState.WaitingForOrder:
                                 break;
                             case eTableState.WaitingForFood:
                                 break;
                             case eTableState.Eating:
-                                pLevelManager.pTables[(int)eventCall.GetParam("TableID")].pPlayerID = (int)eventCall.GetParam("PlayerID");
-                                pLevelManager.pTables[(int)eventCall.GetParam("TableID")].pState = eTableState.Eating;
-                                pLevelManager.pTables[(int)eventCall.GetParam("TableID")].SetDishActive((eCarryableType)eventCall.GetParam("Carryable"));
+                                tableID = (int) eventCall.GetParam("TableID");
+                                pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
+                                pLevelManager.pTables[tableID].SetTableState(eTableState.Eating,(eCarryableType)eventCall.GetParam("Carryable"));
                             break;
                             case eTableState.WaitingForClean:
                                 break;

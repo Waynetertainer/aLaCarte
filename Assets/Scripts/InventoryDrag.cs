@@ -36,18 +36,44 @@ public class InventoryDrag : MonoBehaviour
         mLevelManager.pDragging = false;
         Ray ray = Camera.main.ScreenPointToRay(mDragging.transform.position);
         RaycastHit hit;
-        if ((mCarryableType == eCarryableType.Pizza || mCarryableType == eCarryableType.Pasta) && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
+        if (mCarryableType == eCarryableType.Pizza || mCarryableType == eCarryableType.Pasta)
         {
-            Table table = hit.transform.GetComponentInChildren<Table>();
-            Debug.Log(table.transform.position);
-            if (table.pPlayerID==mCharacter.pID&&table.pState==eTableState.WaitingForFood&&Vector3.Distance(mCharacter.transform.position,table.transform.position)<=2)
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
             {
-                table.SetDishActive(mCarryableType);
+                Table table = hit.transform.GetComponentInChildren<Table>();
+                if (table.pPlayerID == mCharacter.pID && table.pState == eTableState.WaitingForFood && Vector3.Distance(mCharacter.transform.position, table.transform.position) <= 2)
+                {
+                    table.DelegateTableState(eTableState.Eating, mCarryableType);
+                    mDragging.gameObject.SetActive(false);
+                }
+            }
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= 2)
+            {
+                mDragging.gameObject.SetActive(false);
+            }
+        }
+        else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12))
+        {
+            mDragging.gameObject.SetActive(false);
+        }
+        else if (mCarryableType == eCarryableType.Customer)
+        {
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
+            {
+                Table table = hit.transform.GetComponentInChildren<Table>();
+                if (table.pState == eTableState.Free && Vector3.Distance(mCharacter.transform.position, table.transform.position) <= 2)
+                {
+                    table.DelegateTableState(eTableState.WaitingForOrder, mCarryableType);
+                    mDragging.gameObject.SetActive(false);
+                }
+            }
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= 2)
+            {
                 mDragging.gameObject.SetActive(false);
             }
         }
         mDragging.transform.position = mDraggedStartPosition;
-        
+
         mDragging = null;
 
     }

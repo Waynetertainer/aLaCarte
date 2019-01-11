@@ -1,49 +1,127 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using NET_System;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
-using Image = UnityEngine.UI.Image;
 
 public class Table : MonoBehaviour
 {
-    [HideInInspector] public eTableState pState;
-
+    public eTableState pState;
     public int pID;
     public int? pPlayerID;
-
-    private GameObject mPasta;
-    private GameObject mPizza;
-
     public int pSize;
+    public float pNextState;
+    private Character mCharacter;
+    private LevelManager mLevelManager;
+    private bool mIsHost;
 
-    public void SetDishActive(eCarryableType type)
+    private void Start()
     {
-        switch (type)
+        mLevelManager = GameManager.pInstance.pLevelManager;
+        mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
+        SetTableState(eTableState.Free);
+        mIsHost = mLevelManager.pIsHost;
+    }
+
+    private void Update()
+    {
+        switch (pState)
         {
-            case eCarryableType.Empty:
+            case eTableState.Free:
                 break;
-            case eCarryableType.Pizza:
-                transform.GetChild(0).gameObject.SetActive(true);
-                pState = eTableState.Eating;
-                SendTableState(eCarryableType.Pizza);
+            case eTableState.ReadingMenu:
+                if (!mIsHost) return;
+                if (Time.timeSinceLevelLoad >= pNextState)
+                {
+                    DelegateTableState(eTableState.WaitingForOrder);
+                }
                 break;
-            case eCarryableType.Pasta:
-                transform.GetChild(1).gameObject.SetActive(true);
-                pState = eTableState.Eating;
-                SendTableState(eCarryableType.Pasta);
+            case eTableState.WaitingForOrder:
+                if (Input.GetMouseButtonDown(0) &&
+                    Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO make fpr GD
+                {
+                    // Show Order
+                    DelegateTableState(eTableState.WaitingForFood);
+                }
                 break;
-            case eCarryableType.Customer:
+            case eTableState.WaitingForFood:
                 break;
-            case eCarryableType.Dishes:
+            case eTableState.Eating:
+                if (!mIsHost) return;
+                if (Time.timeSinceLevelLoad >= pNextState)
+                {
+                    DelegateTableState(eTableState.WaitingForClean);
+                }
+                break;
+            case eTableState.WaitingForClean:
+                if (Input.GetMouseButtonDown(0) &&
+                    Vector3.Distance(transform.position, mCharacter.transform.position) <= 2 && //TODO make fpr GD
+                    mLevelManager.CanCarry(eCarryableType.Dishes))
+                {
+                    mLevelManager.ChangeCarry(eCarryableType.Dishes);
+                    DelegateTableState(eTableState.Free);
+                    //TODO AddMoney
+                }
                 break;
             default:
-                throw new ArgumentOutOfRangeException("type", type, null);
+                throw new ArgumentOutOfRangeException();
         }
     }
 
-    private void SendTableState(eCarryableType? carryableType = null)
+    public void DelegateTableState(eTableState state, eCarryableType? type = null)
+    {
+        SetTableState(state, type);
+        SendTableState(state, type);
+    }
+
+    public void SetTableState(eTableState state, eCarryableType? type = null)
+    {
+        pState = state;
+        switch (state)
+        {
+            case eTableState.Free:
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(1).gameObject.SetActive(false);
+                pPlayerID = null;
+                break;
+            case eTableState.ReadingMenu:
+                transform.GetChild(1).gameObject.SetActive(true);
+                pNextState = Time.timeSinceLevelLoad + 4;
+                break;
+            case eTableState.WaitingForOrder:
+                //TODO: ungeduld
+
+                break;
+            case eTableState.WaitingForFood:
+                //TODO: ungeduld
+                break;
+            case eTableState.Eating:
+                switch (type)
+                {
+                    case eCarryableType.Pizza:
+                        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        break;
+                    case eCarryableType.Pasta:
+                        transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("type");
+                }
+                pNextState = Time.timeSinceLevelLoad + 4;
+                break;
+            case eTableState.WaitingForClean:
+                transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+                transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("state", state, null);
+        }
+    }
+
+    private void SendTableState(eTableState state, eCarryableType? carryableType = null)
     {
         NET_EventCall eventCall = new NET_EventCall("SetTableState");
         eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());
@@ -59,7 +137,6 @@ public class Table : MonoBehaviour
     public void DeactivateDishes()
     {
         transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(1).gameObject.SetActive(false);
     }
 
 

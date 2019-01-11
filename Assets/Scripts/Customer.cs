@@ -24,21 +24,14 @@ public class Customer : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) &&
                 Vector3.Distance(transform.position, mCharacter.transform.position) <= pTempInteractionDistance &&
-                mCharacter.pCarrying.All(p => p == eCarryableType.Empty))
+                mLevelManager.CanCarry(eCarryableType.Customer))
             {
                 NET_EventCall eventCall = new NET_EventCall("CustomerTaken");
                 eventCall.SetParam("PlayerID", mCharacter.pID);
                 GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-                TakeCustomer(mCharacter.pID - 1);
+                GameManager.pInstance.pLevelManager.ChangeCarry(eCarryableType.Customer);
+                gameObject.SetActive(false);
             }
         }
-    }
-
-
-
-    public void TakeCustomer(int id)
-    {
-        GameManager.pInstance.pLevelManager.pCharacters[id].ChangeCarry(eCarryableType.Customer);
-        gameObject.SetActive(false);
     }
 }

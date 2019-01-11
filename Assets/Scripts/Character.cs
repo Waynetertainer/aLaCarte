@@ -9,12 +9,7 @@ namespace Assets.Scripts
 {
     public class Character : MonoBehaviour
     {
-        public eCarryableType[] pCarrying = new eCarryableType[4];
-        [SerializeField] public GameObject[][] pCarryableObjects = new GameObject[3][];
 
-        public GameObject[] pFood = new GameObject[4];
-        public GameObject[] pPlates = new GameObject[2];
-        public GameObject[] pCustomer = new GameObject[1];
 
         public Transform pTarget;
         public int pID;

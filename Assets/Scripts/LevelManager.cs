@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour
     public Table[] pTables;
 
     private float mNextCustomer;
-    private bool mIsHost;
+    public bool pIsHost;
 
     private void Start()
     {
@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
         pCharacters[0].pID = 1;
         pCharacters[1].pID = 2;
         Table[] tempTables = FindObjectsOfType<Table>();
-        pTables=new Table[tempTables.Length];
+        pTables = new Table[tempTables.Length];
         for (int i = 0; i < tempTables.Length; i++)
         {
             pTables[i] = tempTables.First(p => p.pID == i);
@@ -43,13 +43,23 @@ public class LevelManager : MonoBehaviour
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
         {
-            mIsHost = true;
+            pIsHost = true;
+        }
+        pCustomer[0].SetActive(false);
+        foreach (GameObject plate in pPlates)
+        {
+            plate.SetActive(false);
+        }
+
+        foreach (GameObject food in pFood)
+        {
+            food.SetActive(false);
         }
     }
 
     private void Update()
     {
-        if (!mIsHost) return;
+        if (!pIsHost) return;
         if (Time.timeSinceLevelLoad >= mNextCustomer)
         {
             if (pTables.Any(p => p.pState == eTableState.Free) && !pCustomerWaitingOrMoving)
@@ -90,7 +100,7 @@ public class LevelManager : MonoBehaviour
             case eCarryableType.Empty:
                 return true;
             case eCarryableType.Pizza:
-                if (!(pCustomer[0].activeSelf || pPlates.Any(p=>p.activeSelf)) && pFood.Any(p => p.activeSelf == false))
+                if (!(pCustomer[0].activeSelf || pPlates.Any(p => p.activeSelf)) && pFood.Any(p => p.activeSelf == false))
                 {
                     return true;
                 }
@@ -102,13 +112,13 @@ public class LevelManager : MonoBehaviour
                 }
                 return false;
             case eCarryableType.Customer:
-                if (!(pCustomer[0].activeSelf|| pPlates.Any(p => p.activeSelf)|| pFood.Any(p => p.activeSelf)))
+                if (!(pCustomer[0].activeSelf || pPlates.Any(p => p.activeSelf) || pFood.Any(p => p.activeSelf)))
                 {
                     return true;
                 }
                 return false;
             case eCarryableType.Dishes:
-                if (!(pCustomer[0].activeSelf || pFood.Any(p => p.activeSelf))&&pPlates.Any(p=>p.activeSelf==false))
+                if (!(pCustomer[0].activeSelf || pFood.Any(p => p.activeSelf)) && pPlates.Any(p => p.activeSelf == false))
                 {
                     return true;
                 }
@@ -120,26 +130,37 @@ public class LevelManager : MonoBehaviour
 
     public void ChangeCarry(eCarryableType type)
     {
-        foreach (GameObject[] carryableObjectArray in pCarryableObjects)
-        {
-            foreach (GameObject carryableObject in carryableObjectArray)
-            {
-                carryableObject.SetActive(false);
-            }
-        }
+        //pCustomer[0].SetActive(false);
+        //foreach (GameObject plate in pPlates)
+        //{
+        //    plate.SetActive(false);
+        //}
+
+        //foreach (GameObject food in pFood)
+        //{
+        //    food.SetActive(false);
+        //}
+
+        GameObject temp;
         switch (type)
         {
             case eCarryableType.Empty:
                 break;
             case eCarryableType.Pizza:
-
+                temp = pFood.First(p => p.activeSelf == false);
+                temp.transform.GetChild(0).gameObject.SetActive(false);
+                temp.transform.GetChild(0).gameObject.SetActive(true);
                 break;
             case eCarryableType.Pasta:
+                temp = pFood.First(p => p.activeSelf == false);
+                temp.transform.GetChild(0).gameObject.SetActive(true);
+                temp.transform.GetChild(0).gameObject.SetActive(false);
                 break;
             case eCarryableType.Customer:
-
+                pCustomer[0].SetActive(true);
                 break;
             case eCarryableType.Dishes:
+                pPlates.First(p=>p.activeSelf==false).SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException("type", type, null);
