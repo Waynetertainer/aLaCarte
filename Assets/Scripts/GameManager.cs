@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 
             pInstance = this;
 
+
         else if (pInstance != this)
 
             Destroy(gameObject);
@@ -57,6 +58,11 @@ public class GameManager : MonoBehaviour
 
             ChangeCanvas(0);
         }
+    }
+
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
     }
 
     private void OnApplicationQuit()
@@ -141,29 +147,41 @@ public class GameManager : MonoBehaviour
                     break;
                 case ("SetTableState"):
                     int tableID;
-                        switch ((eTableState)eventCall.GetParam("State"))
-                        {
-                            case eTableState.Free:
-                                break;
-                            case eTableState.ReadingMenu:
-                                tableID = (int)eventCall.GetParam("TableID");
-                                pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
-                                pLevelManager.pTables[tableID].SetTableState(eTableState.WaitingForOrder);
+                    switch ((eTableState)eventCall.GetParam("State"))
+                    {
+                        case eTableState.Free:
+                            tableID = (int)eventCall.GetParam("TableID");
+                            pLevelManager.pTables[tableID].pPlayerID = -1;
+                            pLevelManager.pTables[tableID].SetTableState(eTableState.Free);
                             break;
-                            case eTableState.WaitingForOrder:
-                                break;
-                            case eTableState.WaitingForFood:
-                                break;
-                            case eTableState.Eating:
-                                tableID = (int) eventCall.GetParam("TableID");
-                                pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
-                                pLevelManager.pTables[tableID].SetTableState(eTableState.Eating,(eCarryableType)eventCall.GetParam("Carryable"));
+                        case eTableState.ReadingMenu:
+                            tableID = (int)eventCall.GetParam("TableID");
+                            pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
+                            pLevelManager.pTables[tableID].SetTableState(eTableState.ReadingMenu);
                             break;
-                            case eTableState.WaitingForClean:
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
+                        case eTableState.WaitingForOrder:
+                            tableID = (int)eventCall.GetParam("TableID");
+                            //pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
+                            pLevelManager.pTables[tableID].SetTableState(eTableState.WaitingForOrder);
+                            break;
+                        case eTableState.WaitingForFood:
+                            tableID = (int)eventCall.GetParam("TableID");
+                            //pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
+                            pLevelManager.pTables[tableID].SetTableState(eTableState.WaitingForFood);
+                            break;
+                        case eTableState.Eating:
+                            tableID = (int)eventCall.GetParam("TableID");
+                            //pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
+                            pLevelManager.pTables[tableID].SetTableState(eTableState.Eating, (eCarryableType)eventCall.GetParam("Carryable"));
+                            break;
+                        case eTableState.WaitingForClean:
+                            tableID = (int)eventCall.GetParam("TableID");
+                            //pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
+                            pLevelManager.pTables[tableID].SetTableState(eTableState.WaitingForClean);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                     break;
                 default:
                     Debug.Log("Cant handle packets");

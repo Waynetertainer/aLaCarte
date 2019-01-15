@@ -45,11 +45,14 @@ public class InventoryDrag : MonoBehaviour
                 {
                     table.DelegateTableState(eTableState.Eating, mCarryableType);
                     mDragging.gameObject.SetActive(false);
+                    mDragging.transform.parent.gameObject.SetActive(false);
                 }
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= 2)
             {
                 mDragging.gameObject.SetActive(false);
+                mDragging.transform.parent.gameObject.SetActive(false);
+
             }
         }
         else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12))
@@ -63,13 +66,16 @@ public class InventoryDrag : MonoBehaviour
                 Table table = hit.transform.GetComponentInChildren<Table>();
                 if (table.pState == eTableState.Free && Vector3.Distance(mCharacter.transform.position, table.transform.position) <= 2)
                 {
-                    table.DelegateTableState(eTableState.WaitingForOrder, mCarryableType);
+                    table.DelegateTableState(eTableState.ReadingMenu, mCarryableType);
+                    table.pPlayerID = mCharacter.pID;
                     mDragging.gameObject.SetActive(false);
+                    mLevelManager.pCustomerWaitingOrMoving = false;
                 }
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= 2)
             {
                 mDragging.gameObject.SetActive(false);
+                mLevelManager.pCustomerWaitingOrMoving = false;
             }
         }
         mDragging.transform.position = mDraggedStartPosition;

@@ -35,11 +35,7 @@ public class LevelManager : MonoBehaviour
         pCharacters[0].pID = 1;
         pCharacters[1].pID = 2;
         Table[] tempTables = FindObjectsOfType<Table>();
-        pTables = new Table[tempTables.Length];
-        for (int i = 0; i < tempTables.Length; i++)
-        {
-            pTables[i] = tempTables.First(p => p.pID == i);
-        }
+
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
         {
@@ -54,6 +50,12 @@ public class LevelManager : MonoBehaviour
         foreach (GameObject food in pFood)
         {
             food.SetActive(false);
+        }
+
+        pTables = new Table[tempTables.Length];
+        for (int i = 0; i < tempTables.Length; i++)
+        {
+            pTables[i] = tempTables.First(p => p.pID == i);
         }
     }
 
@@ -91,6 +93,15 @@ public class LevelManager : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException("amount");
         }
+    }
+
+    public void tempSpawnCustomers()
+    {
+        SpawnCustomers(2);
+        mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); //give parameters public
+        NET_EventCall eventCall = new NET_EventCall("NewCustomer");
+        eventCall.SetParam("Amount", 2);
+        GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
     }
 
     public bool CanCarry(eCarryableType type)
@@ -148,19 +159,21 @@ public class LevelManager : MonoBehaviour
                 break;
             case eCarryableType.Pizza:
                 temp = pFood.First(p => p.activeSelf == false);
+                temp.SetActive(true);
                 temp.transform.GetChild(0).gameObject.SetActive(false);
-                temp.transform.GetChild(0).gameObject.SetActive(true);
+                temp.transform.GetChild(1).gameObject.SetActive(true);
                 break;
             case eCarryableType.Pasta:
                 temp = pFood.First(p => p.activeSelf == false);
+                temp.SetActive(true);
                 temp.transform.GetChild(0).gameObject.SetActive(true);
-                temp.transform.GetChild(0).gameObject.SetActive(false);
+                temp.transform.GetChild(1).gameObject.SetActive(false);
                 break;
             case eCarryableType.Customer:
                 pCustomer[0].SetActive(true);
                 break;
             case eCarryableType.Dishes:
-                pPlates.First(p=>p.activeSelf==false).SetActive(true);
+                pPlates.First(p => p.activeSelf == false).SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException("type", type, null);

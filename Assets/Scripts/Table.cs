@@ -9,9 +9,10 @@ public class Table : MonoBehaviour
 {
     public eTableState pState;
     public int pID;
-    public int? pPlayerID;
+    public int pPlayerID;
     public int pSize;
     public float pNextState;
+    public GameObject pTempOrderPanel;
     private Character mCharacter;
     private LevelManager mLevelManager;
     private bool mIsHost;
@@ -83,32 +84,39 @@ public class Table : MonoBehaviour
             case eTableState.Free:
                 transform.GetChild(0).gameObject.SetActive(false);
                 transform.GetChild(1).gameObject.SetActive(false);
-                pPlayerID = null;
+                pPlayerID = -1;
                 break;
             case eTableState.ReadingMenu:
                 transform.GetChild(1).gameObject.SetActive(true);
-                pNextState = Time.timeSinceLevelLoad + 4;
+                pNextState = Time.timeSinceLevelLoad + 8;
                 break;
             case eTableState.WaitingForOrder:
                 //TODO: ungeduld
-
+                pTempOrderPanel.SetActive(true);
+                pTempOrderPanel.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                pTempOrderPanel.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
                 break;
             case eTableState.WaitingForFood:
                 //TODO: ungeduld
+                pTempOrderPanel.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                pTempOrderPanel.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
                 break;
             case eTableState.Eating:
+                pTempOrderPanel.SetActive(false);
+                transform.GetChild(0).gameObject.SetActive(true);
+                transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
                 switch (type)
                 {
                     case eCarryableType.Pizza:
-                        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
                         break;
                     case eCarryableType.Pasta:
-                        transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+                        transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException("type");
                 }
-                pNextState = Time.timeSinceLevelLoad + 4;
+                pNextState = Time.timeSinceLevelLoad + 8;
                 break;
             case eTableState.WaitingForClean:
                 transform.GetChild(0).GetChild(0).gameObject.SetActive(true);

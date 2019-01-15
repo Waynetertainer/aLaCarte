@@ -15,10 +15,14 @@ namespace Assets.Scripts
         public int pID;
 
         private NavMeshAgent mAgent;
+        private Animator mAnimator;
+        private Vector3 mLastPosition;
+        private float mSpeed;
 
         private void Start()
         {
             mAgent = GetComponent<NavMeshAgent>();
+            mAnimator = transform.GetChild(0).GetComponent<Animator>();
             mAgent.destination = pTarget.position;
         }
 
@@ -30,6 +34,14 @@ namespace Assets.Scripts
         public void SetTargetPosition(Vector3 position)
         {
             mAgent.destination = position;
+        }
+
+        private void Update()
+        {
+            mSpeed = Mathf.Lerp(mSpeed, (transform.position - mLastPosition).magnitude / Time.deltaTime, 0.75f);
+            mLastPosition = transform.position;
+
+            mAnimator.SetInteger("Walk", Mathf.RoundToInt(mSpeed));
         }
     }
 }

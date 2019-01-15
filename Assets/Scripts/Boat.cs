@@ -1,31 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Boat : MonoBehaviour
 {
-    public float pDistanceToTarget;
+    public int pFirstTarget;
+    public float pSpeed;
+    public float pActivatonDistance;
 
-
-    private NavMeshAgent mAgent;
+    public Transform[] pAnchors = new Transform[2];
     public Transform[] pDestinations = new Transform[8];
     private int mActiveDestination;
+    private Transform mNextTarget;
+    private Food mFood;
 
-    // Use this for initialization
-	void Start () {
-        mAgent = GetComponent<NavMeshAgent>();
-	    mAgent.destination = pDestinations[mActiveDestination % pDestinations.Length].position;
+    void Start()
+    {
+        mActiveDestination = pFirstTarget;
+        mNextTarget = pDestinations[pFirstTarget % pDestinations.Length];
+        mFood = GetComponentInChildren<Food>();
     }
 
-    // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        if (Mathf.Sqrt(Mathf.Pow(transform.position.z-mAgent.destination.z,2)+ Mathf.Pow(transform.position.x - mAgent.destination.x, 2)) <= pDistanceToTarget)
+        //Debug.Log(transform.position);
+        mFood.enabled = pAnchors.Any(t => Vector3.Distance(t.position, transform.position) <= pActivatonDistance);
+
+        if (Vector3.Distance(transform.position, mNextTarget.position) <= 0.5f)
         {
-            mActiveDestination++;
-            mAgent.destination = pDestinations[mActiveDestination%pDestinations.Length].position;
+            mNextTarget = pDestinations[mActiveDestination++ % pDestinations.Length];
         }
-	}
+        transform.position = Vector3.MoveTowards(transform.position, mNextTarget.position, pSpeed * Time.deltaTime);
+        Vector3 AimAt = mNextTarget.transform.position;
+        AimAt.x -= transform.position.x;
+        AimAt.z -= transform.position.z;
+
+        float angle = (Mathf.Atan2(AimAt.x, AimAt.z) * Mathf.Rad2Deg);
+        if (angle < 0)
+        {
+            angle += 360;
+        }
+        transform.rotation = Quaternion.Euler(0, angle, 0);
+    }
 }
