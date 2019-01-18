@@ -1,21 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts;
-using NET_System;
+﻿using Assets.Scripts;
 using UnityEngine;
 
 public class Food : MonoBehaviour
 {
     public float pTempInteractionDistance;
-    public eCarryableType pFoodtype;
-    public int pFoodTypeInt;
+    public eFood pFood;
 
     private Character mCharacter;
     private LevelManager mLevelManager;
 
     private void Start()
     {
-        pFoodtype = (eCarryableType)pFoodTypeInt;
         mLevelManager = GameManager.pInstance.pLevelManager;
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
     }
@@ -38,16 +33,16 @@ public class Food : MonoBehaviour
         //}
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity) && (Input.GetMouseButtonDown(0)))//|| Input.touches[0].phase == TouchPhase.Began))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity) && (Input.GetMouseButtonDown(0)))//TODO check distance
         {
-            if (hit.collider.gameObject == this.gameObject)
+            if (hit.collider.gameObject == gameObject)
             {
-                Debug.Log("Hit");
-                if (mLevelManager.CanCarry((eCarryableType)pFoodTypeInt))
-                {
-                    GameManager.pInstance.pLevelManager.ChangeCarry((eCarryableType)pFoodTypeInt);
+                mLevelManager.TryCarry(eCarryableType.Food, pFood);
 
-                }
+                //if (mLevelManager.CanCarry((eCarryableType)pFoodTypeInt))
+                // {
+                //     GameManager.pInstance.pLevelManager.ChangeCarry((eCarryableType)pFoodTypeInt);
+                // }
             }
         }
     }

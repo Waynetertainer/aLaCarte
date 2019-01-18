@@ -1,7 +1,8 @@
 ﻿
 public enum NetworkStatus { Disconnected, Client, Server, ListeningUDP };
 public enum Level { Level_Venedig, Level_Rom}
-public enum eDishes
+
+public enum eFood
 {
     None,
     Pizza,
@@ -28,9 +29,8 @@ public enum eStatisfaction
 
 public enum eCarryableType
 {
-    Empty,
-    Pizza,
-    Pasta,
+    //Empty,
+    Food,
     Customer,
     Dishes
 }

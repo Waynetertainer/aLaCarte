@@ -9,5 +9,6 @@ namespace Assets.Scripts
     class Carryable:MonoBehaviour
     {
         public eCarryableType pType;
+        public eFood pFood;
     }
 }

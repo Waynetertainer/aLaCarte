@@ -23,14 +23,17 @@ public class Customer : MonoBehaviour
         if(Input.GetMouseButton(0))//TODO touch input
         {
             if (Input.GetMouseButtonDown(0) &&
-                Vector3.Distance(transform.position, mCharacter.transform.position) <= pTempInteractionDistance &&
-                mLevelManager.CanCarry(eCarryableType.Customer))
+                Vector3.Distance(transform.position, mCharacter.transform.position) <= pTempInteractionDistance)
+                //&& mLevelManager.CanCarry(eCarryableType.Customer))
             {
-                NET_EventCall eventCall = new NET_EventCall("CustomerTaken");
-                eventCall.SetParam("PlayerID", mCharacter.pID);
-                GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-                GameManager.pInstance.pLevelManager.ChangeCarry(eCarryableType.Customer);
-                gameObject.SetActive(false);
+                if (mLevelManager.TryCarry(eCarryableType.Customer))
+                {
+                    NET_EventCall eventCall = new NET_EventCall("CustomerTaken");
+                    eventCall.SetParam("PlayerID", mCharacter.pID);
+                    GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+                    //GameManager.pInstance.pLevelManager.ChangeCarry(eCarryableType.Customer);
+                    gameObject.SetActive(false);
+                }
             }
         }
     }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using NET_Messages;
+﻿using NET_Multiplayer_V3;
 using NET_System;
-using UnityEngine;
-using NET_Multiplayer_V3;
+using System;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -14,7 +12,7 @@ public class GameManager : MonoBehaviour
 {
 
     public NET_Main NetMain;
-    public string pServerName = "Default Name";
+    public string pServerName = "aLaCarte";
     public GameObject pServerSelectionPanel;
     public GameObject pButtonPrefab;
     public TextMeshProUGUI pInfoText;
@@ -32,6 +30,7 @@ public class GameManager : MonoBehaviour
     private Level level;
 
     private List<bool> playerReady = new List<bool>() { false, false };
+    public DateTime pLevelStart;
 
     public static GameManager pInstance;
 
@@ -41,17 +40,17 @@ public class GameManager : MonoBehaviour
     public Sprite[] pEmotionSprites = new Sprite[4];
     public Sprite[] pDollarSprites = new Sprite[3];
 
+
     private void Awake()
     {
         if (pInstance == null)
-
+        {
             pInstance = this;
-
-
+        }
         else if (pInstance != this)
-
+        {
             Destroy(gameObject);
-
+        }
         DontDestroyOnLoad(gameObject);
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
@@ -82,6 +81,7 @@ public class GameManager : MonoBehaviour
                 if (SceneManager.GetActiveScene().name == "MainMenu")
                 {
                     StartGame();
+
                 }
             }
         }
@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
         {
             HandleEvents();
             NetMain.NET_Update();
+
         }
 
         if (mStatus == NetworkStatus.ListeningUDP && Time.timeSinceLevelLoad >= nextCheck)
@@ -111,6 +112,7 @@ public class GameManager : MonoBehaviour
             switch (eventCall.GetEventName())
             {
                 case ("StartGame"):
+                    pLevelStart = (DateTime)eventCall.GetParam("StartTime");
                     SceneManager.LoadScene(level.ToString());
                     break;
                 case ("PlayerReadyChange"):
@@ -172,7 +174,7 @@ public class GameManager : MonoBehaviour
                         case eTableState.Eating:
                             tableID = (int)eventCall.GetParam("TableID");
                             //pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
-                            pLevelManager.pTables[tableID].SetTableState(eTableState.Eating, (eCarryableType)eventCall.GetParam("Carryable"));
+                            pLevelManager.pTables[tableID].SetTableState(eTableState.Eating, (eFood)eventCall.GetParam("Carryable"));
                             break;
                         case eTableState.WaitingForClean:
                             tableID = (int)eventCall.GetParam("TableID");
@@ -238,7 +240,6 @@ public class GameManager : MonoBehaviour
     }
 
     #region ServerRegion
-
     public void HostGame()
     {
         if (NetMain != null) return;
@@ -247,6 +248,7 @@ public class GameManager : MonoBehaviour
         mStatus = NetworkStatus.Server;
         ChangeCanvas(1);
     }
+
     public void SendLobbyData()
     {
 
@@ -268,13 +270,13 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        NetMain.NET_CallEvent(new NET_EventCall("StartGame"));
+        DateTime temp = pLevelStart = DateTime.Now + new TimeSpan(0, 0, 10);
+        NET_EventCall eventCall = new NET_EventCall("StartGame");
+        eventCall.SetParam("StartTime", temp);
+        NetMain.NET_CallEvent(eventCall);
+
         SceneManager.LoadScene(level.ToString());
     }
-
-
-
-
     #endregion
 
     #region ClientRegion
@@ -320,7 +322,7 @@ public class GameManager : MonoBehaviour
 
     public void SendReadyStatus()
     {
-        pReady.transform.GetChild(1).GetComponent<Text>().text = pReady.isOn.ToString();
+        //pReady.transform.GetChild(1).GetComponent<Text>().text = pReady.isOn.ToString();
         NET_EventCall eventCall = new NET_EventCall("PlayerReadyChange");
         eventCall.SetParam("PlayerID", NetMain.NET_GetPlayerID());
         eventCall.SetParam("Ready", pReady.isOn);

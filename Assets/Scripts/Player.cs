@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private NavMeshAgent mAgent;
     private float mTimeLeaving;
 
-    private eDishes mFood;
+    private eFood mFood;
 
     //private void Start()
     //{
@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
     //                                if (Time.timeSinceLevelLoad >= mTimeLeaving)
     //                                {
     //                                    targetTable.StartEating();
-    //                                    mFood = eDishes.None;
+    //                                    mFood = eFood.None;
     //                                    transform.GetChild(0).gameObject.SetActive(false);
     //                                    pDestinations.Pop();
     //                                    pOccupied = false;
