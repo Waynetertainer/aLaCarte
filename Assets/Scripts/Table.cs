@@ -120,6 +120,7 @@ public class Table : MonoBehaviour
                 break;
             case eTableState.Eating:
                 pTempOrderPanel.SetActive(false);
+                mPanel.SetActive(false);
                 transform.GetChild(0).gameObject.SetActive(true);
                 transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
                 switch (food)
