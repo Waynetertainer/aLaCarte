@@ -31,10 +31,11 @@ public class Anchor : MonoBehaviour
             }
         }
 #else
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !mLevelManager.pDragging)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9))
             {
                 transform.position = hit.point + new Vector3(0, 1, 0);
@@ -60,7 +61,7 @@ public class Anchor : MonoBehaviour
         eventCall.SetParam("PositionY", transform.position.y);
         eventCall.SetParam("PositionZ", transform.position.z);
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-        Debug.Log("sending " + transform.position + " for player " + (playerID - 1));
+        //Debug.Log("sending " + transform.position + " for player " + (playerID - 1));
         mLevelManager.pNavMeshTargets[playerID - 1].transform.position = transform.position;
         mLevelManager.pCharacters[playerID - 1].SetTargetPosition(transform.position);
         mLevelManager.pCharacters[playerID - 1].Move(true);
