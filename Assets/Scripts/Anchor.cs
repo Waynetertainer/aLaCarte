@@ -36,7 +36,7 @@ public class Anchor : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9) && mLevelManager.pIsPlaying)
             {
                 transform.position = hit.point + new Vector3(0, 1, 0);
                 SendPosition();
@@ -45,7 +45,7 @@ public class Anchor : MonoBehaviour
         }
         else
         {
-            if (mSendedStop) return;
+            if (mSendedStop||!mLevelManager.pIsPlaying) return;
             SendStop();
             mSendedStop = true;
         }
@@ -61,7 +61,6 @@ public class Anchor : MonoBehaviour
         eventCall.SetParam("PositionY", transform.position.y);
         eventCall.SetParam("PositionZ", transform.position.z);
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-        //Debug.Log("sending " + transform.position + " for player " + (playerID - 1));
         mLevelManager.pNavMeshTargets[playerID - 1].transform.position = transform.position;
         mLevelManager.pCharacters[playerID - 1].SetTargetPosition(transform.position);
         mLevelManager.pCharacters[playerID - 1].Move(true);

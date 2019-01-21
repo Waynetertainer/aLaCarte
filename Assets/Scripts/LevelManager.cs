@@ -3,6 +3,7 @@ using NET_System;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
@@ -18,7 +19,6 @@ public class LevelManager : MonoBehaviour
     public GameObject pWaitingCustomer;
     public Text pTimer;
 
-    public bool pCustomerWaitingOrMoving;
     public bool pDragging;
 
     public Table[] pTables;
@@ -78,28 +78,36 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                //end game , maybe set a bool, deactivate nav mesh etc
-                //evaluate
+                pIsPlaying = false;
+                foreach (Character character in pCharacters)
+                {
+                    //character.GetComponent<NavMeshAgent>().enabled = false;
+                    character.GetComponent<NavMeshAgent>().isStopped = true;
+                }
+                foreach (Table table in pTables)
+                {
+                    table.enabled = false;
+                }
+                pCustomer[0].transform.parent.parent.gameObject.SetActive(false);
                 Debug.Log("GameEnds");
             }
         }
         else
         {
-            //count down negative
+            TimeSpan temp = GameManager.pInstance.pLevelStart - DateTime.Now;
+            pTimer.text = temp.Minutes.ToString() + ":" + temp.Seconds.ToString().PadLeft(2, '0');
+
         }
 
         if (!pIsHost) return;
-        if (Time.timeSinceLevelLoad >= mNextCustomer)
+        if (Time.timeSinceLevelLoad >= mNextCustomer && pTables.Any(p => p.pState == eTableState.Free))
         {
-            if (pTables.Any(p => p.pState == eTableState.Free) && !pCustomerWaitingOrMoving)
-            {
-                int amount = pTables.Any(p => p.pSize == 4) ? 4 : 2;
-                SpawnCustomers(amount);
-                mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); //give parameters public
-                NET_EventCall eventCall = new NET_EventCall("NewCustomer");
-                eventCall.SetParam("Amount", amount);
-                GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-            }
+            int amount = pTables.Any(p => p.pSize == 4) ? 4 : 2;
+            SpawnCustomers(amount);
+            mNextCustomer = Time.timeSinceLevelLoad + GameManager.pInstance.pRandom.Next(2, 10); //TODO give parameters public
+            NET_EventCall eventCall = new NET_EventCall("NewCustomer");
+            eventCall.SetParam("Amount", amount);
+            GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
         }
     }
 
@@ -109,10 +117,8 @@ public class LevelManager : MonoBehaviour
         {
             case 2:
                 pWaitingCustomer.gameObject.SetActive(true);
-                pCustomerWaitingOrMoving = true;
                 break;
             case 4:
-                pCustomerWaitingOrMoving = true;
                 pWaitingCustomer.gameObject.SetActive(true);
                 break;
             default:

@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
                         case eTableState.Eating:
                             tableID = (int)eventCall.GetParam("TableID");
                             //pLevelManager.pTables[tableID].pPlayerID = (int)eventCall.GetParam("PlayerID");
-                            pLevelManager.pTables[tableID].SetTableState(eTableState.Eating, (eFood)eventCall.GetParam("Carryable"));
+                            pLevelManager.pTables[tableID].SetTableState(eTableState.Eating, (eFood[])eventCall.GetParam("Food"));
                             break;
                         case eTableState.WaitingForClean:
                             tableID = (int)eventCall.GetParam("TableID");
