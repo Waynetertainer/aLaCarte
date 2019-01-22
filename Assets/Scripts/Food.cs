@@ -8,9 +8,11 @@ public class Food : MonoBehaviour
 
     private Character mCharacter;
     private LevelManager mLevelManager;
+    private Transform mDispensePoint;
 
     private void Start()
     {
+        mDispensePoint = transform.GetChild(0);
         mLevelManager = GameManager.pInstance.pLevelManager;
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
     }
@@ -31,19 +33,22 @@ public class Food : MonoBehaviour
         //        //gameObject.SetActive(false);
         //    }
         //}
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity) && (Input.GetMouseButtonDown(0)))//TODO check distance
-        {
-            if (hit.collider.gameObject == gameObject)
-            {
-                mLevelManager.TryCarry(eCarryableType.Food, pFood);
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hit;
+        //if (Physics.Raycast(ray, out hit, Mathf.Infinity) && (Input.GetMouseButtonDown(0)))//TODO check distance
+        //{
+        //    if (hit.collider.gameObject == gameObject)
+        //    {
+        //        mLevelManager.TryCarry(eCarryableType.Food, pFood);
+        //    }
+        //}
+    }
 
-                //if (mLevelManager.CanCarry((eCarryableType)pFoodTypeInt))
-                // {
-                //     GameManager.pInstance.pLevelManager.ChangeCarry((eCarryableType)pFoodTypeInt);
-                // }
-            }
+    private void OnMouseDown()
+    {
+        if (enabled && Vector3.Distance(mDispensePoint.position, mCharacter.transform.position) <= pTempInteractionDistance)
+        {
+            mLevelManager.TryCarry(eCarryableType.Food, pFood);
         }
     }
 }

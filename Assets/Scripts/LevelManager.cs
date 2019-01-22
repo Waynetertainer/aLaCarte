@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
         pCharacters[1].pID = 2;
         Table[] tempTables = FindObjectsOfType<Table>();
         mGameEnd = GameManager.pInstance.pLevelStart + new TimeSpan(0, 0, 240);
+         pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID()-1].SetDecal(true);
 
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
@@ -81,15 +82,13 @@ public class LevelManager : MonoBehaviour
                 pIsPlaying = false;
                 foreach (Character character in pCharacters)
                 {
-                    //character.GetComponent<NavMeshAgent>().enabled = false;
-                    character.GetComponent<NavMeshAgent>().isStopped = true;
+                    character.Move(false);
                 }
                 foreach (Table table in pTables)
                 {
                     table.enabled = false;
                 }
                 pCustomer[0].transform.parent.parent.gameObject.SetActive(false);
-                Debug.Log("GameEnds");
             }
         }
         else
