@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Table : MonoBehaviour
 {
     public eTableState pState;
+    public eCustomers pCustomer;
     public int pID;
     public int pPlayerID;
     public int pSize;
@@ -22,6 +23,7 @@ public class Table : MonoBehaviour
     private bool mIsHost;
     private GameObject mPanel;
     private GameObject[] mDecals;
+    private float mTip;
 
     private void Start()
     {
@@ -105,8 +107,8 @@ public class Table : MonoBehaviour
                     if (mLevelManager.TryCarry(eCarryableType.Dishes))
                     {
                         DelegateTableState(eTableState.Free);
+                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;
                     }
-                    //TODO AddMoney
                 }
                 break;
             default:
@@ -154,6 +156,17 @@ public class Table : MonoBehaviour
             case eTableState.ReadingMenu:
                 transform.GetChild(1).gameObject.SetActive(true);
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pReadingMenuTime;
+                switch (pCustomer)
+                {
+                    case eCustomers.Normal:
+                        mTip = mLevelManager.pNormalCustomerMultiplicator * pSize;
+                        break;
+                    case eCustomers.Snob:
+                        mTip = mLevelManager.pSnobCustomerMultiplicator * pSize;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 break;
             case eTableState.WaitingForOrder:
                 //TODO: ungeduld
@@ -189,7 +202,6 @@ public class Table : MonoBehaviour
                 for (int i = 0; i < pSize; i++)
                 {
                     transform.GetChild(0).GetChild(i).GetChild(0).gameObject.SetActive(true);
-
                 }
                 break;
             default:

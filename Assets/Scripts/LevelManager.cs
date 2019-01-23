@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts;
 using NET_System;
 using System;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,25 +22,31 @@ public class LevelManager : MonoBehaviour
 
     public int pCustomerRespawnTimeMin;
     public int pCustomerRespawnTimeMax;
+
+    public float pNormalCustomerMultiplicator;
+    public float pSnobCustomerMultiplicator;
     [Space(20)]
     [Header("Scene Objects")]
     [Space(20)]
+    public GameObject pWaitingCustomer;
+    public Text pTimer;
+    public Text pOwnScoreText;
+    public Text pOtherScoreText;
     public GameObject[] pNavMeshTargets = new GameObject[2];
     public Character[] pCharacters = new Character[2];
     public GameObject[][] pCarryableObjects = new GameObject[3][];
     public GameObject[] pFood = new GameObject[4];
     public GameObject[] pPlates = new GameObject[2];
     public GameObject[] pCustomer = new GameObject[1];
-    public GameObject pWaitingCustomer;
-    public Text pTimer;
     public Table[] pTables;
     public Food[] pFoodDispensers;
 
     [HideInInspector] public bool pDragging;
     [HideInInspector] public bool pIsHost;
     [HideInInspector] public bool pIsPlaying;
+    [HideInInspector] public float[] pScores=new float[2];
 
-    private float mNextCustomer; //TODO make GD
+    private float mNextCustomer;
     private DateTime mGameEnd;
 
     private void Start()
@@ -80,6 +87,9 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
+        pOwnScoreText.text = pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C",new CultureInfo("de-DE"));
+        pOtherScoreText.text = pScores[(GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)%1].ToString("N2");
+
         if (DateTime.Now >= GameManager.pInstance.pLevelStart)
         {
             TimeSpan temp = mGameEnd - DateTime.Now;

@@ -16609,10 +16609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f928323464da3e246afe097ca6f95f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pTempInteractionDistance: 2
   pFood: 1
   pReactivationTime: 0
-  pReactivationTimeSpan: 2
   pDistanceInteractable: 0
 --- !u!65 &417606688
 BoxCollider:
@@ -24423,7 +24421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2732c2ce80d462b4d85d9d0487dbf727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pTempInteractionDistance: 2
 --- !u!1001 &587617515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24824,10 +24821,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f928323464da3e246afe097ca6f95f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pTempInteractionDistance: 2
   pFood: 2
   pReactivationTime: 0
-  pReactivationTimeSpan: 2
   pDistanceInteractable: 0
 --- !u!65 &627940791
 BoxCollider:
@@ -37656,7 +37651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f62ea3367577e4e93183fdd522c426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pActivatonDistance: 2
   pAnchors:
   - {fileID: 1522366348}
   - {fileID: 1203005937}
@@ -42998,7 +42992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f62ea3367577e4e93183fdd522c426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pActivatonDistance: 2
   pAnchors:
   - {fileID: 1522366348}
   - {fileID: 1203005937}
@@ -44565,6 +44558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pState: 0
+  pCustomer: 0
   pID: 0
   pPlayerID: 0
   pSize: 2
@@ -79167,6 +79161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pState: 0
+  pCustomer: 0
   pID: 3
   pPlayerID: 0
   pSize: 4
@@ -80701,6 +80696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pState: 0
+  pCustomer: 0
   pID: 1
   pPlayerID: 0
   pSize: 2
@@ -91277,6 +91273,30 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2139455093 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1597662726, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2139455094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1696783113, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2140738468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4041096326007188, guid: 0ea696237869f6945a5b46e3eb4c72ee,
@@ -96641,6 +96661,16 @@ PrefabInstance:
       propertyPath: pTimer
       value: 
       objectReference: {fileID: 2139455092}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pOwnScoreText
+      value: 
+      objectReference: {fileID: 2139455094}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pOtherScoreText
+      value: 
+      objectReference: {fileID: 2139455093}
     - target: {fileID: 5357246456952870639, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: m_LocalPosition.x
