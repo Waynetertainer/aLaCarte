@@ -34,3 +34,9 @@ public enum eCarryableType
     Customer,
     Dishes
 }
+
+public enum eCustomers
+{
+    Normal,
+    Snob
+}
