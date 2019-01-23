@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour
         {
             int amount = pTables.Any(p => p.pSize == 4) ? 4 : 2;
             SpawnCustomers(amount);
-            mNextCustomer = Time.timeSinceLevelLoad + GameManager.pInstance.pRandom.Next(pCustomerRespawnTimeMin, pCustomerRespawnTimeMax); //TODO GD
+            mNextCustomer = Time.timeSinceLevelLoad + GameManager.pInstance.pRandom.Next(pCustomerRespawnTimeMin, pCustomerRespawnTimeMax);
             NET_EventCall eventCall = new NET_EventCall("NewCustomer");
             eventCall.SetParam("Amount", amount);
             GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
@@ -140,14 +140,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void tempSpawnCustomers()
-    {
-        SpawnCustomers(2);
-        mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); //TODO GD
-        NET_EventCall eventCall = new NET_EventCall("NewCustomer");
-        eventCall.SetParam("Amount", 2);
-        GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-    }
+    //public void tempSpawnCustomers()
+    //{
+    //    SpawnCustomers(2);
+    //    mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); 
+    //    NET_EventCall eventCall = new NET_EventCall("NewCustomer");
+    //    eventCall.SetParam("Amount", 2);
+    //    GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+    //}
 
     public bool TryCarry(eCarryableType type, eFood? food = null)
     {

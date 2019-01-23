@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    public float pTempInteractionDistance;//TODO GD
     public eFood pFood;
     public float pReactivationTime;
-    public float pReactivationTimeSpan = 2;//TODO GD
     public bool pDistanceInteractable;
 
     private bool mTimeInteractable;
@@ -36,7 +34,7 @@ public class Food : MonoBehaviour
     private void OnMouseDown()
     {
         if (!mTimeInteractable || !pDistanceInteractable ||
-            !(Vector3.Distance(mDispensePoint.position, mCharacter.transform.position) <= pTempInteractionDistance) ||
+            !(Vector3.Distance(mDispensePoint.position, mCharacter.transform.position) <= mLevelManager.pFoodInteractionDistance) ||
             !mLevelManager.TryCarry(eCarryableType.Food, pFood)) return;
         NET_EventCall eventCall = new NET_EventCall("FoodTaken");
         eventCall.SetParam("FoodType", pFood);
@@ -47,6 +45,6 @@ public class Food : MonoBehaviour
     public void SetInteractable()
     {
         mTimeInteractable = false;
-        pReactivationTime = Time.timeSinceLevelLoad + pReactivationTimeSpan;
+        pReactivationTime = Time.timeSinceLevelLoad + mLevelManager.pFoodDeactivationTime;
     }
 }
