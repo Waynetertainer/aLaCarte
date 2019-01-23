@@ -1,31 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
+﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Boat : MonoBehaviour
 {
-    public float pDistanceToTarget;
+    public Transform[] pAnchors = new Transform[2];
 
+    private Food mFood;
+    private LevelManager mLevelManager;
 
-    private NavMeshAgent mAgent;
-    public Transform[] pDestinations = new Transform[8];
-    private int mActiveDestination;
-
-    // Use this for initialization
-	void Start () {
-        mAgent = GetComponent<NavMeshAgent>();
-	    mAgent.destination = pDestinations[mActiveDestination % pDestinations.Length].position;
+    private void Start()
+    {
+        mFood = GetComponentInChildren<Food>();
+        mLevelManager = GameManager.pInstance.pLevelManager;
     }
 
-    // Update is called once per frame
-    void Update ()
+    private void Update()
     {
-        if (Mathf.Sqrt(Mathf.Pow(transform.position.z-mAgent.destination.z,2)+ Mathf.Pow(transform.position.x - mAgent.destination.x, 2)) <= pDistanceToTarget)
-        {
-            mActiveDestination++;
-            mAgent.destination = pDestinations[mActiveDestination%pDestinations.Length].position;
-        }
-	}
+        mFood.pDistanceInteractable = pAnchors.Any(t => Vector3.Distance(t.position, transform.position) <= mLevelManager.pBoatInteractionDistance);
+    }
 }
