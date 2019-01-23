@@ -22,6 +22,7 @@ public class Table : MonoBehaviour
     private LevelManager mLevelManager;
     private bool mIsHost;
     private GameObject mPanel;
+    private GameObject[] mDecals;
 
     private void Start()
     {
@@ -32,8 +33,14 @@ public class Table : MonoBehaviour
         mPanel.SetActive(false);
         mLevelManager = GameManager.pInstance.pLevelManager;
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
-        SetTableState(eTableState.Free);
         mIsHost = mLevelManager.pIsHost;
+        mDecals = new GameObject[pSize];
+        for (int i = 0; i < transform.GetChild(1).childCount; i++)
+        {
+            mDecals[i] = transform.GetChild(1).GetChild(i).GetChild(1).gameObject;
+            mDecals[i].SetActive(false);
+        }
+        SetTableState(eTableState.Free);
     }
 
     private void Update()
@@ -51,22 +58,6 @@ public class Table : MonoBehaviour
 
                 break;
             case eTableState.WaitingForOrder:
-                if (Input.GetMouseButtonDown(0) &&
-                    Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO make fpr GD
-                {
-                    mPanel.SetActive(true);
-                    for (int i = 0; i < pSize; i++)
-                    {
-                        int foodIdentifier = GameManager.pInstance.pRandom.Next(2) + 1;
-                        pOrders[i] = (eFood)foodIdentifier;
-                        mPanel.transform.GetChild(i).gameObject.SetActive(true);
-                        mPanel.transform.GetChild(i).GetComponent<Image>().sprite = pFoodImages[foodIdentifier - 1];
-                    }
-
-                    // Show Order
-                    DelegateTableState(eTableState.WaitingForFood);
-                }
-
                 break;
             case eTableState.WaitingForFood:
                 break;
@@ -76,20 +67,50 @@ public class Table : MonoBehaviour
                 {
                     DelegateTableState(eTableState.WaitingForClean);
                 }
-
                 break;
             case eTableState.WaitingForClean:
-                if (Input.GetMouseButtonDown(0) &&
-                    Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO make fpr GD
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        switch (pState)
+        {
+            case eTableState.Free:
+                break;
+            case eTableState.ReadingMenu:
+                break;
+            case eTableState.WaitingForOrder:
+                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO make fpr GD
+                {
+                    mPanel.SetActive(true);
+                    for (int i = 0; i < pSize; i++)
+                    {
+                        int foodIdentifier = GameManager.pInstance.pRandom.Next(2) + 1;
+                        pOrders[i] = (eFood)foodIdentifier;
+                        mPanel.transform.GetChild(i).gameObject.SetActive(true);
+                        mPanel.transform.GetChild(i).GetComponent<Image>().sprite = pFoodImages[foodIdentifier - 1];
+                    }
+                    // Show Order
+                    DelegateTableState(eTableState.WaitingForFood);
+                }
+                break;
+            case eTableState.WaitingForFood:
+                break;
+            case eTableState.Eating:
+                break;
+            case eTableState.WaitingForClean:
+                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO make fpr GD
                 {
                     if (mLevelManager.TryCarry(eCarryableType.Dishes))
                     {
                         DelegateTableState(eTableState.Free);
                     }
-
                     //TODO AddMoney
                 }
-
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -104,6 +125,20 @@ public class Table : MonoBehaviour
 
     public void SetTableState(eTableState state, eFood[] food = null)
     {
+        if (state == eTableState.Free)
+        {
+            foreach (GameObject decal in mDecals)
+            {
+                decal.SetActive(false);
+            }
+        }
+        else if (pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
+        {
+            foreach (GameObject decal in mDecals)
+            {
+                decal.SetActive(true);
+            }
+        }
         pState = state;
         switch (state)
         {
@@ -116,7 +151,6 @@ public class Table : MonoBehaviour
                         transform.GetChild(0).GetChild(j).GetChild(i).gameObject.SetActive(false);
                     }
                 }
-
                 transform.GetChild(1).gameObject.SetActive(false);
                 pPlayerID = -1;
                 break;
@@ -196,6 +230,7 @@ public class Table : MonoBehaviour
         {
             case eCarryableType.Customer:
                 if (pState != eTableState.Free) return false;
+                pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
                 DelegateTableState(eTableState.ReadingMenu);
                 return true;
             case eCarryableType.Food:
@@ -203,6 +238,7 @@ public class Table : MonoBehaviour
                 for (int i = 0; i < pOrders.Length; i++)
                 {
                     if (pOrders[i] != food) continue;
+                    pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
                     pFood[i] = pOrders[i];
                     pOrders[i] = eFood.None;
                     mPanel.transform.GetChild(i).gameObject.SetActive(false);
@@ -210,14 +246,11 @@ public class Table : MonoBehaviour
                     {
                         DelegateTableState(eTableState.Eating, pFood);
                     }
-
                     //TODO adjust panel
                     return true;
                 }
-
                 return false;
         }
-
         return false;
     }
 }

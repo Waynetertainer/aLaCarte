@@ -13,6 +13,7 @@ namespace Assets.Scripts
 
         public Transform pTarget;
         public int pID;
+        public GameObject pDecal;
 
         private NavMeshAgent mAgent;
         private Animator mAnimator;
@@ -42,6 +43,11 @@ namespace Assets.Scripts
             mLastPosition = transform.position;
 
             mAnimator.SetInteger("Walk", Mathf.RoundToInt(mSpeed));
+        }
+
+        public void SetDecal(bool value)
+        {
+            pDecal.SetActive(value);
         }
     }
 }

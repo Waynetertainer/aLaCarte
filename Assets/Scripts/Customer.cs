@@ -15,26 +15,15 @@ public class Customer : MonoBehaviour
     private void Start()
     {
         mLevelManager = GameManager.pInstance.pLevelManager;
-        mCharacter =mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID()-1];
+        mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
     }
 
-    private void Update()
+    private void OnMouseDown()
     {
-        if(Input.GetMouseButton(0))//TODO touch input
-        {
-            if (Input.GetMouseButtonDown(0) &&
-                Vector3.Distance(transform.position, mCharacter.transform.position) <= pTempInteractionDistance)
-                //&& mLevelManager.CanCarry(eCarryableType.Customer))
-            {
-                if (mLevelManager.TryCarry(eCarryableType.Customer))
-                {
-                    NET_EventCall eventCall = new NET_EventCall("CustomerTaken");
-                    eventCall.SetParam("PlayerID", mCharacter.pID);
-                    GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-                    //GameManager.pInstance.pLevelManager.ChangeCarry(eCarryableType.Customer);
-                    gameObject.SetActive(false);
-                }
-            }
-        }
+        if (!(Vector3.Distance(transform.position, mCharacter.transform.position) <= pTempInteractionDistance) || !mLevelManager.TryCarry(eCarryableType.Customer)) return;
+        NET_EventCall eventCall = new NET_EventCall("CustomerTaken");
+        eventCall.SetParam("PlayerID", mCharacter.pID);
+        GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+        gameObject.SetActive(false);
     }
 }

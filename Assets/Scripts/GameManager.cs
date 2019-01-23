@@ -185,6 +185,9 @@ public class GameManager : MonoBehaviour
                             throw new ArgumentOutOfRangeException();
                     }
                     break;
+                case ("FoodTaken"):
+                    pLevelManager.
+                    break;
                 default:
                     Debug.Log("Cant handle packets");
                     break;
