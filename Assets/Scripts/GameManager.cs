@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case ("FoodTaken"):
-                    pLevelManager.
+                    
                     break;
                 default:
                     Debug.Log("Cant handle packets");
