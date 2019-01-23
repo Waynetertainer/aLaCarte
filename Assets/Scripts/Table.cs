@@ -13,7 +13,7 @@ public class Table : MonoBehaviour
     public int pID;
     public int pPlayerID;
     public int pSize;
-    public float pNextState;
+    public float pNextState;//TODO GD
     public GameObject pTempOrderPanel;
     public eFood[] pOrders;
     public eFood[] pFood;
@@ -51,7 +51,7 @@ public class Table : MonoBehaviour
                 break;
             case eTableState.ReadingMenu:
                 if (!mIsHost) return;
-                if (Time.timeSinceLevelLoad >= pNextState)
+                if (Time.timeSinceLevelLoad >= pNextState)//GD
                 {
                     DelegateTableState(eTableState.WaitingForOrder);
                 }
@@ -63,7 +63,7 @@ public class Table : MonoBehaviour
                 break;
             case eTableState.Eating:
                 if (!mIsHost) return;
-                if (Time.timeSinceLevelLoad >= pNextState)
+                if (Time.timeSinceLevelLoad >= pNextState)//GD
                 {
                     DelegateTableState(eTableState.WaitingForClean);
                 }
@@ -84,7 +84,7 @@ public class Table : MonoBehaviour
             case eTableState.ReadingMenu:
                 break;
             case eTableState.WaitingForOrder:
-                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO make fpr GD
+                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO GD
                 {
                     mPanel.SetActive(true);
                     for (int i = 0; i < pSize; i++)
@@ -94,7 +94,6 @@ public class Table : MonoBehaviour
                         mPanel.transform.GetChild(i).gameObject.SetActive(true);
                         mPanel.transform.GetChild(i).GetComponent<Image>().sprite = pFoodImages[foodIdentifier - 1];
                     }
-                    // Show Order
                     DelegateTableState(eTableState.WaitingForFood);
                 }
                 break;
@@ -103,7 +102,7 @@ public class Table : MonoBehaviour
             case eTableState.Eating:
                 break;
             case eTableState.WaitingForClean:
-                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO make fpr GD
+                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= 2) //TODO GD
                 {
                     if (mLevelManager.TryCarry(eCarryableType.Dishes))
                     {
@@ -156,7 +155,7 @@ public class Table : MonoBehaviour
                 break;
             case eTableState.ReadingMenu:
                 transform.GetChild(1).gameObject.SetActive(true);
-                pNextState = Time.timeSinceLevelLoad + 8;
+                pNextState = Time.timeSinceLevelLoad + 8;//TODO GD
                 break;
             case eTableState.WaitingForOrder:
                 //TODO: ungeduld
@@ -180,7 +179,7 @@ public class Table : MonoBehaviour
                     }
                 }
 
-                pNextState = Time.timeSinceLevelLoad + 8;
+                pNextState = Time.timeSinceLevelLoad + 8;//TODO GD
                 break;
             case eTableState.WaitingForClean:
                 for (int j = 0; j < transform.GetChild(0).childCount; j++)
@@ -246,7 +245,6 @@ public class Table : MonoBehaviour
                     {
                         DelegateTableState(eTableState.Eating, pFood);
                     }
-                    //TODO adjust panel
                     return true;
                 }
                 return false;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    public float pActivatonDistance;
+    public float pActivatonDistance;//TODO GD
     public Transform[] pAnchors = new Transform[2];
 
     private Food mFood;
@@ -15,6 +15,6 @@ public class Boat : MonoBehaviour
 
     private void Update()
     {
-        mFood.enabled = pAnchors.Any(t => Vector3.Distance(t.position, transform.position) <= pActivatonDistance);
+        mFood.pDistanceInteractable = pAnchors.Any(t => Vector3.Distance(t.position, transform.position) <= pActivatonDistance);
     }
 }

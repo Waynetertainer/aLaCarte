@@ -8,26 +8,39 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
+    [Header("Balancing Values")]
+    [Space(20)]
+    public float pTableInteractionDistance;
+    public float pCustomerInteractionDistance;
+    public float pBoatInteractionDistance;
+    public float pFoodInteractionDistance;
+
+    public float pFoodDeactivationTime;
+    public float pReadingMenuTime;
+    public float pEatingTime;
+
+    public int pCustomerRespawnTimeMin;
+    public int pCustomerRespawnTimeMax;
+    [Space(20)]
+    [Header("Scene Objects")]
+    [Space(20)]
     public GameObject[] pNavMeshTargets = new GameObject[2];
     public Character[] pCharacters = new Character[2];
-    //public eCarryableType[] pCarrying = new eCarryableType[4];
     public GameObject[][] pCarryableObjects = new GameObject[3][];
-
     public GameObject[] pFood = new GameObject[4];
     public GameObject[] pPlates = new GameObject[2];
     public GameObject[] pCustomer = new GameObject[1];
     public GameObject pWaitingCustomer;
     public Text pTimer;
-
-    public bool pDragging;
-
     public Table[] pTables;
+    public Food[] pFoodDispensers;
 
-    private float mNextCustomer;
-    private float mEndTime;
+    [HideInInspector] public bool pDragging;
+    [HideInInspector] public bool pIsHost;
+    [HideInInspector] public bool pIsPlaying;
+
+    private float mNextCustomer; //TODO make GD
     private DateTime mGameEnd;
-    public bool pIsHost;
-    public bool pIsPlaying;
 
     private void Start()
     {
@@ -38,7 +51,7 @@ public class LevelManager : MonoBehaviour
         pCharacters[1].pID = 2;
         Table[] tempTables = FindObjectsOfType<Table>();
         mGameEnd = GameManager.pInstance.pLevelStart + new TimeSpan(0, 0, 240);
-         pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID()-1].SetDecal(true);
+        pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetDecal(true);
 
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
@@ -55,12 +68,14 @@ public class LevelManager : MonoBehaviour
         {
             food.SetActive(false);
         }
-
         pTables = new Table[tempTables.Length];
         for (int i = 0; i < tempTables.Length; i++)
         {
             pTables[i] = tempTables.First(p => p.pID == i);
         }
+
+        pFoodDispensers = FindObjectsOfType<Food>();
+
     }
 
     private void Update()
@@ -103,7 +118,7 @@ public class LevelManager : MonoBehaviour
         {
             int amount = pTables.Any(p => p.pSize == 4) ? 4 : 2;
             SpawnCustomers(amount);
-            mNextCustomer = Time.timeSinceLevelLoad + GameManager.pInstance.pRandom.Next(2, 10); //TODO give parameters public
+            mNextCustomer = Time.timeSinceLevelLoad + GameManager.pInstance.pRandom.Next(pCustomerRespawnTimeMin, pCustomerRespawnTimeMax); //TODO GD
             NET_EventCall eventCall = new NET_EventCall("NewCustomer");
             eventCall.SetParam("Amount", amount);
             GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
@@ -128,7 +143,7 @@ public class LevelManager : MonoBehaviour
     public void tempSpawnCustomers()
     {
         SpawnCustomers(2);
-        mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); //give parameters public
+        mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); //TODO GD
         NET_EventCall eventCall = new NET_EventCall("NewCustomer");
         eventCall.SetParam("Amount", 2);
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
@@ -179,8 +194,8 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void StartTimer()
+    public void SetFood(eFood type)
     {
-        mEndTime = Time.timeSinceLevelLoad + 240;
+        pFoodDispensers.First(p => p.pFood == type).SetInteractable();
     }
 }

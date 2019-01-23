@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case ("FoodTaken"):
-                    pLevelManager.
+                    pLevelManager.SetFood((eFood)eventCall.GetParam("FoodType"));
                     break;
                 default:
                     Debug.Log("Cant handle packets");
@@ -223,12 +223,12 @@ public class GameManager : MonoBehaviour
     {
         if (level == Level.Level_Venedig)
         {
-            pVeniceButton.transform.localScale = new Vector3(1, 1, 1);
+            pVeniceButton.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
             pRomaButton.transform.localScale = new Vector3(0.9f, 0.9f, 1);
         }
         else
         {
-            pRomaButton.transform.localScale = new Vector3(1, 1, 1);
+            pRomaButton.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
             pVeniceButton.transform.localScale = new Vector3(0.9f, 0.9f, 1);
         }
     }

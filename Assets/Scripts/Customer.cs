@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Customer : MonoBehaviour
 {
-    public float pTempInteractionDistance;
+    public float pTempInteractionDistance;//TODO GD
 
     private Character mCharacter;
     private LevelManager mLevelManager;
