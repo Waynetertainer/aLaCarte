@@ -12,6 +12,11 @@ ModelImporter:
     2100008: "m\xFClleimer"
     2100010: 'Material #1035'
     2100012: Pflanze
+    2100014: zitrone
+    2100016: nudeln
+    2100018: teller
+    2100020: jeans
+    2100022: tomaten
     2300000: //RootNode
     3300000: //RootNode
     4300000: Geschirrwagen
@@ -49,6 +54,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 0
     importBlendShapes: 0
     importCameras: 0
@@ -73,6 +79,9 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 2
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
