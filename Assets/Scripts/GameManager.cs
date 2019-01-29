@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case ("FoodTaken"):
-                    pLevelManager.
+                    pLevelManager.SetFood((eFood)eventCall.GetParam("FoodType"));
                     break;
                 default:
                     Debug.Log("Cant handle packets");
@@ -333,5 +333,3 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 }
-
-                    pLevelManager.SetFood((eFood)eventCall.GetParam("FoodType"));
