@@ -188,6 +188,9 @@ public class GameManager : MonoBehaviour
                 case ("FoodTaken"):
                     pLevelManager.SetFood((eFood)eventCall.GetParam("FoodType"));
                     break;
+                case ("ClosedGate"):
+                    pLevelManager.pGatesManager.SetGateClosed((int)eventCall.GetParam("GateID"));
+                    break;
                 default:
                     Debug.Log("Cant handle packets");
                     break;
