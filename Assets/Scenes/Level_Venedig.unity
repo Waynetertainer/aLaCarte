@@ -103375,6 +103375,56 @@ PrefabInstance:
       propertyPath: pOtherScoreText
       value: 
       objectReference: {fileID: 2139455093}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pReadingMenuTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pEatingTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pFoodInteractionDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pTableInteractionDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pCustomerInteractionDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pBoatInteractionDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pCustomerRespawnTimeMin
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pCustomerRespawnTimeMax
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pNormalCustomerMultiplicator
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pSnobCustomerMultiplicator
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 5357246456952870639, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: m_LocalPosition.x
