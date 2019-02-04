@@ -18,11 +18,13 @@ public class Table : MonoBehaviour
     public eFood[] pOrders;
     public eFood[] pFood;
     public List<Sprite> pFoodImages = new List<Sprite>();
+
     private Character mCharacter;
     private LevelManager mLevelManager;
     private bool mIsHost;
     private GameObject mPanel;
-    private GameObject[] mDecals;
+    private GameObject mDecal;
+    private GameObject mCustomers;
     private float mTip;
 
     private void Start()
@@ -35,12 +37,8 @@ public class Table : MonoBehaviour
         mLevelManager = GameManager.pInstance.pLevelManager;
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
         mIsHost = mLevelManager.pIsHost;
-        mDecals = new GameObject[pSize];
-        for (int i = 0; i < transform.GetChild(1).childCount; i++)
-        {
-            mDecals[i] = transform.GetChild(1).GetChild(i).GetChild(1).gameObject;
-            mDecals[i].SetActive(false);
-        }
+        mDecal = transform.GetChild(2).gameObject;
+
         SetTableState(eTableState.Free);
     }
 
@@ -126,31 +124,25 @@ public class Table : MonoBehaviour
     {
         if (state == eTableState.Free)
         {
-            foreach (GameObject decal in mDecals)
-            {
-                decal.SetActive(false);
-            }
+            mDecal.SetActive(false);
         }
         else if (pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
         {
-            foreach (GameObject decal in mDecals)
-            {
-                decal.SetActive(true);
-            }
+            mDecal.SetActive(true);
         }
         pState = state;
         switch (state)
         {
             case eTableState.Free:
                 transform.GetChild(0).gameObject.SetActive(false);
-                for (int j = 0; j < transform.GetChild(0).childCount; j++)
+                for (int j = 0; j < transform.GetChild(0).childCount; j++)//sets dishes false
                 {
                     for (int i = 0; i < transform.GetChild(0).GetChild(j).childCount; i++)
                     {
                         transform.GetChild(0).GetChild(j).GetChild(i).gameObject.SetActive(false);
                     }
                 }
-                transform.GetChild(1).gameObject.SetActive(false);
+                transform.GetChild(1).gameObject.SetActive(false);//sets customer false
                 pPlayerID = -1;
                 break;
             case eTableState.ReadingMenu:
@@ -186,13 +178,13 @@ public class Table : MonoBehaviour
                 {
                     for (var i = 0; i < food.Length; i++)
                     {
-                        transform.GetChild(0).GetChild(i).GetChild((int)food[i]).gameObject.SetActive(true);
+                        transform.GetChild(0).GetChild(i).GetChild((int)food[i]).gameObject.SetActive(true);//sets one food true
                     }
                 }
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pEatingTime;
                 break;
             case eTableState.WaitingForClean:
-                for (int j = 0; j < transform.GetChild(0).childCount; j++)
+                for (int j = 0; j < transform.GetChild(0).childCount; j++)//sets dishes empty
                 {
                     for (int i = 0; i < transform.GetChild(0).GetChild(j).childCount; i++)
                     {
