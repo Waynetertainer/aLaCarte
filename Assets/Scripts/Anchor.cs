@@ -8,29 +8,15 @@ using UnityEngine;
 public class Anchor : MonoBehaviour
 {
     private LevelManager mLevelManager;
-    private Vector3 mPosition;
     private bool mSendedStop;
 
     private void Start()
     {
-        mPosition = transform.position;
         mLevelManager = GameManager.pInstance.pLevelManager;
     }
 
     private void Update()
     {
-
-#if ANDROID
-        if (Input.touchCount > 0)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9))
-            {
-                transform.position = hit.point + new Vector3(0, 1, 0);
-            }
-        }
-#else
         if (Input.GetMouseButton(0) && !mLevelManager.pDragging)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -49,7 +35,6 @@ public class Anchor : MonoBehaviour
             SendStop();
             mSendedStop = true;
         }
-#endif
     }
 
     private void SendPosition()

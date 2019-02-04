@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts;
 using NET_System;
 using System;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,37 +9,60 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
+    [Header("Balancing Values")]
+    [Space(20)]
+    public float pTableInteractionDistance;
+    public float pCustomerInteractionDistance;
+    public float pBoatInteractionDistance;
+    public float pFoodInteractionDistance;
+
+    public float pFoodDeactivationTime;
+    public float pReadingMenuTime;
+    public float pEatingTime;
+
+    public int pCustomerRespawnTimeMin;
+    public int pCustomerRespawnTimeMax;
+
+    public float pNormalCustomerMultiplicator;
+    public float pSnobCustomerMultiplicator;
+    [Space(20)]
+    [Header("Scene Objects")]
+    [Space(20)]
+    public GameObject pWaitingCustomer;
+    public Text pTimer;
+    public Text pOwnScoreText;
+    public Text pOtherScoreText;
     public GameObject[] pNavMeshTargets = new GameObject[2];
     public Character[] pCharacters = new Character[2];
-    //public eCarryableType[] pCarrying = new eCarryableType[4];
     public GameObject[][] pCarryableObjects = new GameObject[3][];
-
     public GameObject[] pFood = new GameObject[4];
     public GameObject[] pPlates = new GameObject[2];
     public GameObject[] pCustomer = new GameObject[1];
-    public GameObject pWaitingCustomer;
-    public Text pTimer;
-
-    public bool pDragging;
-
     public Table[] pTables;
+    public Food[] pFoodDispensers;
+
+    [HideInInspector] public bool pDragging;
+    [HideInInspector] public bool pIsHost;
+    [HideInInspector] public bool pIsPlaying;
+    [HideInInspector] public float[] pScores = new float[2];
+    public GatesManager pGatesManager;
 
     private float mNextCustomer;
-    private float mEndTime;
     private DateTime mGameEnd;
-    public bool pIsHost;
-    public bool pIsPlaying;
 
     private void Start()
     {
         GameManager.pInstance.pLevelManager = this;
+        pGatesManager = GetComponent<GatesManager>();
         pCharacters[0].pTarget = pNavMeshTargets[0].transform;
         pCharacters[1].pTarget = pNavMeshTargets[1].transform;
         pCharacters[0].pID = 1;
         pCharacters[1].pID = 2;
-        Table[] tempTables = FindObjectsOfType<Table>();
         mGameEnd = GameManager.pInstance.pLevelStart + new TimeSpan(0, 0, 240);
-         pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID()-1].SetDecal(true);
+        pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetDecal(true);
+        pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].SetDecal(false);
+        Destroy(pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<Rigidbody>());
+        pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<CapsuleCollider>().enabled = false;
 
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
@@ -56,15 +80,22 @@ public class LevelManager : MonoBehaviour
             food.SetActive(false);
         }
 
+        Table[] tempTables = FindObjectsOfType<Table>();
         pTables = new Table[tempTables.Length];
-        for (int i = 0; i < tempTables.Length; i++)
+        foreach (Table table in tempTables)
         {
-            pTables[i] = tempTables.First(p => p.pID == i);
+            pTables[table.pID] = table;
         }
+
+        pFoodDispensers = FindObjectsOfType<Food>();
+
     }
 
     private void Update()
     {
+        pOwnScoreText.text = pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C", new CultureInfo("de-DE"));
+        pOtherScoreText.text = pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].ToString("N2");
+
         if (DateTime.Now >= GameManager.pInstance.pLevelStart)
         {
             TimeSpan temp = mGameEnd - DateTime.Now;
@@ -103,7 +134,7 @@ public class LevelManager : MonoBehaviour
         {
             int amount = pTables.Any(p => p.pSize == 4) ? 4 : 2;
             SpawnCustomers(amount);
-            mNextCustomer = Time.timeSinceLevelLoad + GameManager.pInstance.pRandom.Next(2, 10); //TODO give parameters public
+            mNextCustomer = Time.timeSinceLevelLoad + GameManager.pInstance.pRandom.Next(pCustomerRespawnTimeMin, pCustomerRespawnTimeMax);
             NET_EventCall eventCall = new NET_EventCall("NewCustomer");
             eventCall.SetParam("Amount", amount);
             GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
@@ -125,14 +156,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void tempSpawnCustomers()
-    {
-        SpawnCustomers(2);
-        mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); //give parameters public
-        NET_EventCall eventCall = new NET_EventCall("NewCustomer");
-        eventCall.SetParam("Amount", 2);
-        GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-    }
+    //public void tempSpawnCustomers()
+    //{
+    //    SpawnCustomers(2);
+    //    mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); 
+    //    NET_EventCall eventCall = new NET_EventCall("NewCustomer");
+    //    eventCall.SetParam("Amount", 2);
+    //    GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+    //}
 
     public bool TryCarry(eCarryableType type, eFood? food = null)
     {
@@ -179,8 +210,8 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void StartTimer()
+    public void SetFood(eFood type)
     {
-        mEndTime = Time.timeSinceLevelLoad + 240;
+        pFoodDispensers.First(p => p.pFood == type).SetInteractable();
     }
 }

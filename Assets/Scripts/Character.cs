@@ -9,8 +9,6 @@ namespace Assets.Scripts
 {
     public class Character : MonoBehaviour
     {
-
-
         public Transform pTarget;
         public int pID;
         public GameObject pDecal;

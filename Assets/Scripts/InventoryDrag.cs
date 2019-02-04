@@ -9,6 +9,7 @@ public class InventoryDrag : MonoBehaviour
     private Vector3 mDraggedStartPosition;
     private eCarryableType mCarryableType;
     private eFood? mFood;
+    //TODO table distance GD
 
     private void Start()
     {
@@ -38,7 +39,7 @@ public class InventoryDrag : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
             {
                 Table table = hit.transform.GetComponentInChildren<Table>();
-                if (table.pPlayerID == mCharacter.pID && Vector3.Distance(mCharacter.transform.position, table.transform.position) <= 2)
+                if (table.pPlayerID == mCharacter.pID && Vector3.Distance(mCharacter.transform.position, table.transform.position) <= 2)//GD
                 {
                     if (table.TryDrop(eCarryableType.Food, mFood))
                     {
@@ -47,7 +48,7 @@ public class InventoryDrag : MonoBehaviour
                     }
                 }
             }
-            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= 2)
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= 2)//GD
             {
                 mDragging.gameObject.SetActive(false);
                 mDragging.transform.parent.gameObject.SetActive(false);
@@ -63,7 +64,7 @@ public class InventoryDrag : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
             {
                 Table table = hit.transform.GetComponentInChildren<Table>();
-                if (Vector3.Distance(mCharacter.transform.position, table.transform.position) <= 2)
+                if (Vector3.Distance(mCharacter.transform.position, table.transform.position) <= 2)//GD
                 {
                     if (table.TryDrop(eCarryableType.Customer))
                     {
@@ -72,7 +73,7 @@ public class InventoryDrag : MonoBehaviour
                     }
                 }
             }
-            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= 2)
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= 2)//GD
             {
                 mDragging.gameObject.SetActive(false);
             }
