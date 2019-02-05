@@ -44,7 +44,8 @@ public class LevelManager : MonoBehaviour
     [HideInInspector] public bool pDragging;
     [HideInInspector] public bool pIsHost;
     [HideInInspector] public bool pIsPlaying;
-    [HideInInspector] public float[] pScores=new float[2];
+    [HideInInspector] public float[] pScores = new float[2];
+    public GatesManager pGatesManager;
 
     private float mNextCustomer;
     private DateTime mGameEnd;
@@ -52,13 +53,16 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         GameManager.pInstance.pLevelManager = this;
+        pGatesManager = GetComponent<GatesManager>();
         pCharacters[0].pTarget = pNavMeshTargets[0].transform;
         pCharacters[1].pTarget = pNavMeshTargets[1].transform;
         pCharacters[0].pID = 1;
         pCharacters[1].pID = 2;
-        Table[] tempTables = FindObjectsOfType<Table>();
         mGameEnd = GameManager.pInstance.pLevelStart + new TimeSpan(0, 0, 240);
         pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetDecal(true);
+        pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].SetDecal(false);
+        Destroy(pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<Rigidbody>());
+        pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<CapsuleCollider>().enabled = false;
 
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
@@ -75,10 +79,12 @@ public class LevelManager : MonoBehaviour
         {
             food.SetActive(false);
         }
+
+        Table[] tempTables = FindObjectsOfType<Table>();
         pTables = new Table[tempTables.Length];
-        for (int i = 0; i < tempTables.Length; i++)
+        foreach (Table table in tempTables)
         {
-            pTables[i] = tempTables.First(p => p.pID == i);
+            pTables[table.pID] = table;
         }
 
         pFoodDispensers = FindObjectsOfType<Food>();
@@ -87,8 +93,8 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        pOwnScoreText.text = pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C",new CultureInfo("de-DE"));
-        pOtherScoreText.text = pScores[(GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)%1].ToString("N2");
+        pOwnScoreText.text = pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C", new CultureInfo("de-DE"));
+        pOtherScoreText.text = pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].ToString("N2");
 
         if (DateTime.Now >= GameManager.pInstance.pLevelStart)
         {

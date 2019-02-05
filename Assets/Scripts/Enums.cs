@@ -6,7 +6,10 @@ public enum eFood
 {
     None,
     Pizza,
-    Pasta
+    Pasta,
+    Soup,
+    Salad,
+    Fish
 }
 
 public enum eTableState
