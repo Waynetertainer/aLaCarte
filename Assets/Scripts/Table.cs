@@ -43,12 +43,12 @@ public class Table : MonoBehaviour
 
     private void Update()
     {
-        switch (pState)
+        if (pPlayerID != GameManager.pInstance.NetMain.NET_GetPlayerID()) return;
+            switch (pState)
         {
             case eTableState.Free:
                 break;
             case eTableState.ReadingMenu:
-                if (!mIsHost) return;
                 if (Time.timeSinceLevelLoad >= pNextState)
                 {
                     DelegateTableState(eTableState.WaitingForOrder);
@@ -59,7 +59,6 @@ public class Table : MonoBehaviour
             case eTableState.WaitingForFood:
                 break;
             case eTableState.Eating:
-                if (!mIsHost) return;
                 if (Time.timeSinceLevelLoad >= pNextState)
                 {
                     DelegateTableState(eTableState.WaitingForClean);
