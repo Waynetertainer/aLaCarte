@@ -5382,7 +5382,12 @@ PrefabInstance:
     - target: {fileID: 8882154505307613292, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
       propertyPath: m_Name
-      value: Tischgruppe (5)
+      value: Tischgruppe UpperLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 8882154505307613292, guid: 1d5fb180014f7e4448d1f400772979da,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8882154506578082147, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
@@ -5422,7 +5427,7 @@ PrefabInstance:
     - target: {fileID: 8882154506578082147, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8882154506578082147, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
@@ -5459,6 +5464,16 @@ PrefabInstance:
       propertyPath: pID
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8882154507231907010, guid: 1d5fb180014f7e4448d1f400772979da,
+        type: 3}
+      propertyPath: pTempOrderPanel
+      value: 
+      objectReference: {fileID: 2018777811}
+    - target: {fileID: 8882154507231907010, guid: 1d5fb180014f7e4448d1f400772979da,
+        type: 3}
+      propertyPath: pPanel
+      value: 
+      objectReference: {fileID: 2018777811}
     - target: {fileID: 8882154505556389781, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -26464,7 +26479,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1629294726, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_Name
-      value: Tischgruppe (6)
+      value: Tischgruppe UpperRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629294726, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26496,7 +26515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -26773,11 +26792,15 @@ PrefabInstance:
     - target: {fileID: 1578961112, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: pTempOrderPanel
       value: 
-      objectReference: {fileID: 105308232}
+      objectReference: {fileID: 1312473545}
     - target: {fileID: 1578961112, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: pID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1578961112, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
+      propertyPath: pPanel
+      value: 
+      objectReference: {fileID: 1312473545}
     - target: {fileID: 577124039, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -34703,6 +34726,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &973922034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2646909061610374211, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &975603993
 GameObject:
   m_ObjectHideFlags: 0
@@ -57448,6 +57483,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1309658637}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1312473545 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3029793929245193052, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1328957183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65922,11 +65963,11 @@ Transform:
   m_LocalPosition: {x: 3.8500004, y: 0.02600087, z: -11.510002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 679902941}
   - {fileID: 120323506}
   - {fileID: 601667654}
   - {fileID: 1917937458}
   - {fileID: 693366721}
+  - {fileID: 679902941}
   m_Father: {fileID: 721289566}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -70939,6 +70980,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1804195823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 784236806, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1805992812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76826,7 +76873,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1629294726, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_Name
-      value: Tischgruppe (3)
+      value: Tischgruppe Middle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629294726, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -76858,7 +76909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -77135,11 +77186,15 @@ PrefabInstance:
     - target: {fileID: 1578961112, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: pTempOrderPanel
       value: 
-      objectReference: {fileID: 105308232}
+      objectReference: {fileID: 1804195823}
     - target: {fileID: 1578961112, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: pID
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1578961112, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
+      propertyPath: pPanel
+      value: 
+      objectReference: {fileID: 1804195823}
     - target: {fileID: 560757168, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_Camera
       value: 
@@ -78493,6 +78548,12 @@ Transform:
   m_Father: {fileID: 1757340080}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 180.00002}
+--- !u!1 &2018777811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3266108753625330969, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2028816176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79657,6 +79718,52 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8712356287248556605, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_Name
+      value: speechBubble DownRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712356287248556605, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029793929245193052, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029793929245193052, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_Name
+      value: speechBubble UpperRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 784236806, guid: e564a86d3ddde194c81369e8770aa969, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 784236806, guid: e564a86d3ddde194c81369e8770aa969, type: 3}
+      propertyPath: m_Name
+      value: speechBubble Middle
+      objectReference: {fileID: 0}
+    - target: {fileID: 521383291, guid: e564a86d3ddde194c81369e8770aa969, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 521383291, guid: e564a86d3ddde194c81369e8770aa969, type: 3}
+      propertyPath: m_Name
+      value: speechBubble DownLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266108753625330969, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266108753625330969, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_Name
+      value: speechBubble UpperLeft
+      objectReference: {fileID: 0}
     - target: {fileID: 4957446010264801509, guid: e564a86d3ddde194c81369e8770aa969,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -79768,6 +79875,18 @@ PrefabInstance:
       objectReference: {fileID: 2006490765}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e564a86d3ddde194c81369e8770aa969, type: 3}
+--- !u!1 &2139455085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5202015434598379103, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2139455086 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5395288844699644562, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2139455087 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4957446008842292399, guid: e564a86d3ddde194c81369e8770aa969,
@@ -79777,6 +79896,18 @@ GameObject:
 --- !u!1 &2139455088 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4957446009057897609, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2139455089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 423711221056905074, guid: e564a86d3ddde194c81369e8770aa969,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139455084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2139455090 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5572119411168245002, guid: e564a86d3ddde194c81369e8770aa969,
     type: 3}
   m_PrefabInstance: {fileID: 2139455084}
   m_PrefabAsset: {fileID: 0}
@@ -84517,7 +84648,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1629294726, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_Name
-      value: Tischgruppe (2)
+      value: Tischgruppe DownRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629294726, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -84549,7 +84684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 679902941, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -84831,6 +84966,10 @@ PrefabInstance:
       propertyPath: pID
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1578961112, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
+      propertyPath: pPanel
+      value: 
+      objectReference: {fileID: 105308232}
     - target: {fileID: 577124039, guid: 0aaa17b8e1eb45d4d890ac7f734fb2d4, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -85051,6 +85190,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
+      propertyPath: pPlates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
       propertyPath: pCharacters.Array.data[0]
       value: 
       objectReference: {fileID: 23705851}
@@ -85073,17 +85217,17 @@ PrefabInstance:
         type: 3}
       propertyPath: pFood.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2139455090}
     - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: pFood.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2139455089}
     - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: pPlates.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2139455086}
     - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: pPlates.Array.data[1]
@@ -85093,7 +85237,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pCustomer.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2139455085}
     - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: pWaitingCustomer
@@ -85103,7 +85247,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pTimer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 973922034}
     - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: pOwnScoreText
@@ -85317,7 +85461,12 @@ PrefabInstance:
     - target: {fileID: 8882154505307613292, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
       propertyPath: m_Name
-      value: Tischgruppe (4)
+      value: Tischgruppe DownLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 8882154505307613292, guid: 1d5fb180014f7e4448d1f400772979da,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8882154506578082147, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
@@ -85357,7 +85506,7 @@ PrefabInstance:
     - target: {fileID: 8882154506578082147, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8882154506578082147, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
@@ -85519,6 +85668,11 @@ PrefabInstance:
       propertyPath: pID
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8882154507231907010, guid: 1d5fb180014f7e4448d1f400772979da,
+        type: 3}
+      propertyPath: pPanel
+      value: 
+      objectReference: {fileID: 1375487510}
     - target: {fileID: 8882154505556389781, guid: 1d5fb180014f7e4448d1f400772979da,
         type: 3}
       propertyPath: m_AnchorMin.y

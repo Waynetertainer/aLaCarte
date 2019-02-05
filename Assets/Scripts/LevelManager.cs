@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
     public Character[] pCharacters = new Character[2];
     public GameObject[][] pCarryableObjects = new GameObject[3][];
     public GameObject[] pFood = new GameObject[4];
-    public GameObject[] pPlates = new GameObject[2];
+    public GameObject[] pPlates = new GameObject[1];
     public GameObject[] pCustomer = new GameObject[1];
     public Table[] pTables;
     public Food[] pFoodDispensers;
