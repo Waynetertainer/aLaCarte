@@ -38,7 +38,6 @@ public class Table : MonoBehaviour
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
         mIsHost = mLevelManager.pIsHost;
         mDecal = transform.GetChild(2).gameObject;
-
         SetTableState(eTableState.Free);
     }
 
@@ -134,19 +133,12 @@ public class Table : MonoBehaviour
         switch (state)
         {
             case eTableState.Free:
-                transform.GetChild(0).gameObject.SetActive(false);
-                for (int j = 0; j < transform.GetChild(0).childCount; j++)//sets dishes false
-                {
-                    for (int i = 0; i < transform.GetChild(0).GetChild(j).childCount; i++)
-                    {
-                        transform.GetChild(0).GetChild(j).GetChild(i).gameObject.SetActive(false);
-                    }
-                }
-                transform.GetChild(1).gameObject.SetActive(false);//sets customer false
+                DeactivateDishes();
+                SetCustomer(false);
                 pPlayerID = -1;
                 break;
             case eTableState.ReadingMenu:
-                transform.GetChild(1).gameObject.SetActive(true);
+                SetCustomer(true, pCustomer);
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pReadingMenuTime;
                 switch (pCustomer)
                 {
@@ -184,24 +176,41 @@ public class Table : MonoBehaviour
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pEatingTime;
                 break;
             case eTableState.WaitingForClean:
-                for (int j = 0; j < transform.GetChild(0).childCount; j++)//sets dishes empty
-                {
-                    for (int i = 0; i < transform.GetChild(0).GetChild(j).childCount; i++)
-                    {
-                        transform.GetChild(0).GetChild(j).GetChild(i).gameObject.SetActive(false);
-                    }
-                }
-                for (int i = 0; i < pSize; i++)
-                {
-                    transform.GetChild(0).GetChild(i).GetChild(0).gameObject.SetActive(true);
-                }
+                SetDishes(eFood.None);
                 break;
             default:
                 throw new ArgumentOutOfRangeException("state", state, null);
         }
     }
 
+    private void SetCustomer(bool active, eCustomers type = eCustomers.Normal)
+    {
+        transform.GetChild(1).gameObject.SetActive(active);
+        transform.GetChild(1).GetChild((int)type).gameObject.SetActive(active);
+        transform.GetChild(1).GetChild(((int)type + 1) % 2).gameObject.SetActive(!active);
+    }
 
+    private void SetDishes(eFood type)
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+
+        for (int j = 0; j < transform.GetChild(0).childCount; j++)
+        {
+            for (int i = 0; i < transform.GetChild(0).GetChild(j).childCount; i++)
+            {
+                transform.GetChild(0).GetChild(j).GetChild(i).gameObject.SetActive(false);
+            }
+        }
+        for (int i = 0; i < pSize; i++)
+        {
+            transform.GetChild(0).GetChild(i).GetChild((int)type).gameObject.SetActive(true);
+        }
+    }
+
+    private void DeactivateDishes()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
 
     private void SendTableState(eTableState state, eFood[] food = null)
     {
@@ -213,41 +222,35 @@ public class Table : MonoBehaviour
         {
             eventCall.SetParam("Food", food);
         }
-
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
     }
 
-    public void DeactivateDishes()
-    {
-        transform.GetChild(0).gameObject.SetActive(false);
-    }
 
-    public bool TryDrop(eCarryableType type, eFood? food = null)
+    public bool TryDropFood(eFood? food)
     {
-        switch (type)
+        if (pState != eTableState.WaitingForFood || food == null) return false;
+        for (int i = 0; i < pOrders.Length; i++)
         {
-            case eCarryableType.Customer:
-                if (pState != eTableState.Free) return false;
-                pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
-                DelegateTableState(eTableState.ReadingMenu);
-                return true;
-            case eCarryableType.Food:
-                if (pState != eTableState.WaitingForFood || food == null) return false;
-                for (int i = 0; i < pOrders.Length; i++)
-                {
-                    if (pOrders[i] != food) continue;
-                    pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
-                    pFood[i] = pOrders[i];
-                    pOrders[i] = eFood.None;
-                    mPanel.transform.GetChild(i).gameObject.SetActive(false);
-                    if (pOrders.All(p => p == eFood.None))
-                    {
-                        DelegateTableState(eTableState.Eating, pFood);
-                    }
-                    return true;
-                }
-                return false;
+            if (pOrders[i] != food) continue;
+            pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
+            pFood[i] = pOrders[i];
+            pOrders[i] = eFood.None;
+            mPanel.transform.GetChild(i).gameObject.SetActive(false);
+            if (pOrders.All(p => p == eFood.None))
+            {
+                DelegateTableState(eTableState.Eating, pFood);
+            }
+            return true;
         }
         return false;
+    }
+
+    public bool TryDropCustomer(eCustomers type)
+    {
+        if (pState != eTableState.Free) return false;
+        pCustomer = type;
+        pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
+        DelegateTableState(eTableState.ReadingMenu);
+        return true;
     }
 }
