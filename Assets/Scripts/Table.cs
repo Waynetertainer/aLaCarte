@@ -24,6 +24,8 @@ public class Table : MonoBehaviour
     private GameObject mDecal;
     private GameObject mCustomers;
     private float mTip;
+    private float mWaitingStart;
+    [SerializeField] private int mDispleaseLevel;
 
     private void Start()
     {
@@ -39,7 +41,7 @@ public class Table : MonoBehaviour
     private void Update()
     {
         if (pPlayerID != GameManager.pInstance.NetMain.NET_GetPlayerID()) return;
-            switch (pState)
+        switch (pState)
         {
             case eTableState.Free:
                 break;
@@ -50,10 +52,10 @@ public class Table : MonoBehaviour
                 }
                 break;
             case eTableState.WaitingForOrder:
-                //TODO ungeduld
+                Displeasement(mLevelManager.pOrderWaitIntervall, mLevelManager.pOrderIntervallTipMalus);
                 break;
             case eTableState.WaitingForFood:
-                //TODO ungeduld
+                Displeasement(mLevelManager.pFoodWaitIntervall, mLevelManager.pFoodIntervallTipMalus);
                 break;
             case eTableState.Eating:
                 if (Time.timeSinceLevelLoad >= pNextState)
@@ -62,7 +64,7 @@ public class Table : MonoBehaviour
                 }
                 break;
             case eTableState.WaitingForClean:
-                //TODO ungeduld
+                Displeasement(mLevelManager.pCleanWaitIntervall, mLevelManager.pCleanIntervallTipMalus);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -85,8 +87,9 @@ public class Table : MonoBehaviour
                     {
                         int foodIdentifier = GameManager.pInstance.pRandom.Next(2) + 1;
                         pOrders[i] = (eFood)foodIdentifier;
-                        pPanel.transform.GetChild(i).gameObject.SetActive(true);
-                        pPanel.transform.GetChild(i).GetComponent<Image>().sprite = pFoodImages[foodIdentifier - 1];
+                        //pPanel.transform.GetChild(i).gameObject.SetActive(true);
+                        //pPanel.transform.GetChild(i).GetComponent<Image>().sprite = pFoodImages[foodIdentifier - 1];
+                        //TODO show order on panel
                     }
                     DelegateTableState(eTableState.WaitingForFood);
                 }
@@ -107,6 +110,20 @@ public class Table : MonoBehaviour
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void Displeasement(float intervall, float malus)
+    {
+        if (mDispleaseLevel < 3)
+        {
+            pPanel.transform.GetChild(1).GetComponent<Image>().fillAmount =1-((Time.timeSinceLevelLoad - mWaitingStart)/ (3 * intervall));
+            if (Time.timeSinceLevelLoad > mWaitingStart + intervall * (mDispleaseLevel + 1))
+            {
+                mTip -= malus;
+                mDispleaseLevel++;
+                pPanel.transform.GetChild(1).GetComponent<Image>().color = mDispleaseLevel == 1 ? Color.yellow : Color.red;
+            }
         }
     }
 
@@ -150,11 +167,16 @@ public class Table : MonoBehaviour
                 }
                 break;
             case eTableState.WaitingForOrder:
+                mDispleaseLevel = 0;
+                mWaitingStart = Time.timeSinceLevelLoad;
+
                 pPanel.SetActive(true);
                 //pTempOrderPanel.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
                 //pTempOrderPanel.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
                 break;
             case eTableState.WaitingForFood:
+                mWaitingStart = Time.timeSinceLevelLoad;
+
                 //pTempOrderPanel.SetActive(false);
                 break;
             case eTableState.Eating:
@@ -171,6 +193,8 @@ public class Table : MonoBehaviour
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pEatingTime;
                 break;
             case eTableState.WaitingForClean:
+                mWaitingStart = Time.timeSinceLevelLoad;
+
                 SetDishes(eFood.None);
                 break;
             default:
@@ -229,7 +253,7 @@ public class Table : MonoBehaviour
             pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
             pFood[i] = pOrders[i];
             pOrders[i] = eFood.None;
-            pPanel.transform.GetChild(i).gameObject.SetActive(false);
+            //pPanel.transform.GetChild(i).gameObject.SetActive(false);
             if (pOrders.All(p => p == eFood.None))
             {
                 DelegateTableState(eTableState.Eating, pFood);

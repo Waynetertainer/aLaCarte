@@ -57605,18 +57605,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   pLevelManager: {fileID: 2006490765}
-  pDisheSprites:
-  - {fileID: 21300000, guid: cdaf9639551ae4940a7a10a2db9c5d30, type: 3}
-  - {fileID: 21300000, guid: 87647f5fb02ebe64b8ab7c3f0e2f6923, type: 3}
-  pEmotionSprites:
-  - {fileID: 21300000, guid: 579719cbea544734b8cf2c68bb18a31f, type: 3}
-  - {fileID: 21300000, guid: 1e0a027ee58b1ef4d8e3ff48162cecbc, type: 3}
-  - {fileID: 21300002, guid: 1e0a027ee58b1ef4d8e3ff48162cecbc, type: 3}
-  - {fileID: 21300004, guid: 1e0a027ee58b1ef4d8e3ff48162cecbc, type: 3}
-  pDollarSprites:
-  - {fileID: 21300000, guid: 59182129c0bc7614aa31203d6c0515ac, type: 3}
-  - {fileID: 21300002, guid: 59182129c0bc7614aa31203d6c0515ac, type: 3}
-  - {fileID: 21300004, guid: 59182129c0bc7614aa31203d6c0515ac, type: 3}
 --- !u!4 &1332853684
 Transform:
   m_ObjectHideFlags: 0
@@ -79869,21 +79857,75 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4957446009301711699, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431647506, guid: e564a86d3ddde194c81369e8770aa969, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287594804862320828, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473060956889529160, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 584817273668015784, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1768408651, guid: e564a86d3ddde194c81369e8770aa969, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2006490765}
+    - target: {fileID: 2922770620948525168, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 550142549475380895, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4548641737732578460, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8968547686687973845, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582971089456113032, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582971089456113032, guid: e564a86d3ddde194c81369e8770aa969,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e564a86d3ddde194c81369e8770aa969, type: 3}
 --- !u!1 &2139455085 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5202015434598379103, guid: e564a86d3ddde194c81369e8770aa969,
+  m_CorrespondingSourceObject: {fileID: 584817273668015784, guid: e564a86d3ddde194c81369e8770aa969,
     type: 3}
   m_PrefabInstance: {fileID: 2139455084}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2139455086 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5395288844699644562, guid: e564a86d3ddde194c81369e8770aa969,
+  m_CorrespondingSourceObject: {fileID: 1473060956889529160, guid: e564a86d3ddde194c81369e8770aa969,
     type: 3}
   m_PrefabInstance: {fileID: 2139455084}
   m_PrefabAsset: {fileID: 0}
@@ -85307,6 +85349,36 @@ PrefabInstance:
         type: 3}
       propertyPath: pSnobCustomerMultiplicator
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pOrderWaitIntervall
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pFoodWaitIntervall
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pCleanWaitIntervall
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pOrderIntervallTipMalus
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pFoodIntervallTipMalus
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5357246456952870636, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pCleanIntervallTipMalus
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5357246456952870639, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
