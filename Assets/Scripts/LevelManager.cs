@@ -25,6 +25,13 @@ public class LevelManager : MonoBehaviour
 
     public float pNormalCustomerMultiplicator;
     public float pSnobCustomerMultiplicator;
+
+    public float pOrderWaitIntervall;
+    public float pFoodWaitIntervall;
+    public float pCleanWaitIntervall;
+    public float pOrderIntervallTipMalus;
+    public float pFoodIntervallTipMalus;
+    public float pCleanIntervallTipMalus;
     [Space(20)]
     [Header("Scene Objects")]
     [Space(20)]
@@ -36,7 +43,7 @@ public class LevelManager : MonoBehaviour
     public Character[] pCharacters = new Character[2];
     public GameObject[][] pCarryableObjects = new GameObject[3][];
     public GameObject[] pFood = new GameObject[4];
-    public GameObject[] pPlates = new GameObject[2];
+    public GameObject[] pPlates = new GameObject[1];
     public GameObject[] pCustomer = new GameObject[1];
     public Table[] pTables;
     public Food[] pFoodDispensers;
@@ -45,6 +52,7 @@ public class LevelManager : MonoBehaviour
     [HideInInspector] public bool pIsHost;
     [HideInInspector] public bool pIsPlaying;
     [HideInInspector] public float[] pScores = new float[2];
+    [HideInInspector] public float pLevelStartTime;
     public GatesManager pGatesManager;
 
     private float mNextCustomer;
