@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts;
 using NET_System;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class Table : MonoBehaviour
     private GameObject mCustomers;
     private float mTip;
     private float mWaitingStart;
+    private eSymbol mPreviousSymbol;
     [SerializeField] private int mDispleaseLevel;
 
     private void Start()
@@ -82,15 +84,15 @@ public class Table : MonoBehaviour
             case eTableState.WaitingForOrder:
                 if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance)
                 {
-                    pPanel.SetActive(true);
-                    for (int i = 0; i < pSize; i++)
-                    {
-                        int foodIdentifier = GameManager.pInstance.pRandom.Next(2) + 1;
-                        pOrders[i] = (eFood)foodIdentifier;
-                        //pPanel.transform.GetChild(i).gameObject.SetActive(true);
-                        //pPanel.transform.GetChild(i).GetComponent<Image>().sprite = pFoodImages[foodIdentifier - 1];
-                        //TODO show order on panel
-                    }
+                    //pPanel.SetActive(true);
+                    //for (int i = 0; i < pSize; i++)
+                    //{
+                    //    int foodIdentifier = GameManager.pInstance.pRandom.Next(2) + 1;
+                    //    pOrders[i] = (eFood)foodIdentifier;
+                    //    //pPanel.transform.GetChild(i).gameObject.SetActive(true);
+                    //    //pPanel.transform.GetChild(i).GetComponent<Image>().sprite = pFoodImages[foodIdentifier - 1];
+                    //    //TODO show order on panel
+                    //}
                     DelegateTableState(eTableState.WaitingForFood);
                 }
                 break;
@@ -104,7 +106,7 @@ public class Table : MonoBehaviour
                     if (mLevelManager.TryCarry(eCarryableType.Dishes))
                     {
                         DelegateTableState(eTableState.Free);
-                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;
+                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;//TODO network?
                     }
                 }
                 break;
@@ -117,12 +119,12 @@ public class Table : MonoBehaviour
     {
         if (mDispleaseLevel < 3)
         {
-            pPanel.transform.GetChild(1).GetComponent<Image>().fillAmount =1-((Time.timeSinceLevelLoad - mWaitingStart)/ (3 * intervall));
+            pPanel.transform.GetChild(1).GetComponent<Image>().fillAmount = 1 - ((Time.timeSinceLevelLoad - mWaitingStart) / (3 * intervall));
             if (Time.timeSinceLevelLoad > mWaitingStart + intervall * (mDispleaseLevel + 1))
             {
                 mTip -= malus;
                 mDispleaseLevel++;
-                pPanel.transform.GetChild(1).GetComponent<Image>().color = mDispleaseLevel == 1 ? Color.yellow : Color.red;
+                pPanel.transform.GetChild(1).GetComponent<Image>().color = mDispleaseLevel == 1 ? mLevelManager.pYellow : mLevelManager.pRed;
             }
         }
     }
@@ -135,18 +137,22 @@ public class Table : MonoBehaviour
 
     public void SetTableState(eTableState state, eFood[] food = null)
     {
-        if (state == eTableState.Free)
-        {
-            mDecal.SetActive(false);
-        }
-        else if (pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
-        {
-            mDecal.SetActive(true);
-        }
+        //if (state == eTableState.Free)
+        //{
+        //    mDecal.SetActive(false);
+        //}
+        //else if (pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
+        //{
+        //    mDecal.SetActive(true);
+        //}
+
+        mDecal.SetActive(state != eTableState.Free && pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID());
         pState = state;
+
         switch (state)
         {
             case eTableState.Free:
+                pPanel.SetActive(false);
                 DeactivateDishes();
                 SetCustomer(false);
                 pPlayerID = -1;
@@ -171,13 +177,13 @@ public class Table : MonoBehaviour
                 mWaitingStart = Time.timeSinceLevelLoad;
 
                 pPanel.SetActive(true);
-                //pTempOrderPanel.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
-                //pTempOrderPanel.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+                //TODO start timer /continue timer
+                ActivateSymbol(eSymbol.ExclamationMark, true);
                 break;
             case eTableState.WaitingForFood:
                 mWaitingStart = Time.timeSinceLevelLoad;
-
-                //pTempOrderPanel.SetActive(false);
+                //TODO start timer /continue timer
+                ActivateSymbol(eSymbol.ServingDome, true);
                 break;
             case eTableState.Eating:
                 pPanel.SetActive(false);
@@ -193,8 +199,10 @@ public class Table : MonoBehaviour
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pEatingTime;
                 break;
             case eTableState.WaitingForClean:
+                pPanel.SetActive(true);
                 mWaitingStart = Time.timeSinceLevelLoad;
-
+                //TODO start timer /continue timer
+                ActivateSymbol(eSymbol.Euro, true);
                 SetDishes(eFood.None);
                 break;
             default:
@@ -244,22 +252,45 @@ public class Table : MonoBehaviour
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
     }
 
+    private void ActivateSymbol(eSymbol symbol, bool save)
+    {
+        foreach (Transform child in pPanel.transform.GetChild(0).transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        pPanel.transform.GetChild(0).GetChild((int)symbol).gameObject.SetActive(true);
+        if (save)
+        {
+            mPreviousSymbol = symbol;
+        }
+    }
+
+    IEnumerator SymbolFeedback()
+    {
+        yield return new WaitForSeconds(mLevelManager.pSymbolFeedbackDuration);
+        ActivateSymbol(mPreviousSymbol, true);
+    }
+
     public bool TryDropFood(eFood? food)
     {
         if (pState != eTableState.WaitingForFood || food == null) return false;
         for (int i = 0; i < pOrders.Length; i++)
         {
+            //Das macht Sinn, trust me!
             if (pOrders[i] != food) continue;
             pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
             pFood[i] = pOrders[i];
             pOrders[i] = eFood.None;
-            //pPanel.transform.GetChild(i).gameObject.SetActive(false);
+            //pPanel.transform.GetChild(i).gameObject.SetActive(false); //removes that from needed order panel
             if (pOrders.All(p => p == eFood.None))
             {
                 DelegateTableState(eTableState.Eating, pFood);
             }
+            ActivateSymbol(eSymbol.Success, false);
             return true;
         }
+        ActivateSymbol(eSymbol.Failure, false);
+        StartCoroutine(SymbolFeedback());
         return false;
     }
 

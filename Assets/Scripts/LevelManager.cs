@@ -11,6 +11,10 @@ public class LevelManager : MonoBehaviour
 {
     [Header("Balancing Values")]
     [Space(20)]
+    public Color pGreen;
+    public Color pYellow;
+    public Color pRed;
+    [Space(20)]
     public float pTableInteractionDistance;
     public float pCustomerInteractionDistance;
     public float pBoatInteractionDistance;
@@ -32,6 +36,8 @@ public class LevelManager : MonoBehaviour
     public float pOrderIntervallTipMalus;
     public float pFoodIntervallTipMalus;
     public float pCleanIntervallTipMalus;
+
+    public float pSymbolFeedbackDuration;
     [Space(20)]
     [Header("Scene Objects")]
     [Space(20)]

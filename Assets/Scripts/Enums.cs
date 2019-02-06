@@ -43,3 +43,12 @@ public enum eCustomers
     Normal,
     Snob
 }
+
+public enum eSymbol
+{
+    ExclamationMark,
+    Euro,
+    ServingDome,
+    Success,
+    Failure
+}
