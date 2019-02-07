@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     public Color pYellow;
     public Color pRed;
     [Space(20)]
+    public int pFoodAmountInLevel;
     public float pTableInteractionDistance;
     public float pCustomerInteractionDistance;
     public float pBoatInteractionDistance;

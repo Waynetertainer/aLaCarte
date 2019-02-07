@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case ("PlayerReadyChange"):
                     playerReady[(int)eventCall.GetParam("PlayerID") - 1] = (bool)eventCall.GetParam("Ready");
-                    Debug.Log((int)eventCall.GetParam("PlayerID") - 1);
+                    Debug.Log((int)eventCall.GetParam("PlayerID"));//-1
                     SendLobbyData();
                     break;
                 case ("UpdateLobby"):
