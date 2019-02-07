@@ -47,10 +47,10 @@ public class LevelManager : MonoBehaviour
     public Text pOtherScoreText;
     public GameObject[] pNavMeshTargets = new GameObject[2];
     public Character[] pCharacters = new Character[2];
-    public GameObject[][] pCarryableObjects = new GameObject[3][];
+    public GameObject pEmptyDome;
     public GameObject[] pFood = new GameObject[4];
-    public GameObject[] pPlates = new GameObject[1];
-    public GameObject[] pCustomer = new GameObject[1];
+    public GameObject pPlate;
+    public GameObject pCustomer;
     public Table[] pTables;
     public Food[] pFoodDispensers;
 
@@ -83,16 +83,16 @@ public class LevelManager : MonoBehaviour
         {
             pIsHost = true;
         }
-        pCustomer[0].SetActive(false);
-        foreach (GameObject plate in pPlates)
-        {
-            plate.SetActive(false);
-        }
-
+        pCustomer.transform.parent.gameObject.SetActive(false);
+        pCustomer.SetActive(false);
+        pPlate.transform.parent.gameObject.SetActive(false);
+        pPlate.SetActive(false);
+        pFood[0].transform.parent.gameObject.SetActive(false);
         foreach (GameObject food in pFood)
         {
             food.SetActive(false);
         }
+        pEmptyDome.SetActive(true);
 
         Table[] tempTables = FindObjectsOfType<Table>();
         pTables = new Table[tempTables.Length];
@@ -102,7 +102,6 @@ public class LevelManager : MonoBehaviour
         }
 
         pFoodDispensers = FindObjectsOfType<Food>();
-
     }
 
     private void Update()
@@ -133,7 +132,7 @@ public class LevelManager : MonoBehaviour
                 {
                     table.enabled = false;
                 }
-                pCustomer[0].transform.parent.parent.gameObject.SetActive(false);
+                pCustomer.transform.parent.parent.gameObject.SetActive(false);
             }
         }
         else
@@ -170,62 +169,63 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    //public void tempSpawnCustomers()
-    //{
-    //    SpawnCustomers(2);
-    //    mNextCustomer += GameManager.pInstance.pRandom.Next(2, 10); 
-    //    NET_EventCall eventCall = new NET_EventCall("NewCustomer");
-    //    eventCall.SetParam("Amount", 2);
-    //    GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-    //}
-
-    public bool TryCarry(eCarryableType type, eFood? food = null)
+    public bool TryCarry()
     {
-        switch (type)
+        if (pCustomer.activeSelf || pFood.Any(p => p.activeSelf) || pPlate.activeSelf) return false;
+        pPlate.SetActive(true);
+        pPlate.transform.parent.gameObject.SetActive(true);
+        pEmptyDome.SetActive(false);
+        return true;
+    }
+
+    public bool TryCarry(eFood type)
+    {
+        if (!(pCustomer.activeSelf || pPlate.activeSelf) && pFood.Any(p => p.activeSelf == false))
         {
-            case eCarryableType.Food:
-                if (!(pCustomer[0].activeSelf || pPlates.Any(p => p.activeSelf)) && pFood.Any(p => p.activeSelf == false))
-                {
-                    GameObject temp;
-                    switch (food)
-                    {
-                        case eFood.Pizza:
-                            temp = pFood.First(p => p.activeSelf == false);
-                            temp.SetActive(true);
-                            temp.transform.GetChild(0).gameObject.SetActive(false);
-                            temp.transform.GetChild(1).gameObject.SetActive(true);
-                            break;
-                        case eFood.Pasta:
-                            temp = pFood.First(p => p.activeSelf == false);
-                            temp.SetActive(true);
-                            temp.transform.GetChild(0).gameObject.SetActive(true);
-                            temp.transform.GetChild(1).gameObject.SetActive(false);
-                            break;
-                    }
-                    return true;
-                }
-                return false;
-            case eCarryableType.Customer:
-                if (!(pCustomer[0].activeSelf || pPlates.Any(p => p.activeSelf) || pFood.Any(p => p.activeSelf)))
-                {
-                    pCustomer[0].SetActive(true);
-                    return true;
-                }
-                return false;
-            case eCarryableType.Dishes:
-                if (!(pCustomer[0].activeSelf || pFood.Any(p => p.activeSelf)) && pPlates.Any(p => p.activeSelf == false))
-                {
-                    pPlates.First(p => p.activeSelf == false).SetActive(true);
-                    return true;
-                }
-                return false;
-            default:
-                throw new ArgumentOutOfRangeException("type", type, null);
+            GameObject temp = pFood.First(p => p.activeSelf == false);
+            temp.SetActive(true);
+            temp.transform.parent.gameObject.SetActive(true);
+            pEmptyDome.SetActive(false);
+            foreach (Transform transform in temp.transform)
+            {
+                transform.gameObject.SetActive(false);
+            }
+            temp.transform.GetChild((int)type-1).gameObject.SetActive(true);
+            return true;
         }
+        return false;
+    }
+
+    public bool TryCarry(eCustomers type)
+    {
+        if (pCustomer.activeSelf || pPlate.activeSelf || pFood.Any(p => p.activeSelf)) return false;
+        pCustomer.SetActive(true);//vllt childobjects
+        pCustomer.transform.parent.gameObject.SetActive(true);
+        pEmptyDome.SetActive(false);
+        return true;
     }
 
     public void SetFood(eFood type)
     {
         pFoodDispensers.First(p => p.pFood == type).SetInteractable();
+    }
+
+    public void SetDomeImage(eCarryableType type)
+    {
+        switch (type)
+        {
+            case eCarryableType.Food:
+                break;
+            case eCarryableType.Customer:
+                pCustomer.transform.parent.gameObject.SetActive(false);
+                pEmptyDome.SetActive(true);
+                break;
+            case eCarryableType.Dishes:
+                pPlate.transform.parent.gameObject.SetActive(false);
+                pEmptyDome.SetActive(true);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("type", type, null);
+        }
     }
 }

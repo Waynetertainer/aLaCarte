@@ -27,10 +27,12 @@ public class Table : MonoBehaviour
     private float mTip;
     private float mWaitingStart;
     private eSymbol mPreviousSymbol;
-    [SerializeField] private int mDispleaseLevel;
+    private int mDispleaseLevel;
+    private Image mStatisfactionBar;
 
     private void Start()
     {
+        mStatisfactionBar = pPanel.transform.GetChild(0).GetChild(3).GetComponent<Image>();
         pOrders = new eFood[pSize];
         pFood = new eFood[pSize];
         pPanel.SetActive(false);
@@ -103,7 +105,7 @@ public class Table : MonoBehaviour
             case eTableState.WaitingForClean:
                 if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance)
                 {
-                    if (mLevelManager.TryCarry(eCarryableType.Dishes))
+                    if (mLevelManager.TryCarry())
                     {
                         DelegateTableState(eTableState.Free);
                         mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;//TODO network?
@@ -119,12 +121,12 @@ public class Table : MonoBehaviour
     {
         if (mDispleaseLevel < 3)
         {
-            pPanel.transform.GetChild(1).GetComponent<Image>().fillAmount = 1 - ((Time.timeSinceLevelLoad - mWaitingStart) / (3 * intervall));
+            mStatisfactionBar.fillAmount = 1 - ((Time.timeSinceLevelLoad - mWaitingStart) / (3 * intervall));
             if (Time.timeSinceLevelLoad > mWaitingStart + intervall * (mDispleaseLevel + 1))
             {
                 mTip -= malus;
                 mDispleaseLevel++;
-                pPanel.transform.GetChild(1).GetComponent<Image>().color = mDispleaseLevel == 1 ? mLevelManager.pYellow : mLevelManager.pRed;
+                mStatisfactionBar.color = mDispleaseLevel == 1 ? mLevelManager.pYellow : mLevelManager.pRed;
             }
         }
     }
@@ -258,6 +260,7 @@ public class Table : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+        mStatisfactionBar.gameObject.SetActive(true);
         pPanel.transform.GetChild(0).GetChild((int)symbol).gameObject.SetActive(true);
         if (save)
         {
