@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class OrderPanel : MonoBehaviour
@@ -13,10 +15,15 @@ public class OrderPanel : MonoBehaviour
     public GameObject[] pOrders = new GameObject[4];
 
     private GameObject mActiveTab;
+    private GraphicRaycaster mRaycaster;
+    private PointerEventData mPointerEventData;
+    private EventSystem mEventSystem;
 
     private void Start()
     {
         pTables = GameManager.pInstance.pLevelManager.pTables;
+        mRaycaster = GetComponent<GraphicRaycaster>();
+        mEventSystem = GetComponent<EventSystem>();
     }
 
     public void ChangeTab(int tabNumber)
@@ -28,11 +35,6 @@ public class OrderPanel : MonoBehaviour
         }
         pTabs[tabNumber].transform.GetChild(0).gameObject.SetActive(true);
         pTabs[tabNumber].transform.GetChild(1).GetComponent<Text>().color = pTextActive;
-    }
-
-    public void ShowOrder(int tableID)
-    {
-        ChangeTab(tableID);
         foreach (GameObject order in pOrders)
         {
             foreach (Transform childTransform in order.transform)
@@ -41,10 +43,10 @@ public class OrderPanel : MonoBehaviour
             }
             order.SetActive(false);
         }
-        for (int i = 0; i < pTables[tableID].pOrders.Length; i++)
+        for (int i = 0; i < pTables[tabNumber].pOrders.Length; i++)
         {
             pOrders[i].SetActive(true);
-            pOrders[i].transform.GetChild((int)pTables[tableID].pOrders[i]).gameObject.SetActive(true);
+            pOrders[i].transform.GetChild((int)pTables[tabNumber].pOrders[i] - 1).gameObject.SetActive(true);
         }
     }
 
@@ -58,11 +60,21 @@ public class OrderPanel : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (!Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 13))
+            mPointerEventData = new PointerEventData(mEventSystem) {position = Input.mousePosition};
+
+            List<RaycastResult> results = new List<RaycastResult>();
+
+            mRaycaster.Raycast(mPointerEventData, results);
+
+            foreach (RaycastResult result in results)
             {
-                //ClosePanel();
+                Debug.Log("Hit " + result.gameObject.name);
+                Debug.Log("Hit " + result.gameObject.layer);
+            }
+
+            if (results.All(p => p.gameObject.layer != 13))
+            {
+                ClosePanel();
             }
         }
     }

@@ -8,6 +8,12 @@ public class OrderSpike : MonoBehaviour
 
     private void OnMouseDown()
     {
+        StartCoroutine(FrameDelayer());
+    }
+
+    private IEnumerator FrameDelayer()
+    {
+        yield return null;
         pOrderPanel.SetActive(true);
     }
 }

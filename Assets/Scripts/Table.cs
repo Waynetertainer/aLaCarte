@@ -18,7 +18,7 @@ public class Table : MonoBehaviour
     public GameObject pPanel;
     public OrderPanel pOrderPanel;
     public eFood[] pOrders;
-    public eFood[] pFood;
+    [SerializeField]public eFood[] pFood;
     public List<Sprite> pFoodImages = new List<Sprite>();
 
     private Character mCharacter;
@@ -93,8 +93,8 @@ public class Table : MonoBehaviour
                         int foodIdentifier = GameManager.pInstance.pRandom.Next(mLevelManager.pFoodAmountInLevel) + 1;
                         pOrders[i] = (eFood)foodIdentifier;
                     }
-                    pOrderPanel.ShowOrder(pID);
-                    pOrderPanel.gameObject.SetActive(true);
+                    pOrderPanel.ChangeTab(pID);
+                    StartCoroutine(FrameDelayer());
                     DelegateTableState(eTableState.WaitingForFood);
                 }
                 break;
@@ -186,7 +186,7 @@ public class Table : MonoBehaviour
                 transform.GetChild(0).gameObject.SetActive(true);
                 if (food != null)
                 {
-                    for (var i = 0; i < food.Length; i++)
+                    for (var i = 0; i < pFood.Length; i++)
                     {
                         transform.GetChild(0).GetChild(i).GetChild((int)food[i]).gameObject.SetActive(true);//sets one food true
                     }
@@ -234,6 +234,13 @@ public class Table : MonoBehaviour
     private void DeactivateDishes()
     {
         transform.GetChild(0).gameObject.SetActive(false);
+        for (int j = 0; j < transform.GetChild(0).childCount; j++)
+        {
+            for (int i = 0; i < transform.GetChild(0).GetChild(j).childCount; i++)
+            {
+                transform.GetChild(0).GetChild(j).GetChild(i).gameObject.SetActive(false);
+            }
+        }
     }
 
     private void SendTableState(eTableState state, eFood[] food = null)
@@ -269,6 +276,12 @@ public class Table : MonoBehaviour
         ActivateSymbol(mPreviousSymbol, true);
     }
 
+    private IEnumerator FrameDelayer()
+    {
+        yield return null;
+        pOrderPanel.gameObject.SetActive(true);
+    }
+
     public bool TryDropFood(eFood? food)
     {
         if (pState != eTableState.WaitingForFood || food == null) return false;
@@ -285,6 +298,7 @@ public class Table : MonoBehaviour
                 DelegateTableState(eTableState.Eating, pFood);
             }
             ActivateSymbol(eSymbol.Success, false);
+            StartCoroutine(SymbolFeedback());
             return true;
         }
         ActivateSymbol(eSymbol.Failure, false);

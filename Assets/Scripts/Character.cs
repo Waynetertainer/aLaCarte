@@ -47,5 +47,30 @@ namespace Assets.Scripts
         {
             pDecal.SetActive(value);
         }
+
+        public void SetAnimation(eCarryableType? carried=null)
+        {
+            switch (carried)
+            {
+                case eCarryableType.Food:
+                    mAnimator.SetBool("Dome",true);
+                    mAnimator.SetBool("Dish",false);
+                    break;
+                case eCarryableType.Customer:
+                    mAnimator.SetBool("Dome", false);
+                    mAnimator.SetBool("Dish", false);
+                    break;
+                case eCarryableType.Dishes:
+                    mAnimator.SetBool("Dome", false);
+                    mAnimator.SetBool("Dish", true);
+                    break;
+                case null:
+                    mAnimator.SetBool("Dome", false);
+                    mAnimator.SetBool("Dish", false);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("carried", carried, null);
+            }
+        }
     }
 }
