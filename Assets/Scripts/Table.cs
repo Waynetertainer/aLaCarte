@@ -292,7 +292,6 @@ public class Table : MonoBehaviour
             pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
             pFood[i] = pOrders[i];
             pOrders[i] = eFood.None;
-            //pPanel.transform.GetChild(i).gameObject.SetActive(false); //removes that from needed order panel
             if (pOrders.All(p => p == eFood.None))
             {
                 DelegateTableState(eTableState.Eating, pFood);

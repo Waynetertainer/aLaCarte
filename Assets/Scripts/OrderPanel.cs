@@ -14,7 +14,6 @@ public class OrderPanel : MonoBehaviour
     public Table[] pTables = new Table[5];
     public GameObject[] pOrders = new GameObject[4];
 
-    private GameObject mActiveTab;
     private GraphicRaycaster mRaycaster;
     private PointerEventData mPointerEventData;
     private EventSystem mEventSystem;
@@ -24,6 +23,7 @@ public class OrderPanel : MonoBehaviour
         pTables = GameManager.pInstance.pLevelManager.pTables;
         mRaycaster = GetComponent<GraphicRaycaster>();
         mEventSystem = GetComponent<EventSystem>();
+        ChangeTab(0);
     }
 
     public void ChangeTab(int tabNumber)
@@ -33,6 +33,11 @@ public class OrderPanel : MonoBehaviour
             tab.transform.GetChild(0).gameObject.SetActive(false);
             tab.transform.GetChild(1).GetComponent<Text>().color = pTextPassive;
         }
+        foreach (GameObject tableSprite in pTableSprites)
+        {
+            tableSprite.SetActive(false);
+        }
+        pTableSprites[tabNumber].SetActive(true);
         pTabs[tabNumber].transform.GetChild(0).gameObject.SetActive(true);
         pTabs[tabNumber].transform.GetChild(1).GetComponent<Text>().color = pTextActive;
         foreach (GameObject order in pOrders)
@@ -46,7 +51,10 @@ public class OrderPanel : MonoBehaviour
         for (int i = 0; i < pTables[tabNumber].pOrders.Length; i++)
         {
             pOrders[i].SetActive(true);
-            pOrders[i].transform.GetChild((int)pTables[tabNumber].pOrders[i] - 1).gameObject.SetActive(true);
+            if ((int) pTables[tabNumber].pOrders[i] - 1 >= 0)//breakpoint
+            {
+                pOrders[i].transform.GetChild((int) pTables[tabNumber].pOrders[i] - 1).gameObject.SetActive(true);
+            }
         }
     }
 
