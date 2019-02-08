@@ -46,6 +46,7 @@ public class InventoryDrag : MonoBehaviour
                     {
                         mDragging.gameObject.SetActive(false);
                         mDragging.transform.parent.gameObject.SetActive(false);
+                        mLevelManager.CheckFoodEmpty();
                     }
                 }
             }
@@ -53,7 +54,7 @@ public class InventoryDrag : MonoBehaviour
             {
                 mDragging.gameObject.SetActive(false);
                 mDragging.transform.parent.gameObject.SetActive(false);
-
+                mLevelManager.CheckFoodEmpty();
             }
         }
         else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12))

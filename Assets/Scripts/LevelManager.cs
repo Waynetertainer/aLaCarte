@@ -211,22 +211,12 @@ public class LevelManager : MonoBehaviour
         pFoodDispensers.First(p => p.pFood == type).SetInteractable();
     }
 
-    public void SetDomeImage(eCarryableType type)
+    public void CheckFoodEmpty()
     {
-        switch (type)
+        if (pFood.All(f => !f.activeSelf))
         {
-            case eCarryableType.Food:
-                break;
-            case eCarryableType.Customer:
-                pCustomer.transform.parent.gameObject.SetActive(false);
-                pEmptyDome.SetActive(true);
-                break;
-            case eCarryableType.Dishes:
-                pPlate.transform.parent.gameObject.SetActive(false);
-                pEmptyDome.SetActive(true);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException("type", type, null);
+            pFood[0].transform.parent.gameObject.SetActive(false);
         }
+        pEmptyDome.SetActive(true);
     }
 }

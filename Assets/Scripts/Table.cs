@@ -87,7 +87,6 @@ public class Table : MonoBehaviour
             case eTableState.WaitingForOrder:
                 if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance)
                 {
-                    //TODO show order on panel
                     pOrderPanel.gameObject.SetActive(true);
                     for (int i = 0; i < pSize; i++)
                     {
@@ -108,7 +107,7 @@ public class Table : MonoBehaviour
                     if (mLevelManager.TryCarry())
                     {
                         DelegateTableState(eTableState.Free);
-                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;//TODO network?
+                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;//TODO network
                     }
                 }
                 break;
