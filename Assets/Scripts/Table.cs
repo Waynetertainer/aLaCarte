@@ -94,6 +94,7 @@ public class Table : MonoBehaviour
                         pOrders[i] = (eFood)foodIdentifier;
                     }
                     pOrderPanel.ShowOrder(pID);
+                    pOrderPanel.gameObject.SetActive(true);
                     DelegateTableState(eTableState.WaitingForFood);
                 }
                 break;
