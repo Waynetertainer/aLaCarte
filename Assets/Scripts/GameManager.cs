@@ -36,9 +36,6 @@ public class GameManager : MonoBehaviour
 
     public Random pRandom = new Random();
 
-    public Sprite[] pDisheSprites = new Sprite[2];
-    public Sprite[] pEmotionSprites = new Sprite[4];
-    public Sprite[] pDollarSprites = new Sprite[3];
 
 
     private void Awake()
@@ -54,7 +51,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-
             ChangeCanvas(0);
         }
     }
@@ -71,7 +67,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
         GetInfos();
 
         if (mStatus == NetworkStatus.Server)
@@ -81,7 +76,6 @@ public class GameManager : MonoBehaviour
                 if (SceneManager.GetActiveScene().name == "MainMenu")
                 {
                     StartGame();
-
                 }
             }
         }
@@ -90,7 +84,6 @@ public class GameManager : MonoBehaviour
         {
             HandleEvents();
             NetMain.NET_Update();
-
         }
 
         if (mStatus == NetworkStatus.ListeningUDP && Time.timeSinceLevelLoad >= nextCheck)
@@ -117,7 +110,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case ("PlayerReadyChange"):
                     playerReady[(int)eventCall.GetParam("PlayerID") - 1] = (bool)eventCall.GetParam("Ready");
-                    Debug.Log((int)eventCall.GetParam("PlayerID") - 1);
+                    Debug.Log((int)eventCall.GetParam("PlayerID"));//-1
                     SendLobbyData();
                     break;
                 case ("UpdateLobby"):

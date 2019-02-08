@@ -5,8 +5,10 @@ public enum Level { Level_Venedig, Level_Rom}
 public enum eFood
 {
     None,
+    Fish,
     Pizza,
-    Pasta
+    Salad,
+    Soup
 }
 
 public enum eTableState
@@ -39,4 +41,13 @@ public enum eCustomers
 {
     Normal,
     Snob
+}
+
+public enum eSymbol
+{
+    ExclamationMark=0,
+    Euro=1,
+    ServingDome=2,
+    Success=4,
+    Failure=5
 }

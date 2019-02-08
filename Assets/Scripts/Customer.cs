@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Customer : MonoBehaviour
 {
+    public eCustomers pType;
     private Character mCharacter;
     private LevelManager mLevelManager;
 
@@ -18,7 +19,7 @@ public class Customer : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!(Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pCustomerInteractionDistance) || !mLevelManager.TryCarry(eCarryableType.Customer)) return;
+        if (!(Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pCustomerInteractionDistance) || !mLevelManager.TryCarry(pType)) return;
         NET_EventCall eventCall = new NET_EventCall("CustomerTaken");
         eventCall.SetParam("PlayerID", mCharacter.pID);
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);

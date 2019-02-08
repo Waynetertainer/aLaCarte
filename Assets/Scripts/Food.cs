@@ -7,16 +7,15 @@ public class Food : MonoBehaviour
     public eFood pFood;
     public float pReactivationTime;
     public bool pDistanceInteractable;
+    public Transform pDispensePoint;
 
     private bool mTimeInteractable;
     private Character mCharacter;
     private LevelManager mLevelManager;
-    private Transform mDispensePoint;
 
     private void Start()
     {
         mTimeInteractable = true;
-        mDispensePoint = transform.GetChild(0);
         mLevelManager = GameManager.pInstance.pLevelManager;
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
     }
@@ -34,8 +33,8 @@ public class Food : MonoBehaviour
     private void OnMouseDown()
     {
         if (!mTimeInteractable || !pDistanceInteractable ||
-            !(Vector3.Distance(mDispensePoint.position, mCharacter.transform.position) <= mLevelManager.pFoodInteractionDistance) ||
-            !mLevelManager.TryCarry(eCarryableType.Food, pFood)) return;
+            !(Vector3.Distance(pDispensePoint.position, mCharacter.transform.position) <= mLevelManager.pFoodInteractionDistance) ||
+            !mLevelManager.TryCarry(pFood)) return;
         NET_EventCall eventCall = new NET_EventCall("FoodTaken");
         eventCall.SetParam("FoodType", pFood);
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
