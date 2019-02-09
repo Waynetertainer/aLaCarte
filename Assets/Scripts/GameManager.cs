@@ -186,6 +186,9 @@ public class GameManager : MonoBehaviour
                     pLevelLoaded[(int)eventCall.GetParam("PlayerID") - 1] =true;
                     CheckLevelLoad();
                     break;
+                case ("UpdateScore"):
+                    pLevelManager.pScores[1 - (NetMain.NET_GetPlayerID() - 1)] = (float)eventCall.GetParam("Tip");
+                    break;
                 default:
                     Debug.Log("Cant handle packets");
                     break;
