@@ -110,6 +110,11 @@ public class Table : MonoBehaviour
                         DelegateTableState(eTableState.Free);
                         mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;//TODO network
                     }
+                    else
+                    {
+                        ActivateSymbol(eSymbol.Failure, false);
+                        StartCoroutine(SymbolFeedback());
+                    }
                 }
                 break;
             default:

@@ -18,7 +18,7 @@ public class OrderPanel : MonoBehaviour
     private PointerEventData mPointerEventData;
     private EventSystem mEventSystem;
 
-    private void Start()
+    private void Awake()
     {
         pTables = GameManager.pInstance.pLevelManager.pTables;
         mRaycaster = GetComponent<GraphicRaycaster>();

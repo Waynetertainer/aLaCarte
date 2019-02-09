@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject pRomaButton;
     public List<GameObject> Canvases = new List<GameObject>(2);
     public LevelManager pLevelManager;
+    public List<bool> pLevelLoaded = new List<bool>() { false, false };
 
     private NetworkStatus mStatus;
     private NET_ServerInfo[] Servers;
@@ -35,8 +36,6 @@ public class GameManager : MonoBehaviour
     public static GameManager pInstance;
 
     public Random pRandom = new Random();
-
-
 
     private void Awake()
     {
@@ -183,9 +182,28 @@ public class GameManager : MonoBehaviour
                 case ("ClosedGate"):
                     pLevelManager.pGatesManager.SetGateClosed((int)eventCall.GetParam("GateID"));
                     break;
+                case ("LevelLoaded"):
+                    pLevelLoaded[(int)eventCall.GetParam("PlayerID") - 1] =true;
+                    CheckLevelLoad();
+                    break;
                 default:
                     Debug.Log("Cant handle packets");
                     break;
+            }
+        }
+    }
+
+    public void CheckLevelLoad()
+    {
+        if (!pLevelLoaded.Contains(false))
+        {
+            if (pLevelManager == null)
+            {
+                throw new ArgumentNullException("pLevelManager");
+            }
+            else
+            {
+                pLevelManager.StartGame();
             }
         }
     }
@@ -249,7 +267,6 @@ public class GameManager : MonoBehaviour
 
     public void SendLobbyData()
     {
-
         NET_EventCall eventCall = new NET_EventCall("UpdateLobby");
         eventCall.SetParam("Level", level);
         for (int i = 0; i < playerReady.Count; i++)
