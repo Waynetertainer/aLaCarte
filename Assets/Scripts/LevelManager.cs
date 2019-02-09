@@ -44,8 +44,11 @@ public class LevelManager : MonoBehaviour
     [Space(20)]
     public GameObject pWaitingCustomer;
     public Text pTimer;
+    public Text pTimerShaddow;
     public Text pOwnScoreText;
+    public Text pOwnScoreTextShaddow;
     public Text pOtherScoreText;
+    public Text pOtherScoreTextShaddow;
     public GameObject[] pNavMeshTargets = new GameObject[2];
     public Character[] pCharacters = new Character[2];
     public GameObject pEmptyDome;
@@ -73,6 +76,8 @@ public class LevelManager : MonoBehaviour
         pCharacters[1].pTarget = pNavMeshTargets[1].transform;
         pCharacters[0].pID = 1;
         pCharacters[1].pID = 2;
+        pNavMeshTargets[0].transform.position = pCharacters[0].transform.position;
+        pNavMeshTargets[1].transform.position = pCharacters[1].transform.position;
         mGameEnd = GameManager.pInstance.pLevelStart + new TimeSpan(0, 0, 240);
         pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetDecal(true);
         pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].SetDecal(false);
@@ -107,8 +112,8 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        pOwnScoreText.text = pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C", new CultureInfo("de-DE"));
-        pOtherScoreText.text = pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].ToString("N2");
+        pOwnScoreText.text = pOwnScoreTextShaddow.text = pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C", new CultureInfo("de-DE"));
+        pOtherScoreText.text = pOtherScoreTextShaddow.text = pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].ToString("N2");
 
         if (DateTime.Now >= GameManager.pInstance.pLevelStart)
         {
@@ -120,7 +125,7 @@ public class LevelManager : MonoBehaviour
                     pIsPlaying = true;
                     GetComponent<AudioSource>().Play();
                 }
-                pTimer.text = temp.Minutes.ToString() + ":" + temp.Seconds.ToString().PadLeft(2, '0');
+                pTimer.text = pTimerShaddow.text = temp.Minutes.ToString() + ":" + temp.Seconds.ToString().PadLeft(2, '0');
             }
             else
             {
@@ -170,12 +175,13 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public bool TryCarry()
+    public bool TryCarry()//for dishes
     {
         if (pCustomer.activeSelf || pFood.Any(p => p.activeSelf) || pPlate.activeSelf) return false;
         pPlate.SetActive(true);
         pPlate.transform.parent.gameObject.SetActive(true);
         pEmptyDome.SetActive(false);
+        pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetAnimation(eCarryableType.Dishes);
         return true;
     }
 
@@ -187,11 +193,12 @@ public class LevelManager : MonoBehaviour
             temp.SetActive(true);
             temp.transform.parent.gameObject.SetActive(true);
             pEmptyDome.SetActive(false);
-            foreach (Transform transform in temp.transform)
+            pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetAnimation(eCarryableType.Food);
+            foreach (Transform childTransform in temp.transform)
             {
-                transform.gameObject.SetActive(false);
+                childTransform.gameObject.SetActive(false);
             }
-            temp.transform.GetChild((int)type-1).gameObject.SetActive(true);
+            temp.transform.GetChild((int)type - 1).gameObject.SetActive(true);
             return true;
         }
         return false;
@@ -203,6 +210,7 @@ public class LevelManager : MonoBehaviour
         pCustomer.SetActive(true);//vllt childobjects
         pCustomer.transform.parent.gameObject.SetActive(true);
         pEmptyDome.SetActive(false);
+        pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetAnimation(eCarryableType.Customer);
         return true;
     }
 
@@ -216,7 +224,8 @@ public class LevelManager : MonoBehaviour
         if (pFood.All(f => !f.activeSelf))
         {
             pFood[0].transform.parent.gameObject.SetActive(false);
+            pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetAnimation();
+            pEmptyDome.SetActive(true);
         }
-        pEmptyDome.SetActive(true);
     }
 }

@@ -61,6 +61,7 @@ public class InventoryDrag : MonoBehaviour
         {
             mDragging.gameObject.SetActive(false);
             mDragging.transform.parent.gameObject.SetActive(false);
+            mCharacter.SetAnimation();
             mEmptyDome.SetActive(true);
         }
         else if (mCarryableType == eCarryableType.Customer)
@@ -76,6 +77,7 @@ public class InventoryDrag : MonoBehaviour
                         mDragging.gameObject.SetActive(false);
                         mDragging.transform.parent.gameObject.SetActive(false);
                         mEmptyDome.SetActive(true);
+                        mCharacter.SetAnimation(eCarryableType.Customer);
                     }
                 }
             }
@@ -84,6 +86,7 @@ public class InventoryDrag : MonoBehaviour
                 mDragging.gameObject.SetActive(false);
                 mDragging.transform.parent.gameObject.SetActive(false);
                 mEmptyDome.SetActive(true);
+                mCharacter.SetAnimation();
             }
         }
         mDragging.transform.position = mDraggedStartPosition;

@@ -114,7 +114,6 @@ public class GameManager : MonoBehaviour
                     SendLobbyData();
                     break;
                 case ("UpdateLobby"):
-                    Debug.Log("Updated Lobby");
                     level = (Level)eventCall.GetParam("Level");
                     ShowLevel();
                     for (int i = 0; i < playerReady.Count; i++)
@@ -297,7 +296,6 @@ public class GameManager : MonoBehaviour
     public void GetServers()
     {
         Servers = NetMain.NET_GetServerInfo();
-        Debug.Log("found " + Servers.Length + " servers");
         for (int i = pServerSelectionPanel.transform.childCount - 1; i >= 0; i--)
         {
             Destroy(pServerSelectionPanel.transform.GetChild(i).gameObject);
