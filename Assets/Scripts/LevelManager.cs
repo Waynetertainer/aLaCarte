@@ -56,6 +56,8 @@ public class LevelManager : MonoBehaviour
     public GameObject pCustomer;
     public Table[] pTables;
     public Food[] pFoodDispensers;
+    public GameObject pReallyLeaveButton;
+    public GameObject pScoreScreen;
 
     [HideInInspector] public bool pDragging;
     [HideInInspector] public bool pIsHost;
@@ -86,11 +88,11 @@ public class LevelManager : MonoBehaviour
         pCharacters[1].pID = 2;
         pNavMeshTargets[0].transform.position = pCharacters[0].transform.position;
         pNavMeshTargets[1].transform.position = pCharacters[1].transform.position;
-        //mGameEnd = GameManager.pInstance.pLevelStart + new TimeSpan(0, 0, 240); //TODO set in start
         pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetDecal(true);
         pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].SetDecal(false);
         Destroy(pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<Rigidbody>());
         pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<CapsuleCollider>().enabled = false;
+        pReallyLeaveButton.GetComponent<Button>().onClick.AddListener(delegate{GameManager.pInstance.ReturnToMainMenu();});
 
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
@@ -121,22 +123,8 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         pOwnScoreText.text = pOwnScoreTextShaddow.text = pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C", new CultureInfo("de-DE"));
-        pOtherScoreText.text = pOtherScoreTextShaddow.text = pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].ToString("N2");
+        pOtherScoreText.text = pOtherScoreTextShaddow.text = pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].ToString("C", new CultureInfo("de-DE"));
 
-        //if (DateTime.Now >= GameManager.pInstance.pLevelStart)
-        //{
-        //TimeSpan temp = mGameEnd - DateTime.Now;
-        //if (temp >= new TimeSpan(0))
-        //{
-        //    if (!pIsPlaying)
-        //    {
-        //        pIsPlaying = true;
-        //        GetComponent<AudioSource>().Play();
-        //    }
-        //    pTimer.text = pTimerShaddow.text = temp.Minutes.ToString() + ":" + temp.Seconds.ToString().PadLeft(2, '0');
-        //}
-        //else
-        //{
         if (Time.timeSinceLevelLoad>=mGameEnd&&pIsPlaying)
         {
             pIsPlaying = false;
@@ -149,6 +137,8 @@ public class LevelManager : MonoBehaviour
                 table.enabled = false;
             }
             pCustomer.transform.parent.parent.gameObject.SetActive(false);
+            pScoreScreen.SetActive(true);
+            pScoreScreen.GetComponent<ScoreScreen>().Open();
         }
 
         if (pIsPlaying)
@@ -156,14 +146,6 @@ public class LevelManager : MonoBehaviour
             float temp = mGameEnd - Time.timeSinceLevelLoad;
             pTimer.text = pTimerShaddow.text = Math.Floor(temp/60) + ":" + Math.Floor(temp%60).ToString().PadLeft(2, '0');
         }
-        //}
-        //}
-        //else
-        //{
-        // TimeSpan temp = GameManager.pInstance.pLevelStart - DateTime.Now;
-        // pTimer.text = temp.Minutes.ToString() + ":" + temp.Seconds.ToString().PadLeft(2, '0');
-
-        //}
 
         if (!pIsHost) return;
         if (Time.timeSinceLevelLoad >= mNextCustomer && pTables.Any(p => p.pState == eTableState.Free))
@@ -248,7 +230,7 @@ public class LevelManager : MonoBehaviour
 
     public void StartGame()
     {
-        mGameEnd = Time.timeSinceLevelLoad + 240;
+        mGameEnd = Time.timeSinceLevelLoad + 50;//240
         pIsPlaying = true;
         GetComponent<AudioSource>().Play();
     }
