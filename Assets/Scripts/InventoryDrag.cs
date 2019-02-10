@@ -40,7 +40,7 @@ public class InventoryDrag : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
             {
                 Table table = hit.transform.GetComponentInChildren<Table>();
-                if (table.pPlayerID == mCharacter.pID && Vector3.Distance(mCharacter.transform.position, table.transform.position) <= mLevelManager.pTableInteractionDistance)
+                if (Vector3.Distance(mCharacter.transform.position, table.transform.position) <= mLevelManager.pTableInteractionDistance)
                 {
                     if (table.TryDropFood(mFood))
                     {
@@ -57,7 +57,7 @@ public class InventoryDrag : MonoBehaviour
                 mLevelManager.CheckFoodEmpty();
             }
         }
-        else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12)&& Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= mLevelManager.pTableInteractionDistance)
+        else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= mLevelManager.pTableInteractionDistance)
         {
             mDragging.gameObject.SetActive(false);
             mDragging.transform.parent.gameObject.SetActive(false);

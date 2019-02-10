@@ -2,7 +2,6 @@
 using NET_System;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,18 +17,20 @@ public class Table : MonoBehaviour
     public GameObject pPanel;
     public OrderPanel pOrderPanel;
     public eFood[] pOrders;
-    [SerializeField]public eFood[] pFood;
-    public List<Sprite> pFoodImages = new List<Sprite>();
+    public eFood[] pFood;
+    public bool pStealable;
+
 
     private Character mCharacter;
     private LevelManager mLevelManager;
     private GameObject mDecal;
     private GameObject mCustomers;
     private float mTip;
-    private float mWaitingStart;
     private eSymbol mPreviousSymbol;
-    private int mDispleaseLevel;
     private Image mStatisfactionBar;
+    private float mWaitingTime;
+    private float mMaxWaitingTime;
+    private bool mStealableSended=false;
 
     private void Start()
     {
@@ -41,6 +42,7 @@ public class Table : MonoBehaviour
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
         mDecal = transform.GetChild(2).gameObject;
         SetTableState(eTableState.Free);
+        mMaxWaitingTime = mLevelManager.pOrderWaitIntervall + mLevelManager.pFoodWaitIntervall + mLevelManager.pCleanWaitIntervall;
     }
 
     private void Update()
@@ -57,10 +59,10 @@ public class Table : MonoBehaviour
                 }
                 break;
             case eTableState.WaitingForOrder:
-                Displeasement(mLevelManager.pOrderWaitIntervall, mLevelManager.pOrderIntervallTipMalus);
+                Displeasement();
                 break;
             case eTableState.WaitingForFood:
-                Displeasement(mLevelManager.pFoodWaitIntervall, mLevelManager.pFoodIntervallTipMalus);
+                Displeasement();
                 break;
             case eTableState.Eating:
                 if (Time.timeSinceLevelLoad >= pNextState)
@@ -69,7 +71,7 @@ public class Table : MonoBehaviour
                 }
                 break;
             case eTableState.WaitingForClean:
-                Displeasement(mLevelManager.pCleanWaitIntervall, mLevelManager.pCleanIntervallTipMalus);
+                Displeasement();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -108,7 +110,7 @@ public class Table : MonoBehaviour
                     if (mLevelManager.TryCarry())
                     {
                         DelegateTableState(eTableState.Free);
-                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;
+                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip * mStatisfactionBar.fillAmount;
                         NET_EventCall eventCall = new NET_EventCall("UpdateScore");
                         eventCall.SetParam("Tip", mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1]);
                         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
@@ -125,16 +127,34 @@ public class Table : MonoBehaviour
         }
     }
 
-    private void Displeasement(float intervall, float malus)
+    private void Displeasement()
     {
-        if (mDispleaseLevel < 3)
+        mWaitingTime += Time.deltaTime;
+        mStatisfactionBar.fillAmount = 1 - (mWaitingTime / mMaxWaitingTime);
+        if (mStatisfactionBar.fillAmount <= 2f / 3)
         {
-            mStatisfactionBar.fillAmount = 1 - ((Time.timeSinceLevelLoad - mWaitingStart) / (3 * intervall));
-            if (Time.timeSinceLevelLoad > mWaitingStart + intervall * (mDispleaseLevel + 1))
+            if (mStatisfactionBar.fillAmount <= 1f / 3)
             {
-                mTip -= malus;
-                mDispleaseLevel++;
-                mStatisfactionBar.color = mDispleaseLevel == 1 ? mLevelManager.pYellow : mLevelManager.pRed;
+                if (mStatisfactionBar.fillAmount <= 0)
+                {
+                    DelegateTableState(eTableState.Free);
+                }
+                else
+                {
+                    mStatisfactionBar.color = mLevelManager.pRed;
+                    if (!mStealableSended)
+                    {
+                        mStealableSended = true;
+                        NET_EventCall eventCall = new NET_EventCall("TableStealable");
+                        eventCall.SetParam("TableID", pID);
+
+                        GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+                    }
+                }
+            }
+            else
+            {
+                mStatisfactionBar.color = mLevelManager.pYellow;
             }
         }
     }
@@ -157,6 +177,9 @@ public class Table : MonoBehaviour
                 DeactivateDishes();
                 SetCustomer(false);
                 pPlayerID = -1;
+                mStatisfactionBar.color = mLevelManager.pGreen;
+                mWaitingTime = 0;
+                mStealableSended = false;
                 break;
             case eTableState.ReadingMenu:
                 SetCustomer(true, pCustomer);
@@ -174,19 +197,13 @@ public class Table : MonoBehaviour
                 }
                 break;
             case eTableState.WaitingForOrder:
-                mStatisfactionBar.fillAmount = 1;
-                mDispleaseLevel = 0;
-                mWaitingStart = Time.timeSinceLevelLoad;
-
-                pPanel.SetActive(true);
-                //TODO start timer /continue timer
                 ActivateSymbol(eSymbol.ExclamationMark, true);
+                if (pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
+                {
+                    pPanel.SetActive(true);
+                }
                 break;
             case eTableState.WaitingForFood:
-                mStatisfactionBar.fillAmount = 1;
-                mDispleaseLevel = 0;
-                mWaitingStart = Time.timeSinceLevelLoad;
-                //TODO start timer /continue timer
                 ActivateSymbol(eSymbol.ServingDome, true);
                 break;
             case eTableState.Eating:
@@ -202,13 +219,12 @@ public class Table : MonoBehaviour
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pEatingTime;
                 break;
             case eTableState.WaitingForClean:
-                pPanel.SetActive(true);
-                mStatisfactionBar.fillAmount = 1;
-                mDispleaseLevel = 0;
-                mWaitingStart = Time.timeSinceLevelLoad;
-                //TODO start timer /continue timer
                 ActivateSymbol(eSymbol.Euro, true);
                 SetDishes(eFood.None);
+                if (pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
+                {
+                    pPanel.SetActive(true);
+                }
                 break;
             default:
                 throw new ArgumentOutOfRangeException("state", state, null);
@@ -293,20 +309,28 @@ public class Table : MonoBehaviour
     public bool TryDropFood(eFood? food)
     {
         if (pState != eTableState.WaitingForFood || food == null) return false;
-        for (int i = 0; i < pOrders.Length; i++)
+        if (pPlayerID == mCharacter.pID || pStealable)
         {
-            //Das macht Sinn, trust me!
-            if (pOrders[i] != food) continue;
-            pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
-            pFood[i] = pOrders[i];
-            pOrders[i] = eFood.None;
-            if (pOrders.All(p => p == eFood.None))
+            if (pStealable)
             {
-                DelegateTableState(eTableState.Eating, pFood);
+                Steal();
             }
-            ActivateSymbol(eSymbol.Success, false);
-            StartCoroutine(SymbolFeedback());
-            return true;
+            pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
+            for (int i = 0; i < pOrders.Length; i++)
+            {
+                //Das macht Sinn, trust me!
+                if (pOrders[i] != food) continue;
+                pFood[i] = pOrders[i];
+                pOrders[i] = eFood.None;
+                if (pOrders.All(p => p == eFood.None))
+                {
+                    DelegateTableState(eTableState.Eating, pFood);
+                }
+
+                ActivateSymbol(eSymbol.Success, false);
+                StartCoroutine(SymbolFeedback());
+                return true;
+            }
         }
         ActivateSymbol(eSymbol.Failure, false);
         StartCoroutine(SymbolFeedback());
@@ -320,5 +344,26 @@ public class Table : MonoBehaviour
         pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
         DelegateTableState(eTableState.ReadingMenu);
         return true;
+    }
+
+    public void SetStealable()
+    {
+        pStealable = true;
+        if (pState == eTableState.WaitingForOrder || pState == eTableState.WaitingForFood ||pState == eTableState.WaitingForClean)
+        {
+            pPanel.SetActive(true);
+        }
+    }
+
+    private void Steal()
+    {
+        mStatisfactionBar.color = mLevelManager.pGreen;
+        mWaitingTime = 0;
+        mStealableSended = false;
+        NET_EventCall eventCall = new NET_EventCall("TableStolen");
+        eventCall.SetParam("TableID", pID);
+        eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());
+        GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+        Debug.Log("sent table stolen");
     }
 }
