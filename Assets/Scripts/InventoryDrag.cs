@@ -57,7 +57,7 @@ public class InventoryDrag : MonoBehaviour
                 mLevelManager.CheckFoodEmpty();
             }
         }
-        else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12))
+        else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12)&& Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= mLevelManager.pTableInteractionDistance)
         {
             mDragging.gameObject.SetActive(false);
             mDragging.transform.parent.gameObject.SetActive(false);

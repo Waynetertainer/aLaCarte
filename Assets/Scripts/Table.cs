@@ -108,7 +108,15 @@ public class Table : MonoBehaviour
                     if (mLevelManager.TryCarry())
                     {
                         DelegateTableState(eTableState.Free);
-                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;//TODO network
+                        mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip;
+                        NET_EventCall eventCall = new NET_EventCall("UpdateScore");
+                        eventCall.SetParam("Tip", mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1]);
+                        GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+                    }
+                    else
+                    {
+                        ActivateSymbol(eSymbol.Failure, false);
+                        StartCoroutine(SymbolFeedback());
                     }
                 }
                 break;
