@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case ("TableStealable"):
                     Debug.Log("received table stealable");
-                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].pStealable = true;
+                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].SetStealable();
                     break;
                 case ("TableStolen"):
                     Debug.Log("received table stolen");

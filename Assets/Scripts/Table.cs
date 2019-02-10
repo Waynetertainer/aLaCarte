@@ -47,12 +47,12 @@ public class Table : MonoBehaviour
 
     private void Update()
     {
-        if (pPlayerID != GameManager.pInstance.NetMain.NET_GetPlayerID()) return;
         switch (pState)
         {
             case eTableState.Free:
                 break;
             case eTableState.ReadingMenu:
+                if (pPlayerID != GameManager.pInstance.NetMain.NET_GetPlayerID()) return;
                 if (Time.timeSinceLevelLoad >= pNextState)
                 {
                     DelegateTableState(eTableState.WaitingForOrder);
@@ -65,6 +65,7 @@ public class Table : MonoBehaviour
                 Displeasement();
                 break;
             case eTableState.Eating:
+                if (pPlayerID != GameManager.pInstance.NetMain.NET_GetPlayerID()) return;
                 if (Time.timeSinceLevelLoad >= pNextState)
                 {
                     DelegateTableState(eTableState.WaitingForClean);
@@ -87,8 +88,13 @@ public class Table : MonoBehaviour
             case eTableState.ReadingMenu:
                 break;
             case eTableState.WaitingForOrder:
-                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance)
+                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance
+                    &&(pPlayerID == mCharacter.pID||pStealable))
                 {
+                    if (pStealable)
+                    {
+                        Steal();
+                    }
                     pOrderPanel.gameObject.SetActive(true);
                     for (int i = 0; i < pSize; i++)
                     {
@@ -107,6 +113,7 @@ public class Table : MonoBehaviour
             case eTableState.WaitingForClean:
                 if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance)
                 {
+                    //TODO implement steal mekänik
                     if (mLevelManager.TryCarry())
                     {
                         DelegateTableState(eTableState.Free);
@@ -142,13 +149,13 @@ public class Table : MonoBehaviour
                 else
                 {
                     mStatisfactionBar.color = mLevelManager.pRed;
-                    if (!mStealableSended)
+                    if (!mStealableSended&& pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
                     {
                         mStealableSended = true;
                         NET_EventCall eventCall = new NET_EventCall("TableStealable");
                         eventCall.SetParam("TableID", pID);
-
                         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+                        Debug.Log("sent table stealable");
                     }
                 }
             }
