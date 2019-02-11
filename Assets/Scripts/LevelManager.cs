@@ -29,13 +29,12 @@ public class LevelManager : MonoBehaviour
 
     public float pNormalCustomerMultiplicator;
     public float pSnobCustomerMultiplicator;
+    public float pTwoTableMultiplicator;
+    public float pFourTableMultiplicator;//TODO implement
 
     public float pOrderWaitIntervall;
     public float pFoodWaitIntervall;
     public float pCleanWaitIntervall;
-    public float pOrderIntervallTipMalus;
-    public float pFoodIntervallTipMalus;
-    public float pCleanIntervallTipMalus;
 
     public float pSymbolFeedbackDuration;
     [Space(20)]
@@ -230,8 +229,14 @@ public class LevelManager : MonoBehaviour
 
     public void StartGame()
     {
-        mGameEnd = Time.timeSinceLevelLoad + 240;
+        mGameEnd = Time.timeSinceLevelLoad + 10;
         pIsPlaying = true;
+        GetComponent<AudioSource>().volume = GameManager.pInstance.pMusicVolume;
         GetComponent<AudioSource>().Play();
+    }
+
+    public void ReturnToLobby()
+    {
+        GameManager.pInstance.ReturnToMainMenu();
     }
 }
