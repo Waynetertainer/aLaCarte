@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 33263527357688240}
   - component: {fileID: 23966350918786026}
   - component: {fileID: 1571236434589635664}
+  - component: {fileID: 1631641995}
+  - component: {fileID: 1631641994}
   m_Layer: 0
   m_Name: Theke_Bestellung
   m_TagString: Untagged
@@ -96,6 +98,32 @@ MonoBehaviour:
   eraseRenderer: 0
   originalLayer: 0
   originalMaterials: []
+--- !u!65 &1631641995
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883992473411330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7073536, y: 0.6675732, z: 0.7073535}
+  m_Center: {x: 0.00000010430813, y: 0.33378667, z: 0}
+--- !u!114 &1631641994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883992473411330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fde7fb56624b54083150a2fed9f755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pOrderPanel: {fileID: 0}
 --- !u!1001 &671596250909137366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110,6 +138,18 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.31403017
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5571065
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0018452139
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
       propertyPath: m_LocalRotation.x
@@ -128,16 +168,20 @@ PrefabInstance:
       value: 0.7056018
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.31403017
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5571065
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -7.4800005
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0018452139
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
       propertyPath: m_LocalScale.x
@@ -150,18 +194,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5396516
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -7.4800005
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.00001
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 7cdd6f703392e1646a018246a4597adf, type: 3}
       propertyPath: m_Materials.Array.data[0]

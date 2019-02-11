@@ -229,7 +229,7 @@ public class LevelManager : MonoBehaviour
 
     public void StartGame()
     {
-        mGameEnd = Time.timeSinceLevelLoad + 10;
+        mGameEnd = Time.timeSinceLevelLoad + 240;
         pIsPlaying = true;
         GetComponent<AudioSource>().volume = GameManager.pInstance.pMusicVolume;
         GetComponent<AudioSource>().Play();
