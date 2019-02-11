@@ -75,11 +75,11 @@ public class LevelManager : MonoBehaviour
         eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
         GameManager.pInstance.CheckLevelLoad();
+        GameManager.pInstance.pLevelManager = this;
     }
 
     private void Start()
     {
-        GameManager.pInstance.pLevelManager = this;
         pGatesManager = GetComponent<GatesManager>();
         pCharacters[0].pTarget = pNavMeshTargets[0].transform;
         pCharacters[1].pTarget = pNavMeshTargets[1].transform;
