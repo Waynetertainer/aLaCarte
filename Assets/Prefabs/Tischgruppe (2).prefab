@@ -739,9 +739,7 @@ MonoBehaviour:
   pOrderPanel: {fileID: 0}
   pOrders: 
   pFood: 
-  pFoodImages:
-  - {fileID: 21300000, guid: 13fedcb268544454d841979972b75057, type: 3}
-  - {fileID: 21300000, guid: 18dac8470ba1f6b41b5fb5027aa544f5, type: 3}
+  pStealable: 0
 --- !u!33 &1578961111
 MeshFilter:
   m_ObjectHideFlags: 0

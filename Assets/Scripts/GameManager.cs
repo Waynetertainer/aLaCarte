@@ -187,6 +187,14 @@ public class GameManager : MonoBehaviour
                 case ("UpdateScore"):
                     pLevelManager.pScores[1 - (NetMain.NET_GetPlayerID() - 1)] = (float)eventCall.GetParam("Tip");
                     break;
+                case ("TableStealable"):
+                    Debug.Log("received table stealable");
+                    pLevelManager.pTables[(int)eventCall.GetParam("TableID")].SetStealable();
+                    break;
+                case ("TableStolen"):
+                    Debug.Log("received table stolen");
+                    pLevelManager.pTables[(int)eventCall.GetParam("TableID")].Stolen((int)eventCall.GetParam("PlayerID"));
+                    break;
                 default:
                     Debug.Log("Cant handle packets");
                     break;
