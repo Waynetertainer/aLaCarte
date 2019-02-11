@@ -1039,6 +1039,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 681806799}
     m_Modifications:
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242252321525829768, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691322954836234248, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1884259555807974, guid: 9069691ca05a19145a81ea5e523d9d02, type: 3}
       propertyPath: m_Name
       value: Gittertor02 (1)
@@ -2684,6 +2704,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1842257689}
     m_Modifications:
+    - target: {fileID: 6242252321525829768, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691322954836234248, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1884259555807974, guid: 9069691ca05a19145a81ea5e523d9d02, type: 3}
       propertyPath: m_Name
       value: Gittertor02 (1)
@@ -30249,6 +30279,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1628840958327482186, guid: 7924e543b5fbe6a418163f1f0516592a,
+        type: 3}
+      propertyPath: m_Name
+      value: Canvas_Roma
+      objectReference: {fileID: 0}
     - target: {fileID: 7392916479337253871, guid: 7924e543b5fbe6a418163f1f0516592a,
         type: 3}
       propertyPath: m_RootOrder
@@ -30273,11 +30308,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1628840958327482186, guid: 7924e543b5fbe6a418163f1f0516592a,
-        type: 3}
-      propertyPath: m_Name
-      value: Canvas_Roma
       objectReference: {fileID: 0}
     - target: {fileID: 1628840958327482190, guid: 7924e543b5fbe6a418163f1f0516592a,
         type: 3}
@@ -33374,6 +33404,106 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 46950275}
     m_Modifications:
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.11298826
+      objectReference: {fileID: 0}
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.69802266
+      objectReference: {fileID: 0}
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.69801974
+      objectReference: {fileID: 0}
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.11298962
+      objectReference: {fileID: 0}
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -161.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242252321525829768, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.69802046
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.112987146
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.11298707
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6980224
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -18.389
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691322954836234248, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1884259555807974, guid: 9069691ca05a19145a81ea5e523d9d02, type: 3}
       propertyPath: m_Name
       value: Gittertor02 (1)
@@ -53249,6 +53379,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2122219940}
     m_Modifications:
+    - target: {fileID: 92414025747355534, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242252321525829768, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886486655587929352, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691322954836234248, guid: 9069691ca05a19145a81ea5e523d9d02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1884259555807974, guid: 9069691ca05a19145a81ea5e523d9d02, type: 3}
       propertyPath: m_Name
       value: Gittertor02 (1)
