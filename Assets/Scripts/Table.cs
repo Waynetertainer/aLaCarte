@@ -30,7 +30,7 @@ public class Table : MonoBehaviour
     private Image mStatisfactionBar;
     private float mWaitingTime;
     private float mMaxWaitingTime;
-    private bool mStealableSended=false;
+    private bool mStealableSended = false;
 
     private void Start()
     {
@@ -88,10 +88,9 @@ public class Table : MonoBehaviour
             case eTableState.ReadingMenu:
                 break;
             case eTableState.WaitingForOrder:
-                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance
-                    &&(pPlayerID == mCharacter.pID||pStealable))
+                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance && (pPlayerID == mCharacter.pID || pStealable))
                 {
-                    if (pStealable)
+                    if (pPlayerID != mCharacter.pID)//&&pStealable
                     {
                         Steal();
                     }
@@ -101,21 +100,34 @@ public class Table : MonoBehaviour
                         int foodIdentifier = GameManager.pInstance.pRandom.Next(mLevelManager.pFoodAmountInLevel) + 1;
                         pOrders[i] = (eFood)foodIdentifier;
                     }
+                    NET_EventCall eventCall = new NET_EventCall("UpdateOrders");
+                    eventCall.SetParam("TableID", pID);
+                    eventCall.SetParam("Orders", pOrders);
+                    eventCall.SetParam("Food", pFood);
+                    GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
+
                     pOrderPanel.ChangeTab(pID);
                     StartCoroutine(FrameDelayer());
                     DelegateTableState(eTableState.WaitingForFood);
                 }
                 break;
             case eTableState.WaitingForFood:
+                if (pStealable && pPlayerID != mCharacter.pID)
+                {
+                    Steal(true);
+                }
                 break;
             case eTableState.Eating:
                 break;
             case eTableState.WaitingForClean:
-                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance)
+                if (Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pTableInteractionDistance && (pPlayerID == mCharacter.pID || pStealable))
                 {
-                    //TODO implement steal mekänik
                     if (mLevelManager.TryCarry())
                     {
+                        if (pPlayerID != mCharacter.pID)//&&pStealable
+                        {
+                            Steal();
+                        }
                         DelegateTableState(eTableState.Free);
                         mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip * mStatisfactionBar.fillAmount;
                         NET_EventCall eventCall = new NET_EventCall("UpdateScore");
@@ -149,7 +161,7 @@ public class Table : MonoBehaviour
                 else
                 {
                     mStatisfactionBar.color = mLevelManager.pRed;
-                    if (!mStealableSended&& pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
+                    if (!mStealableSended && pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
                     {
                         mStealableSended = true;
                         NET_EventCall eventCall = new NET_EventCall("TableStealable");
@@ -336,6 +348,11 @@ public class Table : MonoBehaviour
 
                 ActivateSymbol(eSymbol.Success, false);
                 StartCoroutine(SymbolFeedback());
+                NET_EventCall eventCall = new NET_EventCall("UpdateOrders");
+                eventCall.SetParam("TableID", pID);
+                eventCall.SetParam("Orders", pOrders);
+                eventCall.SetParam("Food", pFood);
+                GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
                 return true;
             }
         }
@@ -356,17 +373,27 @@ public class Table : MonoBehaviour
     public void SetStealable()
     {
         pStealable = true;
-        if (pState == eTableState.WaitingForOrder || pState == eTableState.WaitingForFood ||pState == eTableState.WaitingForClean)
+        if (pState == eTableState.WaitingForOrder || pState == eTableState.WaitingForFood || pState == eTableState.WaitingForClean)
         {
             pPanel.SetActive(true);
         }
     }
 
-    private void Steal()
+    private void Steal(bool iWillComeSoon = false)
     {
-        mStatisfactionBar.color = mLevelManager.pGreen;
-        mWaitingTime = 0;
+        if (iWillComeSoon)
+        {
+            mStatisfactionBar.color = mLevelManager.pYellow;
+            mWaitingTime = mMaxWaitingTime * 2f / 3;
+        }
+        else
+        {
+            mStatisfactionBar.color = mLevelManager.pGreen;
+            mWaitingTime = 0;
+        }
         mStealableSended = false;
+
+        pStealable = false;
         NET_EventCall eventCall = new NET_EventCall("TableStolen");
         eventCall.SetParam("TableID", pID);
         eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());
@@ -381,5 +408,6 @@ public class Table : MonoBehaviour
         mStatisfactionBar.color = mLevelManager.pGreen;
         mWaitingTime = 0;
         mStealableSended = false;
+        pStealable = false;
     }
 }

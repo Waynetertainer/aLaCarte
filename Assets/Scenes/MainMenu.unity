@@ -19869,7 +19869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03573c2d18d741940b59d39982356889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pServerName: Default Name
+  pServerName: "\xC0 La Carte"
   pServerSelectionPanel: {fileID: 1857166242}
   pButtonPrefab: {fileID: 1682631766612836, guid: 34ae7c0165953ad449994291c8ecaa59,
     type: 3}
