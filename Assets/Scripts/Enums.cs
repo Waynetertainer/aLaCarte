@@ -1,15 +1,25 @@
 ﻿
-public enum NetworkStatus { Disconnected, Client, Server, ListeningUDP };
-public enum Level { Level_Venedig, Level_Rom}
+public enum NetworkStatus
+{
+    Disconnected,
+    Client,
+    Server,
+    ListeningUDP
+};
+
+public enum Level
+{
+    Level_Venedig,
+    Level_Rom
+}
 
 public enum eFood
 {
     None,
+    Fish,
     Pizza,
-    Pasta,
-    Soup,
     Salad,
-    Fish
+    Soup
 }
 
 public enum eTableState
@@ -32,7 +42,6 @@ public enum eStatisfaction
 
 public enum eCarryableType
 {
-    //Empty,
     Food,
     Customer,
     Dishes
@@ -42,4 +51,13 @@ public enum eCustomers
 {
     Normal,
     Snob
+}
+
+public enum eSymbol
+{
+    ExclamationMark = 0,
+    Euro = 1,
+    ServingDome = 2,
+    Success = 4,
+    Failure = 5
 }

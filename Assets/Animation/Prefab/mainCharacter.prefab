@@ -2705,7 +2705,6 @@ GameObject:
   - component: {fileID: 8168849301487586165}
   - component: {fileID: 1135414086}
   - component: {fileID: 1143561692}
-  - component: {fileID: 1143561689}
   m_Layer: 0
   m_Name: mainCharacter
   m_TagString: Untagged
@@ -2796,20 +2795,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!136 &1143561689
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5482125785367702841}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.01
-  m_Height: 0.07
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.03, z: 0}
 --- !u!1 &5561059102535881477
 GameObject:
   m_ObjectHideFlags: 0
@@ -4343,6 +4328,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6158101098299536116}
     m_Modifications:
+    - target: {fileID: 1971201949481408, guid: 4516b414bcd20f54097b8f45765f891e, type: 3}
+      propertyPath: m_Name
+      value: exhaust
+      objectReference: {fileID: 0}
     - target: {fileID: 4150488464208734, guid: 4516b414bcd20f54097b8f45765f891e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0041
@@ -4398,10 +4387,6 @@ PrefabInstance:
     - target: {fileID: 4150488464208734, guid: 4516b414bcd20f54097b8f45765f891e, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.73564
-      objectReference: {fileID: 0}
-    - target: {fileID: 1971201949481408, guid: 4516b414bcd20f54097b8f45765f891e, type: 3}
-      propertyPath: m_Name
-      value: exhaust
       objectReference: {fileID: 0}
     - target: {fileID: 198624991889340388, guid: 4516b414bcd20f54097b8f45765f891e,
         type: 3}

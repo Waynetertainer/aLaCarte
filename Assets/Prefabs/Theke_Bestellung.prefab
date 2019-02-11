@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4528638061482798}
   - component: {fileID: 33263527357688240}
   - component: {fileID: 23966350918786026}
+  - component: {fileID: 1571236434589635664}
   m_Layer: 0
   m_Name: Theke_Bestellung
   m_TagString: Untagged
@@ -79,6 +80,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1571236434589635664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883992473411330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials: []
 --- !u!1001 &671596250909137366
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class InventoryDrag : MonoBehaviour
     private Character mCharacter;
     private LevelManager mLevelManager;
     private GameObject mDragging;
+    private GameObject mEmptyDome;
     private Vector3 mDraggedStartPosition;
     private eCarryableType mCarryableType;
     private eFood? mFood;
@@ -14,6 +15,7 @@ public class InventoryDrag : MonoBehaviour
     {
         mLevelManager = GameManager.pInstance.pLevelManager;
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
+        mEmptyDome = mLevelManager.pEmptyDome;
     }
 
     public void BeginDrag(GameObject obj)
@@ -38,12 +40,13 @@ public class InventoryDrag : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
             {
                 Table table = hit.transform.GetComponentInChildren<Table>();
-                if (table.pPlayerID == mCharacter.pID && Vector3.Distance(mCharacter.transform.position, table.transform.position) <= mLevelManager.pTableInteractionDistance)
+                if (Vector3.Distance(mCharacter.transform.position, table.transform.position) <= mLevelManager.pTableInteractionDistance)
                 {
                     if (table.TryDropFood(mFood))
                     {
                         mDragging.gameObject.SetActive(false);
                         mDragging.transform.parent.gameObject.SetActive(false);
+                        mLevelManager.CheckFoodEmpty();
                     }
                 }
             }
@@ -51,12 +54,15 @@ public class InventoryDrag : MonoBehaviour
             {
                 mDragging.gameObject.SetActive(false);
                 mDragging.transform.parent.gameObject.SetActive(false);
-
+                mLevelManager.CheckFoodEmpty();
             }
         }
-        else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12))
+        else if (mCarryableType == eCarryableType.Dishes && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= mLevelManager.pTableInteractionDistance)
         {
             mDragging.gameObject.SetActive(false);
+            mDragging.transform.parent.gameObject.SetActive(false);
+            mCharacter.SetAnimation();
+            mEmptyDome.SetActive(true);
         }
         else if (mCarryableType == eCarryableType.Customer)
         {
@@ -69,12 +75,18 @@ public class InventoryDrag : MonoBehaviour
                     {
                         //table.pPlayerID = mCharacter.pID;  //TODO needed?
                         mDragging.gameObject.SetActive(false);
+                        mDragging.transform.parent.gameObject.SetActive(false);
+                        mEmptyDome.SetActive(true);
+                        mCharacter.SetAnimation(eCarryableType.Customer);
                     }
                 }
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12) && Vector3.Distance(mCharacter.transform.position, hit.transform.position) <= mLevelManager.pTableInteractionDistance)
             {
                 mDragging.gameObject.SetActive(false);
+                mDragging.transform.parent.gameObject.SetActive(false);
+                mEmptyDome.SetActive(true);
+                mCharacter.SetAnimation();
             }
         }
         mDragging.transform.position = mDraggedStartPosition;

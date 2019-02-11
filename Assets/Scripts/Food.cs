@@ -34,7 +34,7 @@ public class Food : MonoBehaviour
     {
         if (!mTimeInteractable || !pDistanceInteractable ||
             !(Vector3.Distance(pDispensePoint.position, mCharacter.transform.position) <= mLevelManager.pFoodInteractionDistance) ||
-            !mLevelManager.TryCarry(eCarryableType.Food, pFood)) return;
+            !mLevelManager.TryCarry(pFood)) return;
         NET_EventCall eventCall = new NET_EventCall("FoodTaken");
         eventCall.SetParam("FoodType", pFood);
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
