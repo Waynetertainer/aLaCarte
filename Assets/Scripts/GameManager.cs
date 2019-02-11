@@ -15,13 +15,12 @@ public class GameManager : MonoBehaviour
     public string pServerName = "aLaCarte";
     public GameObject pServerSelectionPanel;
     public GameObject pButtonPrefab;
-    public TextMeshProUGUI pInfoText;
-    public TextMeshProUGUI pServerInfoText;
     public Toggle pReady;
     public GameObject pVeniceButton;
     public GameObject pRomaButton;
     public List<GameObject> Canvases = new List<GameObject>(2);
     public LevelManager pLevelManager;
+    public List<bool> pLevelLoaded = new List<bool>() { false, false };
 
     private NetworkStatus mStatus;
     private NET_ServerInfo[] Servers;
@@ -35,8 +34,6 @@ public class GameManager : MonoBehaviour
     public static GameManager pInstance;
 
     public Random pRandom = new Random();
-
-
 
     private void Awake()
     {
@@ -92,7 +89,7 @@ public class GameManager : MonoBehaviour
             Servers = NetMain.NET_GetServerInfo();
             if (Servers != null && Servers.Length > 0)
             {
-                pServerInfoText.text = Servers[0].INFO_GetServerName() + Servers[0].INFO_GetAddress();
+                //pServerInfoText.text = Servers[0].INFO_GetServerName() + Servers[0].INFO_GetAddress();
                 GetServers();
             }
         }
@@ -183,9 +180,39 @@ public class GameManager : MonoBehaviour
                 case ("ClosedGate"):
                     pLevelManager.pGatesManager.SetGateClosed((int)eventCall.GetParam("GateID"));
                     break;
+                case ("LevelLoaded"):
+                    pLevelLoaded[(int)eventCall.GetParam("PlayerID") - 1] = true;
+                    CheckLevelLoad();
+                    break;
+                case ("UpdateScore"):
+                    pLevelManager.pScores[1 - (NetMain.NET_GetPlayerID() - 1)] = (float)eventCall.GetParam("Tip");
+                    break;
+                case ("TableStealable"):
+                    Debug.Log("received table stealable");
+                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].SetStealable();
+                    break;
+                case ("TableStolen"):
+                    Debug.Log("received table stolen");
+                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].pPlayerID =(int) eventCall.GetParam("PlayerID");
+                    break;
                 default:
                     Debug.Log("Cant handle packets");
                     break;
+            }
+        }
+    }
+
+    public void CheckLevelLoad()
+    {
+        if (!pLevelLoaded.Contains(false))
+        {
+            if (pLevelManager == null)
+            {
+                throw new ArgumentNullException("pLevelManager");
+            }
+            else
+            {
+                pLevelManager.StartGame();
             }
         }
     }
@@ -210,7 +237,7 @@ public class GameManager : MonoBehaviour
         string temp = NetMain.NET_GetStates();
         if (temp != null)
         {
-            pInfoText.text = temp;
+            //pInfoText.text = temp;
         }
     }
 
@@ -226,6 +253,15 @@ public class GameManager : MonoBehaviour
             pRomaButton.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
             pVeniceButton.transform.localScale = new Vector3(0.9f, 0.9f, 1);
         }
+    }
+
+    public void ReturnToMainMenu()
+    {
+        FreePort();
+        SceneManager.LoadScene("MainMenu");
+        Destroy(gameObject);
+
+        //ChangeCanvas(0);
     }
 
     public void ChangeCanvas(int canvasID)
@@ -249,7 +285,6 @@ public class GameManager : MonoBehaviour
 
     public void SendLobbyData()
     {
-
         NET_EventCall eventCall = new NET_EventCall("UpdateLobby");
         eventCall.SetParam("Level", level);
         for (int i = 0; i < playerReady.Count; i++)
