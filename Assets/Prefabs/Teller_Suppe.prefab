@@ -93,6 +93,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: exhaust
       objectReference: {fileID: 0}
+    - target: {fileID: 1971201949481408, guid: 4516b414bcd20f54097b8f45765f891e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4150488464208734, guid: 4516b414bcd20f54097b8f45765f891e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
