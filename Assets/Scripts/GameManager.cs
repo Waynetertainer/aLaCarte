@@ -189,11 +189,11 @@ public class GameManager : MonoBehaviour
                     break;
                 case ("TableStealable"):
                     Debug.Log("received table stealable");
-                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].SetStealable();
+                    pLevelManager.pTables[(int)eventCall.GetParam("TableID")].SetStealable();
                     break;
                 case ("TableStolen"):
                     Debug.Log("received table stolen");
-                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].pPlayerID =(int) eventCall.GetParam("PlayerID");
+                    pLevelManager.pTables[(int)eventCall.GetParam("TableID")].Stolen((int)eventCall.GetParam("PlayerID"));
                     break;
                 default:
                     Debug.Log("Cant handle packets");

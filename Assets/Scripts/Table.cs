@@ -373,4 +373,13 @@ public class Table : MonoBehaviour
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
         Debug.Log("sent table stolen");
     }
+
+    public void Stolen(int id)
+    {
+        pPlayerID = id;
+        pPanel.SetActive(false);
+        mStatisfactionBar.color = mLevelManager.pGreen;
+        mWaitingTime = 0;
+        mStealableSended = false;
+    }
 }
