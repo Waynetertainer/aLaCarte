@@ -203,13 +203,14 @@ public class Table : MonoBehaviour
             case eTableState.ReadingMenu:
                 SetCustomer(true, pCustomer);
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pReadingMenuTime;
+                float sizeMultiplicator =pSize == 2 ? mLevelManager.pTwoTableMultiplicator : mLevelManager.pFourTableMultiplicator;
                 switch (pCustomer)
                 {
                     case eCustomers.Normal:
-                        mTip = mLevelManager.pNormalCustomerMultiplicator * pSize;
+                        mTip = mLevelManager.pNormalCustomerMultiplicator * sizeMultiplicator;
                         break;
                     case eCustomers.Snob:
-                        mTip = mLevelManager.pSnobCustomerMultiplicator * pSize;
+                        mTip = mLevelManager.pSnobCustomerMultiplicator * sizeMultiplicator;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

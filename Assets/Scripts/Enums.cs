@@ -10,7 +10,9 @@ public enum NetworkStatus
 public enum Level
 {
     Level_Venedig,
-    Level_Rom
+    Level_Rom,
+    Level_Tutorial,
+    Level_None
 }
 
 public enum eFood
