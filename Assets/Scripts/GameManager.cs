@@ -195,6 +195,11 @@ public class GameManager : MonoBehaviour
                     Debug.Log("received table stolen");
                     pLevelManager.pTables[(int)eventCall.GetParam("TableID")].Stolen((int)eventCall.GetParam("PlayerID"));
                     break;
+                case ("UpdateOrders"):
+                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].pOrders =(eFood[]) eventCall.GetParam("Orders");
+                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].pFood =(eFood[]) eventCall.GetParam("Food");
+                    break;
+
                 default:
                     Debug.Log("Cant handle packets");
                     break;
