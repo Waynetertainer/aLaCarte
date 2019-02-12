@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 45;
     }
 
     private void OnApplicationQuit()
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
                     ShowLevel();
                     for (int i = 0; i < playerReady.Count; i++)
                     {
-                        playerReady[i] = (bool)eventCall.GetParam(i.ToString());//TODO synchronise player ready status
+                        playerReady[i] = (bool)eventCall.GetParam(i.ToString());
                     }
                     break;
                 case ("UpdateAnchorPosition"):

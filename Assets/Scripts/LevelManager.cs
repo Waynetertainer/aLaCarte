@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
     public float pNormalCustomerMultiplicator;
     public float pSnobCustomerMultiplicator;
     public float pTwoTableMultiplicator;
-    public float pFourTableMultiplicator;//TODO implement
+    public float pFourTableMultiplicator;
 
     public float pOrderWaitIntervall;
     public float pFoodWaitIntervall;
@@ -57,6 +57,7 @@ public class LevelManager : MonoBehaviour
     public Food[] pFoodDispensers;
     public GameObject pReallyLeaveButton;
     public GameObject pScoreScreen;
+    public eCustomers pCustomerType;
 
     [HideInInspector] public bool pDragging;
     [HideInInspector] public bool pIsHost;
@@ -206,7 +207,8 @@ public class LevelManager : MonoBehaviour
     public bool TryCarry(eCustomers type)
     {
         if (pCustomer.activeSelf || pPlate.activeSelf || pFood.Any(p => p.activeSelf)) return false;
-        pCustomer.SetActive(true);//vllt childobjects
+        pCustomerType = type;
+        pCustomer.SetActive(true);
         pCustomer.transform.parent.gameObject.SetActive(true);
         pEmptyDome.SetActive(false);
         pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetAnimation(eCarryableType.Customer);
