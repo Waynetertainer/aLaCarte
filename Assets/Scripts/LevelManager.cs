@@ -76,6 +76,12 @@ public class LevelManager : MonoBehaviour
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
         GameManager.pInstance.CheckLevelLoad();
         GameManager.pInstance.pLevelManager = this;
+        Table[] tempTables = FindObjectsOfType<Table>();
+        pTables = new Table[tempTables.Length];
+        foreach (Table table in tempTables)
+        {
+            pTables[table.pID] = table;
+        }
     }
 
     private void Start()
@@ -109,12 +115,7 @@ public class LevelManager : MonoBehaviour
         }
         pEmptyDome.SetActive(true);
 
-        Table[] tempTables = FindObjectsOfType<Table>();
-        pTables = new Table[tempTables.Length];
-        foreach (Table table in tempTables)
-        {
-            pTables[table.pID] = table;
-        }
+        
 
         pFoodDispensers = FindObjectsOfType<Food>();
     }
