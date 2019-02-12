@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts;
+﻿using Assets.Scripts;
 using NET_System;
 using UnityEngine;
 
@@ -20,8 +17,12 @@ public class Customer : MonoBehaviour
     private void OnMouseDown()
     {
         if (!(Vector3.Distance(transform.position, mCharacter.transform.position) <= mLevelManager.pCustomerInteractionDistance) || !mLevelManager.TryCarry(pType)) return;
+        pType = (eCustomers)GameManager.pInstance.pRandom.Next(2);
+        transform.GetChild((int)pType).gameObject.SetActive(true);
+        transform.GetChild(1 - (int)pType).gameObject.SetActive(false);
         NET_EventCall eventCall = new NET_EventCall("CustomerTaken");
         eventCall.SetParam("PlayerID", mCharacter.pID);
+        eventCall.SetParam("NextType", pType);
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
         gameObject.SetActive(false);
     }
