@@ -98,7 +98,7 @@ public class LevelManager : MonoBehaviour
         pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].SetDecal(false);
         Destroy(pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<Rigidbody>());
         pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<CapsuleCollider>().enabled = false;
-        pReallyLeaveButton.GetComponent<Button>().onClick.AddListener(delegate{GameManager.pInstance.ReturnToMainMenu();});
+        pReallyLeaveButton.GetComponent<Button>().onClick.AddListener(delegate { GameManager.pInstance.ReturnToMainMenu(); });
 
         mNextCustomer = 0;
         if (GameManager.pInstance.NetMain.NET_GetPlayerID() == 1)
@@ -116,7 +116,7 @@ public class LevelManager : MonoBehaviour
         }
         pEmptyDome.SetActive(true);
 
-        
+
 
         pFoodDispensers = FindObjectsOfType<Food>();
     }
@@ -126,7 +126,7 @@ public class LevelManager : MonoBehaviour
         pOwnScoreText.text = pOwnScoreTextShaddow.text = pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C", new CultureInfo("de-DE"));
         pOtherScoreText.text = pOtherScoreTextShaddow.text = pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].ToString("C", new CultureInfo("de-DE"));
 
-        if (Time.timeSinceLevelLoad>=mGameEnd&&pIsPlaying)
+        if (Time.timeSinceLevelLoad >= mGameEnd && pIsPlaying)
         {
             pIsPlaying = false;
             foreach (Character character in pCharacters)
@@ -145,34 +145,22 @@ public class LevelManager : MonoBehaviour
         if (pIsPlaying)
         {
             float temp = mGameEnd - Time.timeSinceLevelLoad;
-            pTimer.text = pTimerShaddow.text = Math.Floor(temp/60) + ":" + Math.Floor(temp%60).ToString().PadLeft(2, '0');
+            pTimer.text = pTimerShaddow.text = Math.Floor(temp / 60) + ":" + Math.Floor(temp % 60).ToString().PadLeft(2, '0');
         }
 
         if (!pIsHost) return;
         if (Time.timeSinceLevelLoad >= mNextCustomer && pTables.Any(p => p.pState == eTableState.Free))
         {
-            int amount = pTables.Any(p => p.pSize == 4) ? 4 : 2;
-            SpawnCustomers(amount);
+            SpawnCustomers();
             mNextCustomer = Time.timeSinceLevelLoad + GameManager.pInstance.pRandom.Next(pCustomerRespawnTimeMin, pCustomerRespawnTimeMax);
             NET_EventCall eventCall = new NET_EventCall("NewCustomer");
-            eventCall.SetParam("Amount", amount);
             GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
         }
     }
 
-    public void SpawnCustomers(int amount)
+    public void SpawnCustomers()
     {
-        switch (amount)
-        {
-            case 2:
-                pWaitingCustomer.gameObject.SetActive(true);
-                break;
-            case 4:
-                pWaitingCustomer.gameObject.SetActive(true);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException("amount");
-        }
+        pWaitingCustomer.gameObject.SetActive(true);
     }
 
     public bool TryCarry()//for dishes

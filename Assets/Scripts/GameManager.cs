@@ -136,10 +136,13 @@ public class GameManager : MonoBehaviour
                     pLevelManager.pCharacters[(int)eventCall.GetParam("PlayerID") - 1].Move(false);
                     break;
                 case ("NewCustomer"):
-                    pLevelManager.SpawnCustomers((int)eventCall.GetParam("Amount"));
+                    pLevelManager.SpawnCustomers();
                     break;
                 case ("CustomerTaken"):
-                    pLevelManager.pWaitingCustomer.gameObject.SetActive(false);
+                    pLevelManager.pWaitingCustomer.SetActive(false);
+                    pLevelManager.pWaitingCustomer.GetComponent<Customer>().pType =(eCustomers) eventCall.GetParam("NextType");
+                        pLevelManager.pWaitingCustomer.transform.GetChild((int)pLevelManager.pWaitingCustomer.GetComponent<Customer>().pType).gameObject.SetActive(true);
+                        pLevelManager.pWaitingCustomer.transform.GetChild(1-(int)pLevelManager.pWaitingCustomer.GetComponent<Customer>().pType).gameObject.SetActive(false);
                     break;
                 case ("SetTableState"):
                     int tableID;
