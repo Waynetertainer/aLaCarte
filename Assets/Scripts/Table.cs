@@ -203,13 +203,14 @@ public class Table : MonoBehaviour
             case eTableState.ReadingMenu:
                 SetCustomer(true, pCustomer);
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pReadingMenuTime;
+                float sizeMultiplicator =pSize == 2 ? mLevelManager.pTwoTableMultiplicator : mLevelManager.pFourTableMultiplicator;
                 switch (pCustomer)
                 {
                     case eCustomers.Normal:
-                        mTip = mLevelManager.pNormalCustomerMultiplicator * pSize;
+                        mTip = mLevelManager.pNormalCustomerMultiplicator * sizeMultiplicator;
                         break;
                     case eCustomers.Snob:
-                        mTip = mLevelManager.pSnobCustomerMultiplicator * pSize;
+                        mTip = mLevelManager.pSnobCustomerMultiplicator * sizeMultiplicator;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -383,8 +384,10 @@ public class Table : MonoBehaviour
     {
         if (iWillComeSoon)
         {
-            mStatisfactionBar.color = mLevelManager.pYellow;
-            mWaitingTime = mMaxWaitingTime * 2f / 3;
+            pOrderPanel.gameObject.SetActive(true);
+            pOrderPanel.ChangeTab(pID);
+            StartCoroutine(FrameDelayer());
+            mWaitingTime = mMaxWaitingTime / 3;
         }
         else
         {
@@ -394,6 +397,7 @@ public class Table : MonoBehaviour
         mStealableSended = false;
 
         pStealable = false;
+        pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
         NET_EventCall eventCall = new NET_EventCall("TableStolen");
         eventCall.SetParam("TableID", pID);
         eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());

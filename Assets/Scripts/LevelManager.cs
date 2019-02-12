@@ -29,13 +29,12 @@ public class LevelManager : MonoBehaviour
 
     public float pNormalCustomerMultiplicator;
     public float pSnobCustomerMultiplicator;
+    public float pTwoTableMultiplicator;
+    public float pFourTableMultiplicator;//TODO implement
 
     public float pOrderWaitIntervall;
     public float pFoodWaitIntervall;
     public float pCleanWaitIntervall;
-    public float pOrderIntervallTipMalus;
-    public float pFoodIntervallTipMalus;
-    public float pCleanIntervallTipMalus;
 
     public float pSymbolFeedbackDuration;
     [Space(20)]
@@ -76,11 +75,17 @@ public class LevelManager : MonoBehaviour
         eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
         GameManager.pInstance.CheckLevelLoad();
+        GameManager.pInstance.pLevelManager = this;
+        Table[] tempTables = FindObjectsOfType<Table>();
+        pTables = new Table[tempTables.Length];
+        foreach (Table table in tempTables)
+        {
+            pTables[table.pID] = table;
+        }
     }
 
     private void Start()
     {
-        GameManager.pInstance.pLevelManager = this;
         pGatesManager = GetComponent<GatesManager>();
         pCharacters[0].pTarget = pNavMeshTargets[0].transform;
         pCharacters[1].pTarget = pNavMeshTargets[1].transform;
@@ -110,12 +115,7 @@ public class LevelManager : MonoBehaviour
         }
         pEmptyDome.SetActive(true);
 
-        Table[] tempTables = FindObjectsOfType<Table>();
-        pTables = new Table[tempTables.Length];
-        foreach (Table table in tempTables)
-        {
-            pTables[table.pID] = table;
-        }
+        
 
         pFoodDispensers = FindObjectsOfType<Food>();
     }
@@ -232,6 +232,12 @@ public class LevelManager : MonoBehaviour
     {
         mGameEnd = Time.timeSinceLevelLoad + 240;
         pIsPlaying = true;
+        GetComponent<AudioSource>().volume = GameManager.pInstance.pMusicVolume;
         GetComponent<AudioSource>().Play();
+    }
+
+    public void ReturnToLobby()
+    {
+        GameManager.pInstance.ReturnToMainMenu();
     }
 }
