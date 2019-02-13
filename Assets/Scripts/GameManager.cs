@@ -2,6 +2,7 @@
 using NET_System;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public NET_Main NetMain;
     public string pServerName = "aLaCarte";
+    public Animator pLevelSelectionAnimator;
     public GameObject pServerSelectionPanel;
     public GameObject pButtonPrefab;
     public Toggle pReady;
@@ -22,11 +24,19 @@ public class GameManager : MonoBehaviour
     public LevelManager pLevelManager;
     public List<bool> pLevelLoaded = new List<bool>() { false, false };
 
+    public int pMusicVolume;
+    public int pSoundVolume;
+    public Sprite[] pMusicSprites;
+    public Sprite[] pSoundSprites;
+    public Image pMusicImage;
+    public Image pSoundImage;
+
+
     private NetworkStatus mStatus;
     private NET_ServerInfo[] Servers;
     private float nextCheck;
     NET_DataPack outPack = new NET_DataPack();
-    private Level level;
+    private Level level=Level.Level_None;
 
     private List<bool> playerReady = new List<bool>() { false, false };
     public DateTime pLevelStart;
@@ -86,12 +96,7 @@ public class GameManager : MonoBehaviour
         if (mStatus == NetworkStatus.ListeningUDP && Time.timeSinceLevelLoad >= nextCheck)
         {
             nextCheck = Time.timeSinceLevelLoad + 1;
-            Servers = NetMain.NET_GetServerInfo();
-            if (Servers != null && Servers.Length > 0)
-            {
-                //pServerInfoText.text = Servers[0].INFO_GetServerName() + Servers[0].INFO_GetAddress();
-                GetServers();
-            }
+            JoinFirstPossible();
         }
     }
 
@@ -196,8 +201,8 @@ public class GameManager : MonoBehaviour
                     pLevelManager.pTables[(int)eventCall.GetParam("TableID")].Stolen((int)eventCall.GetParam("PlayerID"));
                     break;
                 case ("UpdateOrders"):
-                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].pOrders =(eFood[]) eventCall.GetParam("Orders");
-                    pLevelManager.pTables[(int) eventCall.GetParam("TableID")].pFood =(eFood[]) eventCall.GetParam("Food");
+                    pLevelManager.pTables[(int)eventCall.GetParam("TableID")].pOrders = (eFood[])eventCall.GetParam("Orders");
+                    pLevelManager.pTables[(int)eventCall.GetParam("TableID")].pFood = (eFood[])eventCall.GetParam("Food");
                     break;
 
                 default:
@@ -250,14 +255,23 @@ public class GameManager : MonoBehaviour
     {
         if (level == Level.Level_Venedig)
         {
-            pVeniceButton.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            pRomaButton.transform.localScale = new Vector3(0.9f, 0.9f, 1);
+            pRomaButton.gameObject.SetActive(true);
+            pVeniceButton.transform.localPosition = new Vector3(-100, 60, 0);
+            pRomaButton.transform.localPosition = new Vector3(600, 60, 0);
+            pVeniceButton.gameObject.SetActive(false);
+            pLevelSelectionAnimator.SetBool("Venedig_Selection",true);
+            pLevelSelectionAnimator.SetBool("Rom_Selection",false);
         }
-        else
+        else if(level == Level.Level_Rom)
         {
-            pRomaButton.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            pVeniceButton.transform.localScale = new Vector3(0.9f, 0.9f, 1);
+            pVeniceButton.gameObject.SetActive(true);
+            pVeniceButton.transform.localPosition = new Vector3(-600, 60, 0);
+            pRomaButton.transform.localPosition = new Vector3(100, 60, 0);
+            pRomaButton.gameObject.SetActive(false);
+            pLevelSelectionAnimator.SetBool("Venedig_Selection", false);
+            pLevelSelectionAnimator.SetBool("Rom_Selection", true);
         }
+        pReady.gameObject.SetActive(true);
     }
 
     public void ReturnToMainMenu()
@@ -276,6 +290,34 @@ public class GameManager : MonoBehaviour
             canvas.SetActive(false);
         }
         Canvases[canvasID].SetActive(true);
+    }
+
+    public void SetMusic(Toggle toggle)
+    {
+        if (!toggle.isOn)
+        {
+            pMusicVolume = 1;
+            pMusicImage.sprite = pMusicSprites[1];
+        }
+        else
+        {
+            pMusicVolume = 0;
+            pMusicImage.sprite = pMusicSprites[0];
+        }
+    }
+
+    public void SetSound(Toggle toggle)
+    {
+        if (!toggle.isOn)
+        {
+            pSoundVolume = 1;
+            pSoundImage.sprite = pSoundSprites[1];
+        }
+        else
+        {
+            pSoundVolume = 0;
+            pSoundImage.sprite = pSoundSprites[0];
+        }
     }
 
     #region ServerRegion
@@ -299,11 +341,17 @@ public class GameManager : MonoBehaviour
         NetMain.NET_CallEvent(eventCall);
     }
 
+    public void DelegateLevelSet(int inLevel)
+    {
+        if (NetMain.NET_GetPlayerID() != 1) return;
+        SetLevel(inLevel);
+        SendLobbyData();
+    }
+
     public void SetLevel(int inLevel)
     {
         level = (Level)inLevel;
         ShowLevel();
-        SendLobbyData();
     }
 
     public void StartGame()
@@ -330,7 +378,23 @@ public class GameManager : MonoBehaviour
         NetMain = new NET_Main(false, 30f, "Client", false);
         NetMain.NET_Start();
         mStatus = NetworkStatus.ListeningUDP;
-        GetServers();
+        //GetServers();
+        JoinFirstPossible();
+    }
+
+    private void JoinFirstPossible()
+    {
+        Servers = NetMain.NET_GetServerInfo();
+        foreach (NET_ServerInfo server in Servers)
+        {
+            if (server.INFO_GetServerName() != "À La Carte") continue;
+            NetMain.NET_ConnectToServer(server);
+            ChangeCanvas(1);
+            NET_EventCall eventCall = new NET_EventCall("PlayerReadyChange");
+            eventCall.SetParam("PlayerID", NetMain.NET_GetPlayerID());
+            eventCall.SetParam("Ready", false);
+            NetMain.NET_CallEvent(eventCall);
+        }
     }
 
     public void GetServers()

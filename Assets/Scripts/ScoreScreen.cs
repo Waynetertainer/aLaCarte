@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class ScoreScreen : MonoBehaviour
 {
     public Button pLeaveButton;
-    public GameObject pOwnWinCoins;
-    public GameObject pOpponentWinCoins;
+
+    //public GameObject pOwnWinCoins;
+    //public GameObject pOpponentWinCoins;
     public Text pOwnScore;
     public Text pOwnScoreShaddow;
     public Text pOpponentScore;
     public Text pOpponentScoreShaddow;
+    public Animator pAnimator;
 
     private LevelManager mLevelManager;
 
@@ -24,17 +26,17 @@ public class ScoreScreen : MonoBehaviour
     public void Open()
     {
         mLevelManager = GameManager.pInstance.pLevelManager;
+        //pLeaveButton.onClick.AddListener(delegate { GameManager.pInstance.ReturnToMainMenu(); });
         pOwnScore.text = pOwnScoreShaddow.text = mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].ToString("C", new CultureInfo("de-DE"));
         pOpponentScore.text = pOpponentScoreShaddow.text = mLevelManager.pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].ToString("C", new CultureInfo("de-DE"));
-        if (mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] >
-            mLevelManager.pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)])
+        if (mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] > mLevelManager.pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)])
         {
-            pOwnWinCoins.SetActive(true);
+            pAnimator.SetBool("ownVictory", true);
         }
-        else if (mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] <
-                 mLevelManager.pScores[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)])
+        else
         {
-            pOpponentWinCoins.SetActive(true);
+            pAnimator.SetBool("opponentVictory", true);
+
         }
     }
 }

@@ -22,8 +22,6 @@ public class Food : MonoBehaviour
 
     private void Update()
     {
-        //TODO show interactability when both interactable are true
-
         if (!mTimeInteractable && Time.timeSinceLevelLoad >= pReactivationTime)
         {
             mTimeInteractable = true;
