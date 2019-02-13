@@ -237,10 +237,11 @@ public class GameManager : MonoBehaviour
             NetMain.NET_DisconnectFromServer();
             NetMain.NET_Stop();
             NetMain.NET_Shutdown();
+            mStatus = NetworkStatus.Disconnected;
         }
         catch (System.Exception)
         {
-            throw;
+
         }
     }
 
@@ -326,7 +327,7 @@ public class GameManager : MonoBehaviour
     #region ServerRegion
     public void HostGame()
     {
-        if (NetMain != null) return;
+        if (NetMain != null) FreePort();
         NetMain = new NET_Main(true, 30f, this.pServerName, false);
         NetMain.NET_Start();
         mStatus = NetworkStatus.Server;
