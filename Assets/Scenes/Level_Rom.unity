@@ -3015,9 +3015,19 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5996623329699368777, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: pType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 688263237772600169, guid: b6fa3577bf8489542bddd793f82424f8,
         type: 3}
       propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536882293850439537, guid: b6fa3577bf8489542bddd793f82424f8,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
