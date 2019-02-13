@@ -75,8 +75,8 @@ public class LevelManager : MonoBehaviour
         NET_EventCall eventCall = new NET_EventCall("LevelLoaded");
         eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());
         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
-        GameManager.pInstance.CheckLevelLoad();
         GameManager.pInstance.pLevelManager = this;
+        GameManager.pInstance.CheckLevelLoad();
         Table[] tempTables = FindObjectsOfType<Table>();
         pTables = new Table[tempTables.Length];
         foreach (Table table in tempTables)
@@ -88,16 +88,22 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         pGatesManager = GetComponent<GatesManager>();
-        pCharacters[0].pTarget = pNavMeshTargets[0].transform;
-        pCharacters[1].pTarget = pNavMeshTargets[1].transform;
-        pCharacters[0].pID = 1;
-        pCharacters[1].pID = 2;
-        pNavMeshTargets[0].transform.position = pCharacters[0].transform.position;
-        pNavMeshTargets[1].transform.position = pCharacters[1].transform.position;
-        pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1].SetDecal(true);
-        pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].SetDecal(false);
-        Destroy(pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<Rigidbody>());
-        pCharacters[1 - (GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)].GetComponent<CapsuleCollider>().enabled = false;
+        for (int i = 0; i < pCharacters.Length; i++)
+        {
+            pCharacters[i].pTarget = pNavMeshTargets[i].transform;
+            pCharacters[i].pID = i + 1;
+            pNavMeshTargets[i].transform.position = pCharacters[i].transform.position;
+            if (i == GameManager.pInstance.NetMain.NET_GetPlayerID() - 1)
+            {
+                pCharacters[i].SetDecal(true);
+            }
+            else
+            {
+                pCharacters[i].SetDecal(false);
+                Destroy(pCharacters[i].GetComponent<Rigidbody>());
+                pCharacters[i].GetComponent<CapsuleCollider>().enabled = false;
+            }
+        }
         pReallyLeaveButton.GetComponent<Button>().onClick.AddListener(delegate { GameManager.pInstance.ReturnToMainMenu(); });
 
         mNextCustomer = 0;
