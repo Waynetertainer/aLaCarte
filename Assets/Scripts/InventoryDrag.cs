@@ -71,9 +71,8 @@ public class InventoryDrag : MonoBehaviour
                 Table table = hit.transform.GetComponentInChildren<Table>();
                 if (Vector3.Distance(mCharacter.transform.position, table.transform.position) <= mLevelManager.pTableInteractionDistance)
                 {
-                    if (table.TryDropCustomer(eCustomers.Normal))//TODO drop customertype
+                    if (table.TryDropCustomer(mLevelManager.pCustomerType))
                     {
-                        //table.pPlayerID = mCharacter.pID;  //TODO needed?
                         mDragging.gameObject.SetActive(false);
                         mDragging.transform.parent.gameObject.SetActive(false);
                         mEmptyDome.SetActive(true);

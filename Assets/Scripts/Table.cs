@@ -42,7 +42,6 @@ public class Table : MonoBehaviour
         mCharacter = mLevelManager.pCharacters[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1];
         mDecal = transform.GetChild(2).gameObject;
         SetTableState(eTableState.Free);
-        mMaxWaitingTime = mLevelManager.pOrderWaitIntervall + mLevelManager.pFoodWaitIntervall + mLevelManager.pCleanWaitIntervall;
     }
 
     private void Update()
@@ -203,13 +202,15 @@ public class Table : MonoBehaviour
             case eTableState.ReadingMenu:
                 SetCustomer(true, pCustomer);
                 pNextState = Time.timeSinceLevelLoad + mLevelManager.pReadingMenuTime;
-                float sizeMultiplicator =pSize == 2 ? mLevelManager.pTwoTableMultiplicator : mLevelManager.pFourTableMultiplicator;
+                float sizeMultiplicator = pSize == 2 ? mLevelManager.pTwoTableMultiplicator : mLevelManager.pFourTableMultiplicator;
                 switch (pCustomer)
                 {
                     case eCustomers.Normal:
+                        mMaxWaitingTime = mLevelManager.pNormalWaitTime;
                         mTip = mLevelManager.pNormalCustomerMultiplicator * sizeMultiplicator;
                         break;
                     case eCustomers.Snob:
+                        mMaxWaitingTime = mLevelManager.pSnobWaitTime;
                         mTip = mLevelManager.pSnobCustomerMultiplicator * sizeMultiplicator;
                         break;
                     default:
@@ -359,6 +360,7 @@ public class Table : MonoBehaviour
         }
         ActivateSymbol(eSymbol.Failure, false);
         StartCoroutine(SymbolFeedback());
+        mStatisfactionBar.fillAmount -= (100f / mLevelManager.pWrongFoodMalusPercent);
         return false;
     }
 
