@@ -32,9 +32,8 @@ public class LevelManager : MonoBehaviour
     public float pTwoTableMultiplicator;
     public float pFourTableMultiplicator;
 
-    public float pOrderWaitIntervall;
-    public float pFoodWaitIntervall;
-    public float pCleanWaitIntervall;
+    public float pNormalWaitTime;
+    public float pSnobWaitTime;
 
     public float pSymbolFeedbackDuration;
     [Space(20)]
