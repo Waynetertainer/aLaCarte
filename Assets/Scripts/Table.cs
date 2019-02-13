@@ -360,6 +360,7 @@ public class Table : MonoBehaviour
         }
         ActivateSymbol(eSymbol.Failure, false);
         StartCoroutine(SymbolFeedback());
+        mStatisfactionBar.fillAmount -= (100f / mLevelManager.pWrongFoodMalusPercent);
         return false;
     }
 

@@ -19,22 +19,23 @@ public class LevelManager : MonoBehaviour
     public float pCustomerInteractionDistance;
     public float pBoatInteractionDistance;
     public float pFoodInteractionDistance;
-
+    [Space(10)]
     public float pFoodDeactivationTime;
     public float pReadingMenuTime;
     public float pEatingTime;
-
+    [Space(10)]
     public int pCustomerRespawnTimeMin;
     public int pCustomerRespawnTimeMax;
-
+    [Space(10)]
     public float pNormalCustomerMultiplicator;
     public float pSnobCustomerMultiplicator;
     public float pTwoTableMultiplicator;
     public float pFourTableMultiplicator;
-
+    public int pWrongFoodMalusPercent;
+    [Space(10)]
     public float pNormalWaitTime;
     public float pSnobWaitTime;
-
+    [Space(10)]
     public float pSymbolFeedbackDuration;
     [Space(20)]
     [Header("Scene Objects")]
