@@ -129,6 +129,7 @@ public class Table : MonoBehaviour
                         }
                         DelegateTableState(eTableState.Free);
                         mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] += mTip * mStatisfactionBar.fillAmount;
+                        mLevelManager.EventTutorialEnd();
                         NET_EventCall eventCall = new NET_EventCall("UpdateScore");
                         eventCall.SetParam("Tip", mLevelManager.pScores[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1]);
                         GameManager.pInstance.NetMain.NET_CallEvent(eventCall);
@@ -367,6 +368,7 @@ public class Table : MonoBehaviour
     public bool TryDropCustomer(eCustomers type)
     {
         if (pState != eTableState.Free) return false;
+        mLevelManager.EventCustomerPlaced();
         pCustomer = type;
         pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();
         DelegateTableState(eTableState.ReadingMenu);

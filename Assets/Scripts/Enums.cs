@@ -63,3 +63,14 @@ public enum eSymbol
     Success = 4,
     Failure = 5
 }
+
+public enum eTutState
+{
+    Timer=1,
+    Interaction=3,
+    Movement=2,
+    Inventory=4,
+    CustomerOrders=5,
+    OrderNote=6,
+    SandBox=7
+}
