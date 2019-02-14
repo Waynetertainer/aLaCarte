@@ -83,11 +83,7 @@ namespace cakeslice
 
         private void Update()
         {
-
             eraseRenderer = (Vector3.Distance(mCharacter.position, transform.position) >mLevelManager.pTableInteractionDistance);
-
-
-
         }
 
     }

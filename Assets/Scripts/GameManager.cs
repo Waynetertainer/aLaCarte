@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 45;
+        //Application.targetFrameRate = 45;
     }
 
     private void OnApplicationQuit()
@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckLevelLoad()
     {
-        if (!pLevelLoaded.Contains(false))
+        if (!pLevelLoaded.Contains(false)|| SceneManager.GetActiveScene().name == "Level_Tutorial")
         {
             if (pLevelManager == null)
             {
@@ -366,6 +366,15 @@ public class GameManager : MonoBehaviour
         NetMain.NET_CallEvent(eventCall);
 
         SceneManager.LoadScene(level.ToString());
+    }
+
+    public void StartTutorial()
+    {
+        if (NetMain != null) FreePort();
+        NetMain = new NET_Main(true, 30f, "Tutorial", false);
+        NetMain.NET_Start();
+        mStatus = NetworkStatus.Client;
+        SceneManager.LoadScene("Level_Tutorial");
     }
     #endregion
 

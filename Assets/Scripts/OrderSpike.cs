@@ -26,5 +26,6 @@ public class OrderSpike : MonoBehaviour
     {
         yield return null;
         pOrderPanel.SetActive(true);
+        mLevelManager.EventOrderPanelOpened();
     }
 }

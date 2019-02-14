@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -51,9 +50,9 @@ public class OrderPanel : MonoBehaviour
         for (int i = 0; i < pTables[tabNumber].pOrders.Length; i++)
         {
             pOrders[i].SetActive(true);
-            if ((int) pTables[tabNumber].pOrders[i] - 1 >= 0)//breakpoint
+            if ((int)pTables[tabNumber].pOrders[i] - 1 >= 0)
             {
-                pOrders[i].transform.GetChild((int) pTables[tabNumber].pOrders[i] - 1).gameObject.SetActive(true);
+                pOrders[i].transform.GetChild((int)pTables[tabNumber].pOrders[i] - 1).gameObject.SetActive(true);
             }
         }
     }
@@ -68,21 +67,17 @@ public class OrderPanel : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            mPointerEventData = new PointerEventData(mEventSystem) {position = Input.mousePosition};
+            mPointerEventData = new PointerEventData(mEventSystem) { position = Input.mousePosition };
 
             List<RaycastResult> results = new List<RaycastResult>();
 
             mRaycaster.Raycast(mPointerEventData, results);
 
-            foreach (RaycastResult result in results)
-            {
-                Debug.Log("Hit " + result.gameObject.name);
-                Debug.Log("Hit " + result.gameObject.layer);
-            }
-
             if (results.All(p => p.gameObject.layer != 13))
             {
                 ClosePanel();
+
+                GameManager.pInstance.pLevelManager.EventOrderTaken();
             }
         }
     }

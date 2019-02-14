@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_Rom.unity
     guid: 686ce328ea4667e43abd608f2d36df53
+  - enabled: 1
+    path: Assets/Scenes/Level_Tutorial.unity
+    guid: 0b8c7275002b2b0478b5c30464473cd3
   m_configObjects: {}
