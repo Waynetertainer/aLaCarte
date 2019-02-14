@@ -275,6 +275,12 @@ public class GameManager : MonoBehaviour
             pLevelSelectionAnimator.SetBool("Venedig_Selection", false);
             pLevelSelectionAnimator.SetBool("Rom_Selection", true);
         }
+
+        if (NetMain.NET_GetPlayerID() == 1)
+        {
+            pVeniceButton.gameObject.SetActive(false);
+            pRomaButton.gameObject.SetActive(false);
+        }
         pReady.gameObject.SetActive(true);
     }
 
