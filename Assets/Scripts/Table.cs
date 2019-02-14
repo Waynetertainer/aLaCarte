@@ -19,6 +19,8 @@ public class Table : MonoBehaviour
     public eFood[] pOrders;
     public eFood[] pFood;
     public bool pStealable;
+    public ParticleSystem[] pSmoke;
+    public ParticleSystem[] pAnger;
 
 
     private Character mCharacter;
@@ -156,11 +158,19 @@ public class Table : MonoBehaviour
             {
                 if (mStatisfactionBar.fillAmount <= 0)
                 {
+                    foreach (ParticleSystem system in pSmoke)
+                    {
+                        system.Play();
+                    }
                     DelegateTableState(eTableState.Free);
                 }
                 else
                 {
                     mStatisfactionBar.color = mLevelManager.pRed;
+                    foreach (ParticleSystem system in pAnger)
+                    {
+                        system.Play();
+                    }
                     if (!mStealableSended && pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID())
                     {
                         mStealableSended = true;
@@ -368,6 +378,10 @@ public class Table : MonoBehaviour
     public bool TryDropCustomer(eCustomers type)
     {
         if (pState != eTableState.Free) return false;
+        foreach (ParticleSystem system in pSmoke)
+        {
+            system.Play();
+        }
         mLevelManager.EventCustomerPlaced();
         pCustomer = type;
         pPlayerID = GameManager.pInstance.NetMain.NET_GetPlayerID();

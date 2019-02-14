@@ -58,6 +58,7 @@ public class LevelManager : MonoBehaviour
     public GameObject pReallyLeaveButton;
     public GameObject pScoreScreen;
     public eCustomers pCustomerType;
+    public GameObject pGlow;
 
     [HideInInspector] public bool pDragging;
     [HideInInspector] public bool pIsHost;
@@ -198,6 +199,7 @@ public class LevelManager : MonoBehaviour
         {
             float temp = mGameEnd - Time.timeSinceLevelLoad;
             pTimer.text = pTimerShaddow.text = Math.Floor(temp / 60) + ":" + Math.Floor(temp % 60).ToString().PadLeft(2, '0');
+            pGlow.SetActive(pTables.Any(p => p.pPlayerID == GameManager.pInstance.NetMain.NET_GetPlayerID() && p.pOrders.Any(o => o != eFood.None)));
         }
 
         if (!pIsHost) return;
