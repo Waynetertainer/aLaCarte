@@ -4,6 +4,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
@@ -67,6 +68,7 @@ public class LevelManager : MonoBehaviour
     [HideInInspector] public float pLevelStartTime;
     public GatesManager pGatesManager;
     public Tutorial pTutorial;
+    public GameObject pPostProcessing;
 
     private float mNextCustomer;
     private float mGameEnd;
@@ -113,6 +115,12 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+        if (pPostProcessing != null)
+        {
+            pPostProcessing.SetActive(true);
+        }
+#endif
         GameManager.pInstance.pLevelLoaded[GameManager.pInstance.NetMain.NET_GetPlayerID() - 1] = true;
         NET_EventCall eventCall = new NET_EventCall("LevelLoaded");
         eventCall.SetParam("PlayerID", GameManager.pInstance.NetMain.NET_GetPlayerID());

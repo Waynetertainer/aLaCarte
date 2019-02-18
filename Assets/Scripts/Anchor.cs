@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define ANDROID
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NET_System;
@@ -15,6 +17,29 @@ public class Anchor : MonoBehaviour
         mLevelManager = GameManager.pInstance.pLevelManager;
     }
 
+//#if ANDROID
+//    private void Update()
+//    {
+//        if (Input.touchCount>0 && !mLevelManager.pDragging)
+//        {
+//            Ray ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+//            RaycastHit hit;
+
+//            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9) && mLevelManager.pIsPlaying)
+//            {
+//                transform.position = hit.point + new Vector3(0, 1, 0);
+//                SendPosition();
+//                mSendedStop = false;
+//            }
+//        }
+//        else
+//        {
+//            if (mSendedStop || !mLevelManager.pIsPlaying) return;
+//            SendStop();
+//            mSendedStop = true;
+//        }
+//    }
+//#else
     private void Update()
     {
         if (Input.GetMouseButton(0) && !mLevelManager.pDragging)
@@ -36,6 +61,7 @@ public class Anchor : MonoBehaviour
             mSendedStop = true;
         }
     }
+//#endif
 
     private void SendPosition()
     {

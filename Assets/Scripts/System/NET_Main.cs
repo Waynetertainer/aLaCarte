@@ -2,14 +2,14 @@
 //Class provides public functions as interface to main game
 //Class handles all {NET} related functions
 
+using NET_System;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using NET_System;
+using System.Text;
+using System.Threading;
 
 namespace NET_Multiplayer_V3
 {
@@ -32,7 +32,7 @@ namespace NET_Multiplayer_V3
         //Main threading
         private Thread mainThread;
         private NET_State state = NET_State.NET_Waiting;
-   
+
         //GameData objects for player 1 - 4
         private int playerCount = 1;
         private int playerID = 0;
@@ -250,7 +250,7 @@ namespace NET_Multiplayer_V3
                 foreach (NetworkInterface network in networkInterfaces)
                 {
                     OperationalStatus test = network.OperationalStatus;
-                    if (test == OperationalStatus.Up)
+                    if (test == OperationalStatus.Up || test == OperationalStatus.Unknown)
                     {
                         // Read the IP configuration for each network 
                         IPInterfaceProperties properties = network.GetIPProperties();

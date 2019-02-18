@@ -96,7 +96,8 @@ public class GameManager : MonoBehaviour
         if (mStatus == NetworkStatus.ListeningUDP && Time.timeSinceLevelLoad >= nextCheck)
         {
             nextCheck = Time.timeSinceLevelLoad + 1;
-            JoinFirstPossible();
+            GetServers();
+            //JoinFirstPossible();
         }
     }
 
@@ -397,8 +398,8 @@ public class GameManager : MonoBehaviour
         NetMain = new NET_Main(false, 30f, "Client", false);
         NetMain.NET_Start();
         mStatus = NetworkStatus.ListeningUDP;
-        //GetServers();
-        JoinFirstPossible();
+        GetServers();
+        //JoinFirstPossible();
     }
 
     private void JoinFirstPossible()
